@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        
+        .button-grid {
+        display: flex;             /* सर्व बटण कंटेनर्स एका ओळीत ठेवतो */
+        flex-wrap: wrap;           /* जर बटणे जास्त झाली तर ती पुढच्या ओळीत जातील */
+        gap: 10px;                 /* प्रत्येक बटण कंटेनरमध्ये अंतर ठेवतो */
+        padding: 15px;
+        border: 2px solid #ccc;    /* मुख्य बॉक्सला बॉर्डर दिली आहे */
+        border-radius: 8px;
+        background-color: #e9ecef; /* बॉक्ससाठी हलका बॅकग्राउंड */
+    }
+        /*.container {
+            max-width: 200px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }*/
+
+        .program-section {
+            border: 1px solid #ddd;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+
+        .program-title {
+            margin-top: 0;
+            color: #0056b3;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* ******************************************* */
+        /* CSS code: हा कोड प्रोग्रामचा टेक्स्ट स्क्रीनवर दिसू देणार नाही */
+        /* ******************************************* */
+        .program-code {
+            /* कोड एरिया लपवण्यासाठी 'opacity: 0' आणि 'pointer-events: none' चा वापर केला आहे */
+            opacity: 0;
+            position: absolute;
+            left: -9999px; /* स्क्रीनच्या बाहेर ढकलण्यासाठी */
+            width: 1px;
+            height: 1px;
+            pointer-events: none; /* माऊस इव्हेंट्स थांबवण्यासाठी */
+        }
+        
+        /* कॉपी स्टेटससाठी स्टाइलिंग */
+        .copied {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button-grid">
+    <h1></h1>
+    <p></p>
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program1" class="program-code">
+        Q1  import random
+            # Define the objective function (you can replace this with your own)
+            def objective_function(x):
+            return -(x**2 + 4*x) #Example: maximize x^2 + 4x (negate for max.)
+            def hill_climbing(max_iterations, step_size):
+             current_solution = random.uniform(-10, 10) # returns random floating
+            number between -10 & 10
+             print(current_solution)
+             current_value = objective_function(current_solution)
+            for _ in range(max_iterations):
+             neighbor = current_solution + random.uniform(-step_size, step_size)
+             neighbor_value = objective_function(neighbor)
+            if neighbor_value>current_value:
+             current_solution = neighbor
+             current_value = neighbor_value
+            return current_solution, current_value
+            if __name__ == "__main__":
+             max_iterations = 1000 # Maximum number of iterations
+             step_size = 0.1 # Step size for making small changes
+             final_solution, final_value = hill_climbing(max_iterations, 
+            step_size)
+            print("Final Solution:", final_solution)
+            print("Objective Value at Final Solution:", final_value)
+
+        Q2 def isEmpty(s):
+        return s==[]
+       def isFull(s):
+        return len(s)==5
+       def push(s,ele):
+        s.append(ele)
+       
+       def pop(s):
+        return s.pop()
+       def peep(s):
+        return s[-1]
+       def dfs(start,nodes):
+        s=[]
+        visited=[]
+        for i in range(nodes+1):
+        visited.append(0)
+        push(s,start)
+        print start
+        while (not isEmpty(s)) :
+        node = peep(s)
+        visited[node]=1
+        for x,y in mydict.items():
+        if x==node :
+        i=0
+        for v in y:
+        i+=1
+        if visited[v]==0 :
+        break
+        if (i==len(y)):
+        if isEmpty(s):
+        break
+        node=pop(s)
+        if visited[v]==0:
+        push(s,v)
+        print v
+        visited[v]=1
+       nodes = int(raw_input("No of vertices"))
+       print nodes
+       mydict = dict()
+       for i in range (nodes):
+        print "Vertices adjacent to",i+1,":"
+        mydict[i+1]=input()
+       print mydict
+       start=1
+       dfs(start,nodes)
+       -----------------------------------------------------------------    
+        </textarea>
+        
+        <button id="btn-program1" onclick="copyProgram('program1', 'btn-program1')">slip1</button>
+    </div>
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program2" class="program-code">
+     Q1 # Import the 'calendar' module
+     import calendar
+     # Prompt the user to input the year and month
+     y = int(input("Input the year : "))
+     m = int(input("Input the month : "))
+     # Print the calendar for the specified year and month
+     print(calendar.month(y, m))
+     
+     Q2 def isEmpty(s):
+     return s==[]
+    def isFull(s):
+     return len(s)==5
+    def push(s,ele):
+     s.append(ele)
+    
+    def pop(s):
+     return s.pop()
+    def peep(s):
+     return s[-1]
+    def dfs(start,nodes):
+     s=[]
+     visited=[]
+     for i in range(nodes+1):
+     visited.append(0)
+     push(s,start)
+     print start
+     while (not isEmpty(s)) :
+     node = peep(s)
+     visited[node]=1
+     for x,y in mydict.items():
+     if x==node :
+     i=0
+     for v in y:
+     i+=1
+     if visited[v]==0 :
+     break
+     if (i==len(y)):
+     if isEmpty(s):
+     break
+     node=pop(s)
+     if visited[v]==0:
+     push(s,v)
+     print v
+     visited[v]=1
+    nodes = int(raw_input("No of vertices"))
+    print nodes
+    mydict = dict()
+    for i in range (nodes):
+     print "Vertices adjacent to",i+1,":"
+     mydict[i+1]=input()
+    print mydict
+    start=1
+    dfs(start,nodes)
+        </textarea>
+        
+        <button id="btn-program2" onclick="copyProgram('program2', 'btn-program2')">slip2</button>
+    </div>
+    
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program3" class="program-code">
+     Q1 # define punctuation
+     punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+     my_str = "Hello!!!, he said ---and went."
+     # To take input from the user
+     # my_str = input("Enter a string: ")
+     # remove punctuation from the string
+     no_punct = ""
+     for char in my_str:
+     if char not in punctuations:
+     no_punct = no_punct + char
+     print(no_punct)
+     
+     
+     Q2 def isEmpty(s):
+     return s==[]
+    def isFull(s):
+     return len(s)==5
+    def push(s,ele):
+     s.append(ele)
+    
+    def pop(s):
+     return s.pop()
+    def peep(s):
+     return s[-1]
+    def dfs(start,nodes):
+     s=[]
+     visited=[]
+     for i in range(nodes+1):
+     visited.append(0)
+     push(s,start)
+     print start
+     while (not isEmpty(s)) :
+     node = peep(s)
+     visited[node]=1
+     for x,y in mydict.items():
+     if x==node :
+     i=0
+     for v in y:
+     i+=1
+     if visited[v]==0 :
+     break
+     if (i==len(y)):
+     if isEmpty(s):
+     break
+     node=pop(s)
+     if visited[v]==0:
+     push(s,v)
+     print v
+     visited[v]=1
+    nodes = int(raw_input("No of vertices"))
+    print nodes
+    mydict = dict()
+    for i in range (nodes):
+     print "Vertices adjacent to",i+1,":"
+     mydict[i+1]=input()
+    print mydict
+    start=1
+    dfs(start,nodes)
+        </textarea>
+        
+        <button id="btn-program3" onclick="copyProgram('program3', 'btn-program3')">slip3</button>
+    </div>
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program4" class="program-code">
+    Q1 word = ("secret") #here we set the secret. You can select any 
+    word to play with.
+    guesses = '' #creates an variable with an empty value
+    turns = 10 #determine the number of turns
+    while turns > 0: #check if the turns are more than zero
+     failed = 0 # make a counter that starts with zero
+    for char in word: # for every character in secret_word
+    if char in guesses: # see if the character is in players guess
+     print (char,end=""), # print then out the character
+    else:
+     print ("_",end=""), # if not found, print a dash
+     failed += 1 # and increase failed counter with one
+    if failed == 0: # if failed = zero print You Won
+     print ("You won")
+    break # exit the script
+     guess = input("guess a character:") # ask the user go guess a char
+     guesses += guess # set the players guess to guesses
+    if guess not in word: # if the guess is not found in secret word
+    
+     turns -= 1 # turns counter decreases with 1 
+     print ("Wrong") # print wrong
+     print ("You have", + turns, 'more guesses' ) # remaining turn
+    if turns == 0: # if the turns are equal to zero
+     print ("You Lose" ) # print "You Lose"
+
+     Q2 def isEmpty(s):
+     return s==[]
+    def addq(s,ele):
+     s.insert(0,ele)
+    def remove(s):
+     return s.pop()
+    def bfs(start,nodes):
+     q=[]
+     visited=[]
+     for i in range(nodes+1):
+     visited.append(0)
+     addq(q,start)
+     while not(isEmpty(q)):
+     node = remove(q)
+     visited[node]=1
+     print node
+     for x,y in mydict.items():
+     if x==node :
+     for v in y:
+     if visited[v]==0 :
+     addq(q,v)
+     visited[v]=1
+    nodes = int(raw_input("No of vertices"))
+    print nodes
+    mydict = dict()
+    for i in range (nodes):
+     print "Vertices adjacent to",i+1,":"
+     mydict[i+1]=input()
+    print mydict
+    start=1
+    bfs(start,nodes)
+    
+        </textarea>
+        
+        <button id="btn-program4" onclick="copyProgram('program4', 'btn-program4')">slip4</button>
+    </div>
+      
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program5" class="program-code">
+         Q1 import nltk
+            from nltk.stem import WordNetLemmatizer
+            wordnet_lemmatizer = WordNetLemmatizer()
+            text = "studies studying cries cry "
+            nltk.download('punkt')
+            nltk.download('wordnet')
+            tokenization = nltk.word_tokenize(text)
+            for w in tokenization:
+            print("Lemma for {} is {}".format(w, 
+            wordnet_lemmatizer.lemmatize(w)))
+        
+        Q2 def isEmpty(s):
+            return s==[]
+           def addq(s,ele):
+            s.insert(0,ele)
+           def remove(s):
+            return s.pop()
+           def bfs(start,nodes):
+            q=[]
+            visited=[]
+            for i in range(nodes+1):
+            visited.append(0)
+            addq(q,start)
+            while not(isEmpty(q)):
+            node = remove(q)
+            visited[node]=1
+            print node
+            for x,y in mydict.items():
+            if x==node :
+            for v in y:
+            if visited[v]==0 :
+            addq(q,v)
+            visited[v]=1
+           nodes = int(raw_input("No of vertices"))
+           print nodes
+           mydict = dict()
+           for i in range (nodes):
+            print "Vertices adjacent to",i+1,":"
+            mydict[i+1]=input()
+           print mydict
+           start=1
+           bfs(start,nodes)
+           
+        </textarea>
+        
+        <button id="btn-program5" onclick="copyProgram('program5', 'btn-program5')">slip5</button>
+    </div>    
+    
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program6" class="program-code">
+        Q1    from nltk.tokenize import sent_tokenize, word_tokenize
+            from nltk.corpus import stopwords
+            import nltk
+            nltk.download('stopwords')
+            nltk.download('punkt')
+            data = text = open("input6.txt").read().lower()
+            stopWords = set(stopwords.words('english'))
+            words = word_tokenize(data)
+            wordsFiltered = [w for w in words if w not in stopWords]
+            print(wordsFiltered)
+         
+        Q2  def isEmpty(s):
+        return s==[]
+       def addq(s,ele):
+        s.insert(0,ele)
+       def remove(s):
+        return s.pop()
+       def bfs(start,nodes):
+        q=[]
+        visited=[]
+        for i in range(nodes+1):
+        visited.append(0)
+        addq(q,start)
+        while not(isEmpty(q)):
+        node = remove(q)
+        visited[node]=1
+        print node
+        for x,y in mydict.items():
+        if x==node :
+        for v in y:
+        if visited[v]==0 :
+        addq(q,v)
+        visited[v]=1
+       nodes = int(raw_input("No of vertices"))
+       print nodes
+       mydict = dict()
+       for i in range (nodes):
+        print "Vertices adjacent to",i+1,":"
+        mydict[i+1]=input()
+       print mydict
+       start=1
+       bfs(start,nodes)
+           
+        </textarea>
+        
+        <button id="btn-program6" onclick="copyProgram('program6', 'btn-program6')">slip6</button>
+    </div>    
+    
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program7" class="program-code">
+    Q1  pip install easyAI
+    from easyAI import TwoPlayerGame
+    from easyAI.Player import Human_Player
+    class TicTacToe(TwoPlayerGame):
+    """The board positions are numbered as follows:
+     1 2 3
+     4 5 6
+     7 8 9
+     """
+    def __init__(self, players):
+    self.players = players
+    self.board = [0 for i in range(9)]
+    self.current_player = 1 # player 1 starts.
+    def possible_moves(self):
+ return [i + 1 for i, e in enumerate(self.board) if e == 0]
+ def make_move(self, move):
+self.board[int(move) - 1] = self.current_player
+def unmake_move(self, move): # optional method (speeds up the AI)
+self.board[int(move) - 1] = 0
+def lose(self):
+""" Has the opponent "three in line ?" """
+return any(
+ [
+all([(self.board[c - 1] == self.opponent_index) for c 
+in line])
+for line in [
+ [1, 2, 3],
+ [4, 5, 6],
+ [7, 8, 9], # horiz.
+ [1, 4, 7],
+ [2, 5, 8],
+ [3, 6, 9], # vertical
+ [1, 5, 9],
+ [3, 5, 7],
+ ]
+ ]
+ ) # diagonal
+def is_over(self):
+return (self.possible_moves() == []) or self.lose()
+def show(self):
+print(
+"\n"
+ + "\n".join(
+ [
+" ".join([[".", "O", "X"][self.board[3 * j + i]] 
+for i in range(3)])
+for j in range(3)
+ ]
+ )
+ )
+def scoring(self):
+return -100 if self.lose() else 0
+if __name__ == "__main__":
+from easyAI import AI_Player, Negamax
+ ai_algo = Negamax(6)
+ TicTacToe([Human_Player(), AI_Player(ai_algo)]).play()
+
+Slip 7-2 : Q.2) Write a Python program to implement Simple Chatbot. [ 20Marks ]
+name = "bot286"
+monsoon = "rainy"
+mood = "Smiley"
+resp = {
+"hi":[
+"hello",
+"hey"
+],
+"what's your name?": [
+"They call me {0}".format(name),
+"I usually go by {0}".format(name),
+"My name is the {0}".format(name) ],
+"what's today's weather?": [
+"The weather is {0}".format(monsoon),
+"It's {0} today".format(monsoon)],
+"how are you?": [
+"I am feeling {0}".format(mood),
+"{0}! How about you?".format(mood),
+"I am {0}! How about yourself?".format(mood), ],
+"hello": [
+"Hey! hi",
+"hello buddy?",
+],
+"bye": [
+"bye c u soon"]
+}
+import random
+def res(message):
+if message in resp:
+ bot286_message = random.choice(resp[message])
+else:
+ bot286_message = random.choice(resp["default"])
+return bot286_message
+def relate(xtext):
+if "name" in xtext:
+ ytext = "what's your name?"
+elif "hello" in xtext:
+ytext = "hi"
+elif "weather" in xtext:
+ ytext = "what's today's weather?"
+elif "how are" in xtext:
+ ytext = "how are you?"
+else:
+ ytext = "bye"
+return ytext
+def send_message(message):
+#print((message))
+ response = res(message)
+print((response))
+while(1):
+ my_input = input()
+ my_input = my_input.lower()
+ related_text = relate(my_input)
+ send_message(related_text)
+if my_input == "quit":
+break
+        </textarea>
+        
+        <button id="btn-program7" onclick="copyProgram('program7', 'btn-program7')">slip7</button>
+    </div>    
+    
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program8" class="program-code">
+    Q1 Str = input("Enter a string: ")
+    lower=0
+    upper=0
+    for i in Str:
+    if(i.islower()):
+     lower+=1
+    else:
+     upper+=1
+    print("The number of lowercase characters is:",lower)
+    print("The number of uppercase characters is:",upper)
+    
+    Q2  pip install easyAI
+    from easyAI import TwoPlayerGame
+    from easyAI.Player import Human_Player
+    class TicTacToe(TwoPlayerGame):
+    """The board positions are numbered as follows:
+     1 2 3
+     4 5 6
+     7 8 9
+     """
+    def __init__(self, players):
+    self.players = players
+    self.board = [0 for i in range(9)]
+    self.current_player = 1 # player 1 starts.
+    def possible_moves(self):
+ return [i + 1 for i, e in enumerate(self.board) if e == 0]
+ def make_move(self, move):
+self.board[int(move) - 1] = self.current_player
+def unmake_move(self, move): # optional method (speeds up the AI)
+self.board[int(move) - 1] = 0
+def lose(self):
+""" Has the opponent "three in line ?" """
+return any(
+ [
+all([(self.board[c - 1] == self.opponent_index) for c 
+in line])
+for line in [
+ [1, 2, 3],
+ [4, 5, 6],
+ [7, 8, 9], # horiz.
+ [1, 4, 7],
+ [2, 5, 8],
+ [3, 6, 9], # vertical
+ [1, 5, 9],
+ [3, 5, 7],
+ ]
+ ]
+ ) # diagonal
+def is_over(self):
+return (self.possible_moves() == []) or self.lose()
+def show(self):
+print(
+"\n"
+ + "\n".join(
+ [
+" ".join([[".", "O", "X"][self.board[3 * j + i]] 
+for i in range(3)])
+for j in range(3)
+ ]
+ )
+ )
+def scoring(self):
+return -100 if self.lose() else 0
+if __name__ == "__main__":
+from easyAI import AI_Player, Negamax
+ ai_algo = Negamax(6)
+ TicTacToe([Human_Player(), AI_Player(ai_algo)]).play()
+        </textarea>
+        
+        <button id="btn-program8" onclick="copyProgram('program8', 'btn-program8')">slip8</button>
+    </div>    
+    
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program9" class="program-code">
+    Q1 import heapq
+    class PuzzleNode:
+        def __init__(self, state, parent=None, move=None, depth=0):
+            self.state = state
+            self.parent = parent
+            self.move = move
+            self.depth = depth
+            self.cost = self.depth + self.heuristic()
+        def __lt__(self, other):
+            return self.cost < other.cost
+        def heuristic(self):
+            goal = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+            distance = 0
+            for i in range(3):
+                for j in range(3):
+                    value = self.state[i][j]
+                    if value != 0:
+                        goal_row, goal_col = divmod(value - 1, 3)
+                        distance += abs(i - goal_row) + abs(j - goal_col)
+            return distance
+        def get_neighbors(self):
+            neighbors = []
+            zero_row, zero_col = [(i, row.index(0)) for i, row in
+    enumerate(self.state) if 0 in row][0]
+            moves = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+            for move in moves:
+                new_row, new_col = zero_row + move[0], zero_col + move[1]
+                if 0 <= new_row < 3 and 0 <= new_col < 3:
+                    new_state = [row[:] for row in self.state]
+                    new_state[zero_row][zero_col], new_state[new_row]
+    [new_col] = new_state[new_row][new_col], new_state[zero_row][zero_col]
+                    neighbors.append(PuzzleNode(new_state, self, move, 
+    self.depth + 1))
+            return neighbors
+        def print_path(self):
+            if self.parent:
+                self.parent.print_path()
+            print(f"Move {self.move}:")
+            print(self)
+        def __str__(self):
+            return "\n".join(" ".join(map(str, row)) for row in self.state)
+    def solve_8_puzzle(initial_state):
+        initial_node = PuzzleNode(initial_state)
+        goal_state = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+        # A* search (using a priority queue)
+        heap = [initial_node]
+        visited = set()
+        while heap:
+            current_node = heapq.heappop(heap)
+            if current_node.state == goal_state:
+                current_node.print_path()
+                return
+            visited.add(tuple(map(tuple, current_node.state)))
+            for neighbor in current_node.get_neighbors():
+    
+                if tuple(map(tuple, neighbor.state)) not in visited:
+                    heapq.heappush(heap, neighbor)
+        print("No solution found.")
+    # Example usage
+    initial_puzzle = [[1, 2, 3], [4, 5, 6], [0, 7, 8]]  # Initial state
+    solve_8_puzzle(initial_puzzle)
+
+    Q2 bfs_queue = [(0, 0, None, 0)] # 4_jug, 3_jug, parent state, rule 
+    applied
+    visited_states = [] #all the states which are not to be considered for 
+    exploration
+    output_path = [] #to print the path
+    print ("Enter Jug 1 Capacity, Jug 2 Capacity, Target (space separated)\
+    n : "),
+    jug1, jug2, target = map(int, input().split())
+    print ("\nInitial State. -> (0, 0)")
+    print ("Goal State. -> (%d, N) or (M, %d) \n"%(target, target))
+    # Production rules
+    def success(M, N) :
+     global target
+     return M == target or N == target
+    def fill_M(M, N) :
+     global jug1
+     if M < jug1 :
+     M = jug1
+     return M, N, 1
+    def fill_N(M, N) :
+     global jug2
+     if N < jug2 :
+     N = jug2
+     return M, N, 2
+    def empty_M(M, N) :
+     if M > 0 :
+     M = 0
+     return M, N, 3
+    def empty_N(M, N) :
+     if N > 0 :
+     N = 0
+     return M, N, 4
+    def pour_N_to_M(M, N) :
+     global jug1
+     if N > 0 and M + N >= jug1 :
+     M = jug1
+     N = N - (jug1 - M)
+     return M, N, 5
+    def pour_M_to_N(M, N) :
+     global jug2
+     if M > 0 and M + N >= jug2 :
+     M = M - (jug2 - N)
+     N = jug2
+     return M, N, 6
+    def pour_all_N_to_M(M, N) :
+     global jug1
+     if M + N <= jug1 and N > 0 :
+     M = M + N
+     N = 0
+     return M, N, 7
+    def pour_all_M_to_N(M, N) :
+     global jug2
+     if M + N <= jug2 and M > 0 :
+     N = N + M
+     M = 0
+     return M, N, 8
+    #----------------------------------
+    # chekcing if the state has been visited
+    def state_visited(x, y) :
+     for val in visited_states :
+     if val[0] == x and val[1] == y :
+     return True
+     return False
+    if __name__ == '__main__' :
+     rules = [fill_M, fill_N, empty_M, empty_N,
+     pour_N_to_M, pour_M_to_N, pour_all_N_to_M, pour_all_M_to_N] 
+    #function list
+     rule_text = ["1. Fill the {}-gallon jug.".format(jug1), "2. Fill 
+    the {}-gallon jug.".format(jug2),
+     "3. Empty {}-gallon jug.".format(jug1), "4. Empty {}-gallon 
+    jug.".format(jug2),
+     "5. Pour water from {}-gallon to {}-gallon jug.".format(jug2, 
+    jug1),
+     "6. Pour water from {}-gallon to {}-gallon jug.".format(jug1, 
+    jug2),
+     "7. Pour all the water from {}-gallon to {}-gallon 
+    jug.".format(jug2, jug1),
+     "8. Pour all the water from {}-gallon to {}-gallon 
+    jug.".format(jug1, jug2)]
+     done = False
+     #Approach using breadth first search
+     while bfs_queue :
+     M, N, parent, rule_no = bfs_queue.pop(0)
+     visited_states.append((M, N, parent, rule_no))
+     for func in rules : #applying all the rules to the current 
+    state
+     x, y, rule_no = func(M, N)
+     if x < 0 or y < 0 :
+     continue
+     if success(x, y) :
+     done = True
+     visited_states.append((x, y, (M, N), rule_no))
+     break
+     if not state_visited(x, y) : #appending the newly formed 
+    states in the queue
+     bfs_queue.append((x, y, (M, N), rule_no))
+     if done :
+     print ("\nGOAL Reached!")
+     break
+     #end_while
+     if not done :
+     print ("No Solution Exists!")
+     print ("Terminated.")
+     exit(0)
+     index = len(visited_states) - 1
+     output_path.append((visited_states[index][:2], None))
+     parent = visited_states[index][2]
+     rule = visited_states[index][3]
+     # finding the path from bottom to top
+     while parent :
+     output_path.append((parent, rule))
+     for val in visited_states :
+     if val[0] == parent[0] and val[1] == parent[1] :
+     parent = val[2]
+     rule = val[3]
+     break
+     op = list(reversed(output_path))
+     #printing the states and the rules applied.
+     for i in range(0, len(op)) :
+     if op[i][1] is not None :
+     print (op[i][0], " -> ", rule_text[op[i][1] - 1])
+     print (op[len(op) - 1][0], " -> Goal State.")
+     print ("Terminated.")
+
+        </textarea>
+        
+        <button id="btn-program9" onclick="copyProgram('program9', 'btn-program9')">slip9</button>
+    </div>    
+    
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program10" class="program-code">
+    Q1 from itertools import permutations
+    def cryptarithmetic():
+        # All possible digits (0 to 9)
+        digits = range(10)
+        
+        # All the letters involved
+        letters = 'TWOFRU'
+        
+        # Generate all possible permutations of digits for the 6 letters
+        for perm in permutations(digits, len(letters)):
+            # Create a mapping of letters to digits
+            letter_to_digit = dict(zip(letters, perm))
+            
+            # Get the numbers corresponding to TWO, TWO, and FOUR
+            TWO = letter_to_digit['T'] * 100 + letter_to_digit['W'] * 10 +
+    letter_to_digit['O']
+            FOUR = letter_to_digit['F'] * 1000 + letter_to_digit['O'] * 100
+    + letter_to_digit['U'] * 10 + letter_to_digit['R'] 
+            
+            # Check if TWO + TWO equals FOUR
+            if TWO + TWO == FOUR:
+                # If the equation is satisfied, print the solution
+                print(f"TWO + TWO = FOUR")
+                print(f"{TWO} + {TWO} = {FOUR}")
+                print(f"Letter to digit mapping: {letter_to_digit}")
+                return
+        print("No solution found.")
+    if __name__ == "__main__":
+        cryptarithmetic()
+
+    Q.2
+    import random
+    def simple_chatbot():
+        responses = {
+            "hello": ["Hi there!", "Hello!", "Hey!"],
+            "how are you": ["I'm good, thanks!", "I'm doing well.", "All 
+    good!"],
+            "bye": ["Goodbye!", "See you later!", "Bye!"],
+            "default": ["I'm not sure how to respond.", "Could you say that
+    again?", "Sorry, I didn't get that."]
+        }
+        
+        print("Simple Chatbot: Hi! Type 'bye' to exit.")
+        
+        while True:
+            user_input = input("You: ").lower()
+            
+            if user_input == 'bye':
+                print("Simple Chatbot: Goodbye!")
+                break
+            else:
+                response = responses.get(user_input, responses["default"])
+                print("Simple Chatbot:", random.choice(response))
+    if __name__ == "__main__":
+        simple_chatbot()
+    
+        </textarea>
+        
+        <button id="btn-program10" onclick="copyProgram('program10', 'btn-program10')">slip10</button>
+    </div>    
+    
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program11" class="program-code">
+    Q1 def mean_end_analysis(start_str, target_str):
+        current_str = start_str
+        target_str_len = len(target_str)
+        steps = []  # List to store the transformation steps
+        # Continue until the current string matches the target string
+        while current_str != target_str:
+            print(f"Current string: {current_str}")
+            print(f"Target string: {target_str}")
+            # If the current string is shorter than the target, insert 
+    characters
+            if len(current_str) < target_str_len:
+                # Insert characters from the target string
+                for i in range(len(current_str), target_str_len):
+                    current_str += target_str[i]  # Add the next character 
+    from target to current_str
+                    steps.append(f"Insert '{target_str[i]}' at position 
+    {i+1}")
+                    break  # Insert one character at a time and then break 
+    out
+            # If the current string is longer than the target, delete extra
+    characters
+            elif len(current_str) > target_str_len:
+                current_str = current_str[:-1]  # Remove last character
+                steps.append(f"Delete character '{current_str[-1]}'")
+            # If characters at the same position are different, replace 
+    them
+            else:
+                for i in range(len(current_str)):
+                    if current_str[i] != target_str[i]:
+                        current_str = current_str[:i] + target_str[i] +
+    current_str[i+1:]
+                        steps.append(f"Replace '{current_str[i]}' with 
+    '{target_str[i]}' at position {i+1}")
+                        break
+        # Final output
+        print(f"\nFinal transformed string: {current_str}")
+        print(f"Steps taken:")
+        for step in steps:
+            print(step)
+    if __name__ == "__main__":
+        # Example input: Transform "kitten" to "sitting"
+        start_str = "kitten"
+        target_str = "sitting"
+        mean_end_analysis(start_str, target_str)
+
+    Q.2
+    from collections import deque
+    def water_jug_problem(capacity1, capacity2, target):
+        visited = set()
+        queue = deque([(0, 0)])
+        parent_map = { (0, 0): None }
+        operations = [
+            ("Fill Jug 1", lambda x, y: (capacity1, y)),
+            ("Fill Jug 2", lambda x, y: (x, capacity2)),
+            ("Empty Jug 1", lambda x, y: (0, y)),
+            ("Empty Jug 2", lambda x, y: (x, 0)),
+            ("Pour Jug 1 into Jug 2", lambda x, y: (x - min(x, capacity2 -
+    y), y + min(x, capacity2 - y))),
+            ("Pour Jug 2 into Jug 1", lambda x, y: (x + min(y, capacity1 -
+    x), y - min(y, capacity1 - x)))
+        ]
+        
+        while queue:
+            x, y = queue.popleft()
+            if y == target:
+                solution = []
+                while (x, y) != (0, 0):
+                    prev_x, prev_y = parent_map[(x, y)]
+                    for op_name, op_func in operations:
+                        if op_func(prev_x, prev_y) == (x, y):
+                            solution.append(op_name)
+                            break
+                    x, y = prev_x, prev_y
+                solution.reverse()
+                return solution
+            
+            for op_name, op_func in operations:
+                new_x, new_y = op_func(x, y)
+                if (new_x, new_y) not in visited:
+                    visited.add((new_x, new_y))
+                    parent_map[(new_x, new_y)] = (x, y)
+                    queue.append((new_x, new_y))
+        
+        return None
+    capacity1 = 4
+    capacity2 = 3
+    target = 2
+    solution = water_jug_problem(capacity1, capacity2, target)
+    if solution:
+        print("Steps to reach the goal:")
+        for step in solution:
+            print(step)
+    else:
+        print("No solution exists")
+    
+        </textarea>
+        
+        <button id="btn-program11" onclick="copyProgram('program11', 'btn-program11')">slip11</button>
+    </div>    
+    
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program12" class="program-code">
+     Q1  import calendar
+     def generate_calendar(year, month):
+         cal = calendar.monthcalendar(year, month)
+         print(f"Calendar for {calendar.month_name[month]} {year}:\n")
+         print("Mo Tu We Th Fr Sa Su")
+         for week in cal:
+             week_str = " ".join(str(day) if day != 0 else " " for day in
+     week)
+             print(week_str)
+     year = 2023
+     month = 4 # April
+     generate_calendar(year, month)
+
+     Q.2
+     def is_safe(board, row, col):
+         for i in range(row):
+             if board[i] == col or board[i] - i == col - row or board[i] + i
+     == col + row:
+                 return False
+         return True
+     def solve_4_queens(board, row, solutions):
+         if row == len(board):
+             solutions.append(board[:])
+             return
+         for col in range(len(board)):
+             if is_safe(board, row, col):
+                 board[row] = col
+                 solve_4_queens(board, row + 1, solutions)
+                 board[row] = -1
+     def print_solutions(solutions):
+         for solution in solutions:
+             print("Solution:")
+             for row in solution:
+                 board_row = ['Q' if i == row else '.' for i in
+     range(len(solution))]
+                 print(" ".join(board_row))
+             print()
+     def main():
+         n = 4
+         board = [-1] * n
+         solutions = []
+         solve_4_queens(board, 0, solutions)
+         print_solutions(solutions)
+     if __name__ == "__main__":
+         main()
+     
+        </textarea>
+        
+        <button id="btn-program12" onclick="copyProgram('program12', 'btn-program12')">slip12</button>
+    </div>    
+    
+
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program13" class="program-code">
+    
+Q1  import math
+PLAYER_X = 1
+PLAYER_O = -1
+EMPTY = 0
+def print_board(board):
+    for row in board:
+        print(" | ".join(str(cell) if cell != EMPTY else " " for cell
+in row))
+        print("---------")
+def check_winner(board, player):
+    for row in range(3):
+        if all([board[row][col] == player for col in range(3)]): return
+True
+    for col in range(3):
+        if all([board[row][col] == player for row in range(3)]): return
+True
+    if all([board[i][i] == player for i in range(3)]): return True
+    if all([board[i][2-i] == player for i in range(3)]): return True
+    return False
+def is_game_over(board):
+    return check_winner(board, PLAYER_X) or check_winner(board, 
+PLAYER_O) or all(cell != EMPTY for row in board for cell in row)
+def evaluate(board):
+    if check_winner(board, PLAYER_X): return 1
+    if check_winner(board, PLAYER_O): return -1
+    return 0
+def available_moves(board):
+Downloaded by Datir Sanskruti (sanskrutidatir528@gmail.com)
+lOMoARcPSD|59303612
+    return [(row, col) for row in range(3) for col in range(3) if
+board[row][col] == EMPTY]
+def minimax(board, is_maximizing_player):
+    if is_game_over(board): return evaluate(board)
+    
+    if is_maximizing_player:
+        best = -math.inf
+        for row, col in available_moves(board):
+            board[row][col] = PLAYER_X
+            best = max(best, minimax(board, False))
+            board[row][col] = EMPTY
+        return best
+    else:
+        best = math.inf
+        for row, col in available_moves(board):
+            board[row][col] = PLAYER_O
+            best = min(best, minimax(board, True))
+            board[row][col] = EMPTY
+        return best
+def find_best_move(board):
+    best_val = -math.inf
+    best_move = None
+    for row, col in available_moves(board):
+        board[row][col] = PLAYER_X
+        move_val = minimax(board, False)
+        board[row][col] = EMPTY
+        if move_val > best_val:
+            best_val = move_val
+            best_move = (row, col)
+    return best_move
+def play_game():
+    board = [[EMPTY for _ in range(3)] for _ in range(3)]
+    while not is_game_over(board):
+        print_board(board)
+        if sum(row.count(PLAYER_X) for row in board) <=
+sum(row.count(PLAYER_O) for row in board):
+            row, col = find_best_move(board)
+            board[row][col] = PLAYER_X
+        else:
+            row, col = find_best_move(board)
+            board[row][col] = PLAYER_O
+    print_board(board)
+    if check_winner(board, PLAYER_X):
+        print("Player X wins!")
+    elif check_winner(board, PLAYER_O):
+        print("Player O wins!")
+    else:
+        print("It's a draw!")
+Downloaded by Datir Sanskruti (sanskrutidatir528@gmail.com)
+lOMoARcPSD|59303612
+play_game()
+Q.2) Write a Python program to simulate 8-Queens problem.
+def print_solution(board):
+    for row in board:
+        print(" ".join("Q" if x else "." for x in row))
+def is_safe(board, row, col):
+    for i in range(row):
+        if board[i][col] == 1:
+            return False
+        if col - (row - i) >= 0 and board[i][col - (row - i)] == 1:
+            return False
+        if col + (row - i) < len(board) and board[i][col + (row - i)] 
+== 1:
+            return False
+    return True
+def solve_n_queens(board, row):
+    if row == len(board):
+        print_solution(board)
+        return True
+    
+    for col in range(len(board)):
+        if is_safe(board, row, col):
+            board[row][col] = 1
+            if solve_n_queens(board, row + 1):
+                return True
+            board[row][col] = 0
+    return False
+def n_queens(n):
+    board = [[0 for _ in range(n)] for _ in range(n)]
+    solve_n_queens(board, 0)
+n_queens(8)
+
+</textarea>
+        
+<button id="btn-program13" onclick="copyProgram('program13', 'btn-program13')">slip13</button>
+</div>      
+
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program14" class="program-code">
+Q1 def sort_sentence(sentence):
+    words = sentence.split()
+    words.sort()
+    return " ".join(words)
+sentence = "the quick brown fox jumps over the lazy dog"
+sorted_sentence = sort_sentence(sentence)
+print(sorted_sentence)
+
+Q.2
+def print_solution(board):
+    for row in board:
+        print(" ".join("Q" if x else "." for x in row))
+def is_safe(board, row, col):
+    for i in range(row):
+        if board[i][col] == 1:
+            return False
+        if col - (row - i) >= 0 and board[i][col - (row - i)] == 1:
+            return False
+        if col + (row - i) < len(board) and board[i][col + (row - i)] 
+== 1:
+            return False
+    return True
+def solve_n_queens(board, row):
+    if row == len(board):
+        print_solution(board)
+        return True
+    
+    for col in range(len(board)):
+        if is_safe(board, row, col):
+            board[row][col] = 1
+            if solve_n_queens(board, row + 1):
+                return True
+            board[row][col] = 0
+    return False
+def n_queens(n):
+    board = [[0 for _ in range(n)] for _ in range(n)]
+    solve_n_queens(board, 0)
+n_queens(8)
+    </textarea>
+    
+    <button id="btn-program14" onclick="copyProgram('program14', 'btn-program14')">slip14</button>
+</div>    
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program15" class="program-code">
+      Q1      def __init__(self):
+                self.monkey_position = 'ground'
+                self.box_position = 'floor'
+                self.banana_position = 'high_shelf'
+                self.monkey_has_banana = False
+            def push_box(self):
+                if self.box_position == 'floor':
+                    print("Monkey pushes the box to reach the shelf.")
+                    self.box_position = 'near_banana'
+            def climb_box(self):
+                if self.box_position == 'near_banana':
+                    print("Monkey climbs the box.")
+                    self.monkey_position = 'on_box'
+            def reach_banana(self):
+                if self.monkey_position == 'on_box':
+                    print("Monkey grabs the banana from the shelf!")
+                    self.monkey_has_banana = True
+            def perform_actions(self):
+                print("Monkey is on the ground.")
+                self.push_box()
+                self.climb_box()
+                self.reach_banana()
+        # Run the simulation
+        monkey_problem = MonkeyBanana()
+        monkey_problem.perform_actions()
+
+        Q.2
+        class IterativeDeepeningDFS:
+            def __init__(self, graph, start, goal):
+                self.graph = graph
+                self.start = start
+                self.goal = goal
+            def dfs(self, node, depth, visited):
+                if depth == 0:
+                    if node == self.goal:
+                        return [node]
+                    return None
+                if depth > 0:
+                    visited.add(node)
+                    for neighbor in self.graph.get(node, []):
+                        if neighbor not in visited:
+                            path = self.dfs(neighbor, depth - 1, visited)
+                            if path:
+                                return [node] + path
+                return None
+            def iddfs(self):
+                depth = 0
+                while True:
+                    visited = set()
+                    result = self.dfs(self.start, depth, visited)
+                    if result:
+                        return result
+                    depth += 1
+        # Example usage:
+        # Graph provided by the user
+        graph = {
+            'A': ['B', 'C'],
+            'B': ['D', 'E'],
+            'C': ['F', 'G'],
+            'D': ['H', 'I'],
+            'E': ['G'],
+            'F': ['K'],
+            'G': []
+        }
+        # Goal is to find node 'G' starting from node 'A'
+        iddfs = IterativeDeepeningDFS(graph, 'A', 'G')
+        path = iddfs.iddfs()
+        if path:
+            print(f"Path to goal: {' -> '.join(path)}")
+        else:
+            print("Goal not found.")
+    
+    </textarea>
+    
+    <button id="btn-program15" onclick="copyProgram('program15', 'btn-program15')">slip15</button>
+</div>    
+
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program16" class="program-code">
+    Q1  def tower_of_hanoi(n, source, destination, auxiliary):
+            if n == 1:
+                print(f"Move disk 1 from {source} to {destination}")
+                return
+            tower_of_hanoi(n-1, source, auxiliary, destination)
+            print(f"Move disk {n} from {source} to {destination}")
+            tower_of_hanoi(n-1, auxiliary, destination, source)
+        if __name__ == "__main__":
+            n = int(input("Enter the number of disks: "))
+            tower_of_hanoi(n, 'A', 'C', 'B')
+
+        Q.2
+        def print_board(board):
+            for row in board:
+                print(" | ".join(row))
+                print("-" * 5)
+        def check_winner(board, player):
+            for i in range(3):
+                if all([board[i][j] == player for j in range(3)]) or
+        all([board[j][i] == player for j in range(3)]):
+                    return True
+            if board[0][0] == player and board[1][1] == player and board[2][2] 
+        == player:
+                return True
+            if board[0][2] == player and board[1][1] == player and board[2][0] 
+        == player:
+                return True
+            return False
+        def is_full(board):
+            return all([board[i][j] != " " for i in range(3) for j in
+        range(3)])
+        def play_game():
+            board = [[" " for _ in range(3)] for _ in range(3)]
+            current_player = "X"
+            while True:
+                print_board(board)
+                try:
+                    row = int(input("Enter row (0, 1, or 2): "))
+                    col = int(input("Enter column (0, 1, or 2): "))
+                except ValueError:
+                    continue
+                if row not in range(3) or col not in range(3) or board[row]
+        [col] != " ":
+                    continue
+                board[row][col] = current_player
+                if check_winner(board, current_player):
+                    print_board(board)
+                    print(f"Player {current_player} wins!")
+                    break
+                if is_full(board):
+                    print_board(board)
+                    print("It's a draw!")
+                    break
+                current_player = "O" if current_player == "X" else "X"
+        if __name__ == "__main__":
+            play_game()
+    
+    </textarea>
+    
+    <button id="btn-program16" onclick="copyProgram('program16', 'btn-program16')">slip16</button>
+</div>    
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program17" class="program-code">
+Q1 import random
+def objective_function(x):
+    return -(x - 3)**2 + 5
+def hill_climbing(start, step_size, max_iterations):
+    current = start
+    for _ in range(max_iterations):
+        neighbors = [current - step_size, current + step_size]
+        next_move = max(neighbors, key=objective_function)
+        if objective_function(next_move) <=
+objective_function(current):
+            break
+        current = next_move
+    return current, objective_function(current)
+if __name__ == "__main__":
+    start_point = random.uniform(-10, 10)
+    step_size = 0.1
+    max_iterations = 100
+    solution, value = hill_climbing(start_point, step_size, 
+max_iterations)
+    print(f"Best solution found: x = {solution}, f(x) = {value}")
+
+Q2 
+    </textarea>
+    
+    <button id="btn-program17" onclick="copyProgram('program17', 'btn-program17')">slip17</button>
+</div>    
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program18" class="program-code">
+Q1 import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+import string
+nltk.download('punkt')
+nltk.download('stopwords')
+Downloaded by Datir Sanskruti (sanskrutidatir528@gmail.com)
+lOMoARcPSD|59303612
+def remove_stop_words(file_path):
+    with open(file_path, 'r') as file:
+        text = file.read()
+    
+    words = word_tokenize(text)
+    stop_words = set(stopwords.words('english'))
+    filtered_words = [word for word in words if word.lower() not in
+stop_words and word.isalpha()]
+    return ' '.join(filtered_words)
+if __name__ == "__main__":
+    file_path = 'input.txt'
+    filtered_text = remove_stop_words(file_path)
+    print("Filtered Text:")
+    print(filtered_text)
+Q.2
+import heapq
+# Room dimensions (10x10)
+room_width = 10
+room_height = 10
+# Dimensions of rectangular and square objects
+rectangular_objects = [(2, 4)] * 5  # 5 objects of size 2x4
+square_objects = [(3, 3)] * 4       # 4 objects of size 3x3
+# Heuristic function: the remaining free area in the room
+def heuristic(placed_objects):
+    used_area = sum([w * h for _, _, w, h in placed_objects])  # Unpack
+(x, y, width, height)
+    total_area = room_width * room_height
+    return total_area - used_area
+# State representation: positions and orientations of objects
+class State:
+    def __init__(self, placed_objects, g_cost=0):
+        self.placed_objects = placed_objects  # List of (x, y, width, 
+height) of placed objects
+        self.g_cost = g_cost                  # Number of steps taken 
+(i.e., objects placed)
+        self.h_cost = heuristic(placed_objects)  # Heuristic based on 
+remaining space
+        self.f_cost = self.g_cost + self.h_cost  # Total cost (g + h)
+    
+    def __lt__(self, other):
+        return self.f_cost < other.f_cost
+# Generate valid placements for an object
+def generate_actions(placed_objects):
+    actions = []
+    all_objects = rectangular_objects + square_objects
+    for idx, (w, h) in enumerate(all_objects):
+        if (w, h) not in placed_objects:
+            for x in range(room_width - w + 1):  # Try placing 
+horizontally
+                for y in range(room_height - h + 1):  # Try placing 
+vertically
+                    # Check for overlap
+                    overlap = False
+                    for px, py, pw, ph in placed_objects:
+                        if not (x + w <= px or px + pw <= x or y + h <=
+py or py + ph <= y):
+                            overlap = True
+                            break
+                    if not overlap:
+                        actions.append((x, y, w, h))  # Add valid 
+position to place this object
+    return actions
+# A* algorithm to find the optimal arrangement
+def a_star():
+    initial_state = State(placed_objects=[])
+    open_list = []
+    closed_list = set()
+    heapq.heappush(open_list, initial_state)
+    while open_list:
+        current_state = heapq.heappop(open_list)
+        # Check if goal reached (all objects placed)
+        if len(current_state.placed_objects) ==
+len(rectangular_objects) + len(square_objects):
+            return current_state.placed_objects
+        if tuple(current_state.placed_objects) in closed_list:
+            continue
+        
+        closed_list.add(tuple(current_state.placed_objects))
+        # Generate possible actions (placements of objects)
+        actions = generate_actions(current_state.placed_objects)
+        for action in actions:
+            new_placed_objects = current_state.placed_objects +
+[(action[0], action[1], action[2], action[3])]
+            new_state = State(new_placed_objects, 
+g_cost=current_state.g_cost + 1)
+            if tuple(new_placed_objects) not in closed_list:
+                heapq.heappush(open_list, new_state)
+    return None
+# Start the A* search to arrange the objects
+placed_objects = a_star()
+if placed_objects:
+    print("Optimal placement found:")
+    for placement in placed_objects:
+        print(f"Object placed at x={placement[0]}, y={placement[1]}
+with width={placement[2]} and height={placement[3]}")
+else:
+    print("No valid arrangement found.")
+
+    </textarea>
+    
+    <button id="btn-program18" onclick="copyProgram('program18', 'btn-program18')">slip18</button>
+</div>    
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program19" class="program-code">
+    Q1    import random
+        words_list = ['python', 'java', 'javascript', 'hangman', 'computer', 
+        'programming', 'developer', 'algorithm', 'data']
+        def display_word(word, guessed_letters):
+            display = ''
+            for letter in word:
+                if letter in guessed_letters:
+                    display += letter + ' '
+                else:
+                    display += '_ '
+            return display.strip()
+        def hangman():
+            word = random.choice(words_list).lower()
+            guessed_letters = set()
+            max_attempts = 6
+            attempts_left = max_attempts
+            word_set = set(word)
+            
+            print("Welcome to Hangman!")
+            print(f"Try to guess the word. You have {max_attempts} attempts.")
+            while attempts_left > 0:
+                print("\nWord: " + display_word(word, guessed_letters))
+                print(f"Guessed Letters: {', '.join(sorted(guessed_letters))}")
+                print(f"Attempts Left: {attempts_left}")
+                
+                guess = input("Guess a letter: ").lower()
+                
+                if len(guess) != 1 or not guess.isalpha():
+                    print("Please enter a single alphabet.")
+                    continue
+                
+                if guess in guessed_letters:
+                    print("You already guessed that letter. Try again.")
+                    continue
+                
+                guessed_letters.add(guess)
+                
+                if guess in word_set:
+                    print(f"Good job! {guess} is in the word.")
+                else:
+                    attempts_left -= 1
+                    print(f"Oops! {guess} is not in the word.")
+                
+                if word_set.issubset(guessed_letters):
+                    print(f"\nCongratulations! You've guessed the word: 
+        {word}")
+                    break
+                
+            if attempts_left == 0:
+                print(f"\nGame Over! The word was: {word}")
+        if __name__ == "__main__":
+            hangman()
+
+    </textarea>
+    
+    <button id="btn-program19" onclick="copyProgram('program19', 'btn-program19')">slip19</button>
+</div>    
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program20" class="program-code">
+Q1 
+    class CollegeBot:
+    def __init__(self, name, college_name, courses, timetable, grades):
+        self.name = name
+        self.college_name = college_name
+        self.courses = courses
+        self.timetable = timetable
+        self.grades = grades
+    def get_personal_info(self):
+        return f"Name: {self.name}\nCollege: {self.college_name}"
+    def get_courses(self):
+        courses_str = "\n".join(self.courses)
+        return f"Courses enrolled:\n{courses_str}"
+    def get_timetable(self):
+        timetable_str = "\n".join([f"{day}: {schedule}" for day, 
+schedule in self.timetable.items()])
+        return f"Your timetable:\n{timetable_str}"
+    def get_grades(self):
+        grades_str = "\n".join([f"{course}: {grade}" for course, grade
+in self.grades.items()])
+        return f"Your grades:\n{grades_str}"
+    def respond(self, query):
+        query = query.lower()
+        if "name" in query or "who are you" in query:
+            return self.get_personal_info()
+        elif "courses" in query or "enrolled" in query:
+            return self.get_courses()
+        elif "timetable" in query or "schedule" in query:
+            return self.get_timetable()
+        elif "grades" in query or "marks" in query:
+            return self.get_grades()
+        else:
+            return "Sorry, I didn't understand that. Please ask 
+something else."
+def main():
+    name = "John Doe"
+    college_name = "XYZ University"
+    courses = ["Mathematics", "Computer Science", "Physics", "History"]
+    timetable = {
+        "Monday": "9:00 AM - Math, 11:00 AM - CS",
+        "Tuesday": "9:00 AM - Physics, 1:00 PM - History",
+        "Wednesday": "10:00 AM - CS, 2:00 PM - Math",
+        "Thursday": "9:00 AM - Physics, 1:00 PM - History",
+        "Friday": "10:00 AM - CS, 12:00 PM - Math"
+    }
+    grades = {
+        "Mathematics": "A",
+        "Computer Science": "B+",
+        "Physics": "A-",
+        "History": "B"
+    }
+    bot = CollegeBot(name, college_name, courses, timetable, grades)
+    
+    print("Hello! I am your College Bot. You can ask me about your 
+college information.")
+    print("Type 'exit' to end the conversation.\n")
+    while True:
+        user_query = input("You: ")
+        
+        if user_query.lower() == 'exit':
+            print("Goodbye! Have a great day!")
+            break
+        response = bot.respond(user_query)
+        print(f"Bot: {response}\n")
+if __name__ == "__main__":
+    main()
+
+Q.2
+import math
+PLAYER_X = 1
+PLAYER_O = -1
+EMPTY = 0
+def print_board(board):
+    for row in board:
+        print(" | ".join(str(cell) if cell != EMPTY else " " for cell
+in row))
+        print("---------")
+def check_winner(board, player):
+    for row in range(3):
+        if all([board[row][col] == player for col in range(3)]): return
+True
+    for col in range(3):
+        if all([board[row][col] == player for row in range(3)]): return
+True
+    if all([board[i][i] == player for i in range(3)]): return True
+    if all([board[i][2-i] == player for i in range(3)]): return True
+    return False
+def is_game_over(board):
+    return check_winner(board, PLAYER_X) or check_winner(board, 
+PLAYER_O) or all(cell != EMPTY for row in board for cell in row)
+def evaluate(board):
+    if check_winner(board, PLAYER_X): return 1
+    if check_winner(board, PLAYER_O): return -1
+    return 0
+def available_moves(board):
+    return [(row, col) for row in range(3) for col in range(3) if
+board[row][col] == EMPTY]
+def minimax(board, is_maximizing_player):
+    if is_game_over(board): return evaluate(board)
+    
+    if is_maximizing_player:
+        best = -math.inf
+        for row, col in available_moves(board):
+            board[row][col] = PLAYER_X
+            best = max(best, minimax(board, False))
+            board[row][col] = EMPTY
+        return best
+    else:
+        best = math.inf
+        for row, col in available_moves(board):
+            board[row][col] = PLAYER_O
+            best = min(best, minimax(board, True))
+            board[row][col] = EMPTY
+        return best
+def find_best_move(board):
+    best_val = -math.inf
+    best_move = None
+    for row, col in available_moves(board):
+        board[row][col] = PLAYER_X
+        move_val = minimax(board, False)
+        board[row][col] = EMPTY
+        if move_val > best_val:
+            best_val = move_val
+            best_move = (row, col)
+    return best_move
+def play_game():
+    board = [[EMPTY for _ in range(3)] for _ in range(3)]
+    while not is_game_over(board):
+        print_board(board)
+        if sum(row.count(PLAYER_X) for row in board) <=
+sum(row.count(PLAYER_O) for row in board):
+            row, col = find_best_move(board)
+            board[row][col] = PLAYER_X
+        else:
+            row, col = find_best_move(board)
+            board[row][col] = PLAYER_O
+    print_board(board)
+    if check_winner(board, PLAYER_X):
+        print("Player X wins!")
+    elif check_winner(board, PLAYER_O):
+        print("Player O wins!")
+    else:
+        print("It's a draw!")
+play_game()
+    </textarea>
+    
+    <button id="btn-program20" onclick="copyProgram('program20', 'btn-program20')">slip20</button>
+</div>    
+  </div>
+<script>
+    function copyProgram(elementId, buttonId) {
+        // प्रोग्राम कोड असलेला घटक (element) मिळवा
+        const elementToCopy = document.getElementById(elementId);
+        const button = document.getElementById(buttonId);
+        
+        // <textarea> मधून टेक्स्ट मिळवा
+        const textToCopy = elementToCopy.value; 
+
+        // navigator.clipboard API वापरून टेक्स्ट कॉपी करा
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                // बटणचा मजकूर तात्पुरता बदलणे (Success feedback)
+                const originalText = button.innerText;
+                button.innerText = 'copied';'calendar'
+    
+                button.classList.add('copied');
+                
+                // 1.5 सेकंदांनंतर बटण पूर्ववत करा
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.classList.remove('copied');
+                }, 1500);
+
+            })
+            .catch(err => {
+                console.error('टेक्स्ट कॉपी करताना त्रुटी आली: ', err);
+                alert('कॉपी करण्यात अपयश आले. ब्राउझर सेटिंग्ज तपासा किंवा मॅन्युअली कॉपी करा.');
+            });
+    }
+</script>
+</body>
+</html>
