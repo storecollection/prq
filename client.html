@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        
+        .button-grid {
+        display: flex;             /* सर्व बटण कंटेनर्स एका ओळीत ठेवतो */
+        flex-wrap: wrap;           /* जर बटणे जास्त झाली तर ती पुढच्या ओळीत जातील */
+        gap: 10px;                 /* प्रत्येक बटण कंटेनरमध्ये अंतर ठेवतो */
+        padding: 15px;
+        border: 2px solid #ccc;    /* मुख्य बॉक्सला बॉर्डर दिली आहे */
+        border-radius: 8px;
+        background-color: #e9ecef; /* बॉक्ससाठी हलका बॅकग्राउंड */
+    }
+        /*.container {
+            max-width: 200px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }*/
+
+        .program-section {
+            border: 1px solid #ddd;
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+
+        .program-title {
+            margin-top: 0;
+            color: #0056b3;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* ******************************************* */
+        /* CSS code: हा कोड प्रोग्रामचा टेक्स्ट स्क्रीनवर दिसू देणार नाही */
+        /* ******************************************* */
+        .program-code {
+            /* कोड एरिया लपवण्यासाठी 'opacity: 0' आणि 'pointer-events: none' चा वापर केला आहे */
+            opacity: 0;
+            position: absolute;
+            left: -9999px; /* स्क्रीनच्या बाहेर ढकलण्यासाठी */
+            width: 1px;
+            height: 1px;
+            pointer-events: none; /* माऊस इव्हेंट्स थांबवण्यासाठी */
+        }
+        
+        /* कॉपी स्टेटससाठी स्टाइलिंग */
+        .copied {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button-grid">
+    <h1></h1>
+    <p></p>
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program1" class="program-code">
+        Q1 A)
+        # Function for the equation f(x) = x^3 - 5x - 9
+        def f(x):
+            return x**3 - 5*x - 9
+        
+        # Regula-Falsi Method
+        a = 2
+        b = 3
+        tol = 1e-5
+        max_iter = 15
+        
+        if f(a) * f(b) > 0:
+            print("Choose different a and b")
+        else:
+            print("Iter\tRoot (c)")
+            for i in range(1, max_iter + 1):
+                c = (a * f(b) - b * f(a)) / (f(b) - f(a))
+                print(i, "\t", round(c, 5))
+        
+                if abs(f(c)) < tol:
+                    print("\nApprox root =", round(c, 5))
+                    break
+        
+                if f(a) * f(c) < 0:
+                    b = c
+                else:
+                    a = c
+
+        Q2 A)
+        def f(x):
+        return x**2
+    
+    a = 0
+    b = 12
+    n = 12
+    h = (b - a) / n
+    
+    print("i\t x\t\t y=f(x)")
+    for i in range(n + 1):
+        x = a + i * h
+        y = f(x)
+        print(i, "\t", round(x, 2), "\t", round(y, 2))
+    
+    result = f(a) + f(b)
+    for i in range(1, n):
+        result += 2 * f(a + i * h)
+    result *= h / 2
+    
+    print("\nApproximate integral:", result)
+
+    Q.2 C)
+
+    def f(x, y):
+    return x * y**2
+x0 = 2
+y0 = 1
+h = 0.1
+xn = 2.2
+
+while x0 < xn:
+    k1 = f(x0, y0)
+    y_predict = y0 + h * k1
+    k2 = f(x0 + h, y_predict)
+    y0 = y0 + (h / 2) * (k1 + k2)
+    x0 = x0 + h
+
+print("Approximate solution at x =", xn, "is", y0)
+
+        </textarea>
+        
+        <button id="btn-program1" onclick="copyProgram('program1', 'btn-program1')">slip1</button>
+    </div>
+
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program2" class="program-code">
+    Q1 B)
+    from numpy import zeros
+
+# Given data
+x = [1, 2, 3, 4, 5]
+y = [40, 60, 65, 50, 18]
+n = len(x)
+
+# Create backward difference table
+D = zeros((n, n + 1))
+for i in range(n):
+    D[i, 0] = x[i]
+    D[i, 1] = y[i]
+
+for j in range(2, n + 1):
+    for i in range(n - 1, j - 2, -1):
+        D[i, j] = D[i, j - 1] - D[i - 1, j - 1]
+
+# Point to interpolate
+xp = 4.7
+h = x[1] - x[0]
+u = (xp - x[-1]) / h
+
+# Newton's Backward Formula
+sum = D[-1, 1]
+pp = 1
+for i in range(1, n):
+    pp = pp * (u + i - 1) / i
+    sum = sum + pp * D[-1, i + 1]
+
+print("Newton's Backward interpolated value at xp is =", sum)
+
+Q2 B)
+import numpy as np
+import pandas as pd
+
+# Given data
+x = [1, 2, 5, 7]
+y = [6, 9, 30, 54]
+n = len(x)
+
+# Create divided difference table
+dt = np.zeros((n, n))
+dt[:, 0] = y
+
+for j in range(1, n):
+    for i in range(n - j):
+        dt[i, j] = (dt[i + 1, j - 1] - dt[i, j - 1]) / (x[i + j] - x[i])
+
+# Prepare DataFrame for display
+columns = ['y'] + [f'\u0394^{j}y' for j in range(1, n)]
+df = pd.DataFrame('', index=range(n), columns=columns)
+df['y'] = y
+
+for j in range(1, n):
+    for i in range(n - j):
+        df.loc[i, f'\u0394^{j}y'] = round(dt[i, j], 4)
+
+df.insert(0, 'x', x)
+
+print("Newton's Divided Difference Table:\n")
+print(df)
+
+
+A)
+# Simpson's 1/3 Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    if i % 2 == 0:
+        result += 2 * f(a + i * h)
+    else:
+        result += 4 * f(a + i * h)
+
+result *= h / 3
+
+print("\nApproximate integral:", round(result, 6))
+        </textarea>
+        
+        <button id="btn-program2" onclick="copyProgram('program2', 'btn-program2')">slip2</button>
+    </div>
+    
+
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        <textarea id="program3" class="program-code">
+     Q1 B)
+     from numpy import zeros
+
+# Given data
+x = [1, 2, 5, 7]
+y = [6, 9, 30, 54]
+
+n = len(x)
+
+# Create divided difference table
+D = zeros((n, n + 1))
+
+# Fill x and y values in table
+for i in range(n):
+    D[i, 0] = x[i]
+    D[i, 1] = y[i]
+
+# Compute divided differences
+for j in range(2, n + 1):
+    for i in range(0, n - j + 1):
+        D[i, j] = (D[i + 1, j - 1] - D[i, j - 1]) / (x[i + j - 1] - x[i])
+
+# Value to interpolate
+xp = 3
+f_xp = 0
+pp = 1
+
+for i in range(n):
+    f_xp += pp * D[0, i + 1]
+    pp *= (xp - x[i])
+
+print("Newton's Divided interpolated value at x =", xp, "is =", f_xp)
+
+Q2 A)
+import math
+
+def f(x):
+    return math.sin(x)
+
+a = 0
+b = math.pi
+n = 12
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Trapezoidal Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    result += 2 * f(a + i * h)
+result *= h / 2
+
+print("Approximate integral:", result)
+
+C)
+def f(x, y):
+    return y - x
+
+x0 = 0
+y0 = 2
+h = 0.1
+xn = 0.2
+
+while x0 < xn:
+    k1 = h * f(x0, y0)
+    k2 = h * f(x0 + h/2, y0 + k1/2)
+    k3 = h * f(x0 + h/2, y0 + k2/2)
+    k4 = h * f(x0 + h, y0 + k3)
+    y0 = y0 + (k1 + 2*k2 + 2*k3 + k4)/6
+    x0 = x0 + h
+    print("Approximate solution at x =", round(x0, 1), "is", y0)
+        </textarea>
+        
+        <button id="btn-program3" onclick="copyProgram('program3', 'btn-program3')">slip3</button>
+    </div>
+
+
+
+    
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program4" class="program-code">
+    Q1 2) 
+    from math import *
+from numpy import *
+
+# Given data
+x = [80, 85, 90, 95, 100]
+y = [5026, 5674, 6362, 7088, 7854]
+
+n = len(x)
+D = zeros((n, n + 1))
+
+# Prepare backward difference table
+for i in range(n):
+    D[i, 0] = x[i]
+    D[i, 1] = y[i]
+
+for j in range(2, n + 1):
+    for i in range(n - 1, j - 2, -1):
+        D[i, j] = D[i, j - 1] - D[i - 1, j - 1]
+
+# Point to interpolate
+xp = 97
+h = x[1] - x[0]
+u = (xp - x[-1]) / h
+
+# Newton's Backward Formula
+sum = D[-1, 1]
+pp = 1
+for i in range(1, n):
+    pp = pp * (u + i - 1) / i
+    sum += pp * D[-1, i + 1]
+
+print("Newton's Backward interpolated value at xp =", sum)
+  
+Q2 1)
+import math
+
+def f(x):
+    return x * math.exp(x)
+
+a = 0
+b = 1
+n = 12
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Simpson's 1/3 Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    if i % 2 == 0:
+        result += 2 * f(a + i * h)
+    else:
+        result += 4 * f(a + i * h)
+result *= h / 3
+
+print("Approximate integral:", result)
+
+C)
+def f(x, y):
+    return -2 * x * y**2
+
+x0 = 0
+y0 = 1
+h = 0.2
+xn = 1.0
+
+while x0 < xn:
+    k1 = f(x0, y0)
+    y_predict = y0 + h * k1
+    k2 = f(x0 + h, y_predict)
+    y0 = y0 + (h / 2) * (k1 + k2)
+    x0 = x0 + h
+
+print("Approximate solution at x =", xn, "is", y0)
+        </textarea>
+        
+        <button id="btn-program4" onclick="copyProgram('program4', 'btn-program4')">slip4</button>
+    </div>
+     
+    
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program5" class="program-code">
+      Q.1 B)
+      from math import *
+from numpy import *
+
+# Given data
+x = [0, 1, 2, 5]
+y = [5, 13, 22, 129]
+
+n = len(x)
+D = zeros((n, n + 1))
+
+# Prepare divided difference table
+for i in range(n):
+    D[i, 0] = x[i]
+    D[i, 1] = y[i]
+
+for j in range(2, n + 1):
+    for i in range(0, n - j + 1):
+        D[i, j] = (D[i + 1, j - 1] - D[i, j - 1]) / (x[i + j - 1] - x[i])
+
+# Point to interpolate
+xp = 1.7
+sum = 0
+pp = 1
+for i in range(n):
+    sum += pp * D[0, i + 1]
+    pp = pp * (xp - x[i])
+
+print("Newton's Divided interpolated value at xp =", sum)
+
+Q2 B)
+import numpy as np
+import pandas as pd
+
+# Given data
+x = [1, 2, 3, 4, 5]
+y = [40, 60, 65, 50, 18]
+
+n = len(x)
+D = np.zeros((n, n))
+D[:, 0] = y
+
+# Backward differences
+for j in range(1, n):
+    for i in range(j, n):
+        D[i, j] = D[i, j - 1] - D[i - 1, j - 1]
+
+# Prepare DataFrame for display
+columns = ['y'] + [f'\u2207^{j}y' for j in range(1, n)]
+df = pd.DataFrame('', index=range(n), columns=columns)
+df['y'] = y
+for j in range(1, n):
+    for i in range(j, n):
+        df.loc[i, f'\u2207^{j}y'] = D[i, j]
+
+df.insert(0, 'x', x)
+
+print("Newton's Backward Difference Table:\n")
+print(df)
+
+C)
+def f(x, y):
+    return 1 + y**2
+
+x0 = 0
+y0 = 0
+h = 0.2
+xn = 0.6
+
+while x0 < xn:
+    k1 = f(x0, y0)
+    y_predict = y0 + h * k1
+    k2 = f(x0 + h, y_predict)
+    y0 = y0 + (h / 2) * (k1 + k2)
+    x0 = x0 + h
+    print("Approximate solution at x =", round(x0, 1), "is", y0)
+           
+        </textarea>
+        
+        <button id="btn-program5" onclick="copyProgram('program5', 'btn-program5')">slip5</button>
+    </div>    
+    
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program6" class="program-code">
+        Q1 A)
+        from math import *
+
+def f(x):
+    return x*3 - x*2 - 2
+
+def df(x):
+    return 3*x**2 - 2*x
+
+x0 = 1.5
+tol = 0.000001
+
+while True:
+    x1 = x0 - f(x0)/df(x0)
+    if abs(x1 - x0) < tol:
+        break
+    x0 = x1
+
+print("Approximate root by Newton's Raphson Method:", x1)
+
+
+Q2 A)
+def f(x):
+    return x**2 - 10
+
+a = 1
+b = 2
+n = 12
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Simpson's 3/8 Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    xi = a + i * h
+    if i % 3 == 0:
+        result += 2 * f(xi)
+    else:
+        result += 3 * f(xi)
+result *= 3 * h / 8
+
+print("Approximate integral:", result)
+
+Q2 B)
+from math import *
+from numpy import *
+
+# Given data
+x = [2, 4, 9, 10]
+y = [4, 56, 711, 980]
+
+n = len(x)
+D = zeros((n, n + 1))
+
+# Prepare divided difference table
+for i in range(n):
+    D[i, 0] = x[i]
+    D[i, 1] = y[i]
+
+for j in range(2, n + 1):
+    for i in range(0, n - j + 1):
+        D[i, j] = (D[i + 1, j - 1] - D[i, j - 1]) / (x[i + j - 1] - x[i])
+
+# Display the table
+print("Divided Difference Table:")
+for i in range(n):
+    row = [f"{D[i,0]:.2f}"] + [f"{D[i,j]:.2f}" for j in range(1, n + 1 - i)]
+    print(row)
+           
+        </textarea>
+        
+        <button id="btn-program6" onclick="copyProgram('program6', 'btn-program6')">slip6</button>
+    </div>    
+   
+    
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program7" class="program-code">
+    Q1 A)
+    def f(x):
+    return x**3 - 9*x + 1
+
+# Initial guesses
+x0 = 0
+x1 = 1
+tol = 1e-5
+max_iter = 15
+i = 0
+
+while i < max_iter:
+    x2 = (x0 * f(x1) - x1 * f(x0)) / (f(x1) - f(x0))
+    if abs(f(x2)) < tol:
+        break
+    elif f(x0) * f(x2) < 0:
+        x1 = x2
+    else:
+        x0 = x2
+    i += 1
+
+print("Approximate root by Regula Falsi Method:", x2)
+
+Q2 A)
+def f(x):
+    return 1 + x**3
+
+a = 0
+b = 5
+n = 12
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Simpson's 3/8 Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    xi = a + i * h
+    if i % 3 == 0:
+        result += 2 * f(xi)
+    else:
+        result += 3 * f(xi)
+result *= 3 * h / 8
+
+print("Approximate integral:", result)
+
+Q2 C)
+def f(x, y):
+    return 2 - x*y**2
+
+x0 = 0
+y0 = 1
+h = 0.2
+xn = 1.0
+
+while x0 < xn:
+    y0 = y0 + h * f(x0, y0)
+    x0 = x0 + h
+
+print("Approximate solution at x =", xn, "is", y0)
+        </textarea>
+        
+        <button id="btn-program7" onclick="copyProgram('program7', 'btn-program7')">slip7</button>
+    </div>    
+    
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program8" class="program-code">
+    Q1 A)
+    from math import *
+from numpy import *
+
+# Given data
+x = [-1, 0, 3, 6, 7]
+y = [3, -6, 39, 822, 1611]
+
+n = len(x)
+D = zeros((n, n + 1))
+
+# Prepare divided difference table
+for i in range(n):
+    D[i, 0] = x[i]
+    D[i, 1] = y[i]
+
+for j in range(2, n + 1):
+    for i in range(0, n - j + 1):
+        D[i, j] = (D[i + 1, j - 1] - D[i, j - 1]) / (x[i + j - 1] - x[i])
+
+# Point to interpolate
+xp = 2
+sum = 0
+pp = 1
+for i in range(n):
+    sum += pp * D[0, i + 1]
+    pp = pp * (xp - x[i])
+
+print("Newton's Divided interpolated value at xp =", sum)
+
+Q2 B)
+def f(x, y):
+    return y - x
+
+x0 = 0
+y0 = 2
+h = 0.1
+xn = 0.2
+
+while x0 < xn:
+    k1 = f(x0, y0)
+    y_predict = y0 + h * k1
+    k2 = f(x0 + h, y_predict)
+    y0 = y0 + (h / 2) * (k1 + k2)
+    x0 = x0 + h
+    print("Approximate solution at x =", round(x0, 1), "is", y0)
+
+    Q2 C)
+    def f(x):
+    return 4*x - 3*x**2
+
+a = 0
+b = 1
+n = 10
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Trapezoidal Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    result += 2 * f(a + i * h)
+result *= h / 2
+
+print("Approximate integral:", result)
+        </textarea>
+        
+        <button id="btn-program8" onclick="copyProgram('program8', 'btn-program8')">slip8</button>
+    </div>    
+    
+
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program9" class="program-code">
+    Q1 B)
+    from numpy import *
+
+# Given data
+x = [1, 3, 5, 7, 9]
+y = [8, 12, 21, 36, 62]
+
+n = len(x)
+D = zeros((n, n))
+
+# Fill first column with y values
+D[:, 0] = y
+
+# Compute backward differences
+for j in range(1, n):
+    for i in range(j, n):
+        D[i, j] = D[i, j-1] - D[i-1, j-1]
+
+# Point to interpolate
+xp = 8
+h = x[1] - x[0]
+u = (xp - x[-1]) / h
+
+# Newton's Backward Formula
+sum = D[-1, 0]
+pp = 1
+for i in range(1, n):
+    pp = pp * (u + i - 1) / i
+    sum += pp * D[-1, i]
+
+print("Newton's Backward interpolated value at xp =", sum)
+
+Q2 B)
+def f(x, y):
+    return x**2 + y
+
+x0 = 0
+y0 = 1
+h = 0.05
+xn = 0.1
+
+while x0 < xn:
+    # Predictor
+    y_predict = y0 + h * f(x0, y0)
+    # Corrector
+    y0 = y0 + (h / 2) * (f(x0, y0) + f(x0 + h, y_predict))
+    x0 = x0 + h
+    print("Approximate solution at x =", round(x0, 2), "is", y0)
+
+    Q2 C)
+    def f(x):
+    return 1 / (1 + x)
+
+a = 0
+b = 1
+n = 8
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Simpson's 1/3 Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    xi = a + i * h
+    if i % 2 == 0:
+        result += 2 * f(xi)
+    else:
+        result += 4 * f(xi)
+result *= h / 3
+
+print("Approximate integral:", result)
+        </textarea>
+        
+        <button id="btn-program9" onclick="copyProgram('program9', 'btn-program9')">slip9</button>
+    </div>    
+    
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program10" class="program-code">
+    Q1 B)
+    def f(x):
+    return 2*x**3 - 3*x - 6
+
+def df(x):
+    return 6*x**2 - 3
+
+# Initial guess
+x0 = 1.5
+tol = 1e-5
+max_iter = 15
+i = 0
+
+while i < max_iter:
+    x1 = x0 - f(x0)/df(x0)
+    if abs(x1 - x0) < tol:
+        break
+    x0 = x1
+    i += 1
+
+print("Approximate root by Newton-Raphson Method:", x1)
+
+Q2 B)
+def f(x, y):
+    return x * y
+
+x0 = 1
+y0 = 5
+h = 0.1
+xn = 1.3  # We want y(1.1), y(1.2), y(1.3)
+
+while x0 < xn:
+    y0 = y0 + h * f(x0, y0)
+    x0 = round(x0 + h, 2)
+    print("Approximate solution at x =", x0, "is", y0)
+
+    Q2 C)
+    def f(x):
+    return 1 + 1/(x**4)
+
+a = 0.0001  # Avoid division by zero at x=0
+b = 6
+n = 6
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Simpson's 3/8 Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    xi = a + i * h
+    if i % 3 == 0:
+        result += 2 * f(xi)
+    else:
+        result += 3 * f(xi)
+result *= 3 * h / 8
+
+print("Approximate integral:", result)
+    
+        </textarea>
+        
+        <button id="btn-program10" onclick="copyProgram('program10', 'btn-program10')">slip10</button>
+    </div>    
+    
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program11" class="program-code">
+    Q1 A)
+    from math import *
+from numpy import *
+
+# Given data
+x = [4, 5, 7, 10, 11, 13]
+y = [48, 100, 294, 900, 1210, 2028]
+
+n = len(x)
+D = zeros((n, n + 1))
+
+# Prepare divided difference table
+for i in range(n):
+    D[i, 0] = x[i]
+    D[i, 1] = y[i]
+
+for j in range(2, n + 1):
+    for i in range(0, n - j + 1):
+        D[i, j] = (D[i + 1, j - 1] - D[i, j - 1]) / (x[i + j - 1] - x[i])
+
+# Point to interpolate
+xp = 15
+sum = 0
+pp = 1
+for i in range(n):
+    sum += pp * D[0, i + 1]
+    pp = pp * (xp - x[i])
+
+print("Newton's Divided interpolated value at xp =", sum)
+
+Q2 B)
+def f(x, y):
+    return -2 * x * y**2
+
+x0 = 0
+y0 = 1
+h = 0.2
+xn = 0.4
+
+while x0 < xn:
+    k1 = h * f(x0, y0)
+    k2 = h * f(x0 + h/2, y0 + k1/2)
+    k3 = h * f(x0 + h/2, y0 + k2/2)
+    k4 = h * f(x0 + h, y0 + k3)
+    y0 = y0 + (k1 + 2*k2 + 2*k3 + k4)/6
+    x0 = round(x0 + h, 2)
+    print("Approximate solution at x =", x0, "is", y0)
+
+    Q2 C)
+    def f(x):
+    return 1 + 1/(x**3) if x != 0 else 1e6  # avoid division by zero
+
+a = 0.0001  # small number to avoid division by zero
+b = 6
+n = 6
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Simpson's 1/3 Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    xi = a + i * h
+    if i % 2 == 0:
+        result += 2 * f(xi)
+    else:
+        result += 4 * f(xi)
+result *= h / 3
+
+print("Approximate integral:", result)
+    
+        </textarea>
+        
+        <button id="btn-program11" onclick="copyProgram('program11', 'btn-program11')">slip11</button>
+    </div>    
+    
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program12" class="program-code">
+    Q1 B)
+    from math import *
+from numpy import *
+
+# Given data
+x = [19, 39, 59, 79, 99]
+y = [41, 103, 168, 218, 235]
+n = len(x)
+D = zeros((n, n+1))
+
+# Prepare backward difference table
+for i in range(n):
+    D[i,0] = x[i]
+    D[i,1] = y[i]
+
+for j in range(2, n+1):
+    for i in range(n-1, j-2, -1):
+        D[i,j] = D[i,j-1] - D[i-1,j-1]
+
+# Point to interpolate
+xp = 80
+h = x[1] - x[0]
+u = (xp - x[-1])/h
+
+# Newton's Backward Formula
+sum = 0
+pp = 1
+for i in range(1, n):
+    sum += pp * D[-1, i]
+    pp = pp * (u + (i-1)) / i
+
+print("Newton's Backward interpolated value at xp is =", sum)
+
+Q2 B)
+def f(x, y):
+    return 1 - y
+
+x0 = 0
+y0 = 0
+h = 0.1
+xn = 0.2
+
+while x0 < xn:
+    # Predictor
+    y_predict = y0 + h * f(x0, y0)
+    # Corrector
+    y0 = y0 + (h / 2) * (f(x0, y0) + f(x0 + h, y_predict))
+    x0 = round(x0 + h, 2)
+    print("Approximate solution at x =", x0, "is", y0)
+
+    Q2  C)
+    from math import log
+
+def f(x):
+    return log(x)
+
+a = 4
+b = 5.2
+n = 6
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Simpson's 3/8 Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    xi = a + i * h
+    if i % 3 == 0:
+        result += 2 * f(xi)
+    else:
+        result += 3 * f(xi)
+result *= 3 * h / 8
+
+print("Approximate integral:", result)
+        </textarea>
+        
+        <button id="btn-program12" onclick="copyProgram('program12', 'btn-program12')">slip12</button>
+    </div>    
+    
+
+
+    <div class="program-section">
+        <h2 class="program-title"></h2>
+        
+        <textarea id="program13" class="program-code">
+    Q1 A)
+def f(x):
+return x*3 - 2*x*2 - 4
+
+def df(x):
+return 3*x**2 - 4*x
+
+# Initial guess
+x0 = 2.5  # Starting somewhere in [2,3]
+tol = 1e-5
+max_iter = 20
+i = 0
+
+while i < max_iter:
+x1 = x0 - f(x0)/df(x0)
+if abs(x1 - x0) < tol:
+    break
+x0 = x1
+i += 1
+
+print("Approximate root by Newton-Raphson Method:", x1)
+
+Q2 B)
+def f(x, y):
+    return x + y**2
+
+x0 = 1
+y0 = 1
+h = 0.1
+xn = 1.2
+
+while x0 < xn:
+    k1 = f(x0, y0)
+    y_predict = y0 + h * k1
+    k2 = f(x0 + h, y_predict)
+    y0 = y0 + (h / 2) * (k1 + k2)
+    x0 = round(x0 + h, 2)
+    print("Approximate solution at x =", x0, "is", y0)
+    
+Q2 C)
+def f(x):
+    return x**2 + 2*x + 9
+
+a = 0
+b = 4
+n = 8
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Trapezoidal Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    result += 2 * f(a + i * h)
+result *= h / 2
+
+print("Approximate integral:", result)      
+        </textarea>     
+<button id="btn-program13" onclick="copyProgram('program13', 'btn-program13')">slip13</button>
+</div>      
+
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program14" class="program-code">
+Q1  A)
+def f(x):
+    return x**3 - 5*x + 1
+
+a = 2
+b = 3
+tol = 0.0001
+max_iter = 25
+i = 0
+
+while i < max_iter:
+    c = (a + b) / 2
+    # Relative error
+    if abs(b - a)/2 < tol:
+        break
+    if f(a) * f(c) < 0:
+        b = c
+    else:
+        a = c
+    i += 1
+
+print("Approximate root by Bisection Method:", c)
+
+Q2 B)
+def f(x, y):
+    return (y - x)/(y + x)
+
+x0 = 0
+y0 = 1
+h = 0.1
+xn = 0.5
+
+while x0 < xn:
+    y0 = y0 + h * f(x0, y0)
+    x0 = round(x0 + h, 2)
+    print("Approximate solution at x =", x0, "is", y0)
+
+Q2 C)
+def f(x):
+    return 5 + 1/(2*x) if x != 0 else 0  # Avoid division by zero at x=0
+
+a = -2
+b = 2
+n = 8
+h = (b - a) / n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n + 1):
+    xi = a + i * h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Simpson's 1/3 Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    xi = a + i * h
+    if i % 2 == 0:
+        result += 2 * f(xi)
+    else:
+        result += 4 * f(xi)
+result *= h / 3
+
+print("Approximate integral:", result)    
+    </textarea>
+    
+    <button id="btn-program14" onclick="copyProgram('program14', 'btn-program14')">slip14</button>
+</div>    
+
+
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program15" class="program-code">
+Q1 B)
+from math import *
+from numpy import *
+
+# Given data
+x = [40, 45, 50, 55, 60, 65]
+y = [210, 253, 307, 381, 413, 492]
+n = len(x)
+D = zeros((n, n+1))
+
+# Create forward difference table
+for i in range(n):
+    D[i,0] = x[i]
+    D[i,1] = y[i]
+
+for j in range(2, n+1):
+    for i in range(0, n-j+1):
+        D[i,j] = D[i+1,j-1] - D[i,j-1]
+
+print("Forward difference table:")
+print(D)
+
+# Interpolation point
+xp = 48
+h = x[1] - x[0]
+u = (xp - x[0]) / h
+
+# Newton's Forward Formula
+sum = 0
+pp = 1
+for i in range(1, n):
+    sum += pp * D[0,i]
+    pp = pp * (u - (i-1)) / i
+
+print("Newton's Forward interpolated value at xp is:", sum)
+
+Q2 B)
+def f(x, y):
+    return 1 + y/x
+
+x0 = 3
+y0 = 2
+h = 0.1
+xn = 3.2
+
+while x0 < xn:
+    # Predictor
+    y_predict = y0 + h * f(x0, y0)
+    # Corrector
+    y0 = y0 + (h / 2) * (f(x0, y0) + f(x0 + h, y_predict))
+    x0 = round(x0 + h, 2)
+    print("Approximate solution at x =", x0, "is", y0)
+
+Q2 C)
+def f(x):
+ return 5 + x/(2*x) if x != 0 else 5.5  
+a = -2
+b = 2
+n = 8
+h = (b - a)/n
+
+# Print xi and yi
+print("i\txi\tyi")
+for i in range(n+1):
+    xi = a + i*h
+    yi = f(xi)
+    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+
+# Trapezoidal Rule
+result = f(a) + f(b)
+for i in range(1, n):
+    result += 2 * f(a + i*h)
+result *= h / 2
+
+print("Approximate integral:", result)    
+
+    </textarea>
+    
+    <button id="btn-program15" onclick="copyProgram('program15', 'btn-program15')">slip15</button>
+</div>    
+
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program16" class="program-code">
+Q1 A)
+from math import *
+
+# Define the function
+def f(x):
+    return x*3 + 2*x*2 + 10*x - 20
+
+# Define the derivative of the function
+def df(x):
+    return 3*x**2 + 4*x + 10
+
+# Initial guess
+x0 = 1.5
+
+# Tolerance and max iterations
+tol = 1e-5
+max_iter = 20
+
+# Newton-Raphson iteration
+for i in range(max_iter):
+    x1 = x0 - f(x0)/df(x0)
+    if abs((x1 - x0)/x1) < tol:
+        break
+    x0 = x1
+
+print("Approximate root by Newton-Raphson Method:", x1)
+print("Number of iterations:", i+1)
+
+Q2 B)
+def f(x, y):
+    return 3 * x*2 * y*2
+
+x0 = 0
+y0 = 2
+h = 0.2
+xn = 0.4
+
+while x0 < xn:
+    k1 = h * f(x0, y0)
+    k2 = h * f(x0 + h/2, y0 + k1/2)
+    k3 = h * f(x0 + h/2, y0 + k2/2)
+    k4 = h * f(x0 + h, y0 + k3)
+    y0 = y0 + (k1 + 2*k2 + 2*k3 + k4)/6
+    x0 = x0 + h
+    print("Approximate solution at x =", round(x0, 1), "is", y0)
+   
+Q2 C)
+def f(x):
+    return 3*x**2 + 2
+
+a = 0
+b = 12
+n = 12  # must be multiple of 3
+
+if n % 3 != 0:
+    print("n must be divisible by 3 for Simpson's 3/8 rule")
+else:
+    h = (b - a) / n
+    x = [a + i*h for i in range(n+1)]
+    y = [f(xi) for xi in x]
+
+    print(" i\t xi\t\t yi")
+    for i in range(n+1):
+        print(f" {i}\t {x[i]:.4f}\t {y[i]:.4f}")
+
+    result = y[0] + y[-1]
+    for i in range(1, n):
+        if i % 3 == 0:
+            result += 2 * y[i]
+        else:
+            result += 3 * y[i]
+
+    result *= (3 * h) / 8
+    print("\nApproximate integral:", result)
+
+    </textarea>
+    
+    <button id="btn-program16" onclick="copyProgram('program16', 'btn-program16')">slip16</button>
+</div>    
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program17" class="program-code">
+Q1 A)
+def f(x):
+    return x*3 + x*2 - 1
+
+x0 = 0
+x1 = 1
+tol = 0.00001
+count = 0
+
+while True:
+    x2 = (x0 * f(x1) - x1 * f(x0)) / (f(x1) - f(x0))
+    count += 1
+    if abs((x1 - x0)/x2) < tol or count >= 20:
+        break
+    elif f(x0) * f(x2) < 0:
+        x1 = x2
+    else:
+        x0 = x2
+
+print("Approximate root by Regula Falsi Method:", x2)
+print("Number of iterations:", count)
+
+Q2 B)
+def f(x, y):
+    return (x*2 + y*2) / x
+
+x0 = 1
+y0 = 2
+h = 0.1
+xn = 1.2
+
+while x0 < xn:
+    k1 = h * f(x0, y0)
+    k2 = h * f(x0 + h, y0 + k1)
+    y0 = y0 + (k1 + k2) / 2
+    x0 = x0 + h
+    print("Approximate solution at x =", round(x0, 1), "is", y0)
+
+Q2 C)
+from math import sqrt
+
+def f(x):
+    return sqrt(1 - x**2)
+
+a = 0
+b = 0.5
+n = 5
+h = (b - a) / n
+
+# Print xi and yi values
+print(" i\t xi\t\t yi")
+for i in range(n+1):
+    xi = a + i*h
+    yi = f(xi)
+    print(f" {i}\t {xi:.4f}\t {yi:.4f}")
+
+# Trapezoidal rule calculation
+result = f(a) + f(b)
+for i in range(1, n):
+    result += 2 * f(a + i*h)
+result *= h / 2
+
+print("\nApproximate integral:", result)    
+
+    </textarea>
+    
+    <button id="btn-program17" onclick="copyProgram('program17', 'btn-program17')">slip17</button>
+</div>    
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program18" class="program-code">
+Q1 A)
+def f(x):
+    return x*3 + 7*x*2 + 9
+
+def df(x):
+    return 3*x**2 + 14*x
+
+# Initial guess (choose a value in [-8, -7])
+x0 = -7.5
+tol = 1e-5
+max_iter = 20
+count = 0
+
+while count < max_iter:
+    x1 = x0 - f(x0)/df(x0)
+    count += 1
+    if abs((x1 - x0)/x1) < tol:
+        break
+    x0 = x1
+
+print("Approximate root by Newton-Raphson Method:", x1)
+print("Number of iterations:", count)
+
+Q2 B)
+def f(x, y):
+    return x*2 * y*2
+
+x0 = 0
+y0 = 2
+h = 0.2
+xn = 0.4
+
+while x0 < xn:
+    k1 = h * f(x0, y0)
+    k2 = h * f(x0 + h/2, y0 + k1/2)
+    k3 = h * f(x0 + h/2, y0 + k2/2)
+    k4 = h * f(x0 + h, y0 + k3)
+    y0 = y0 + (k1 + 2*k2 + 2*k3 + k4)/6
+    x0 = x0 + h
+    print("Approximate solution at x =", round(x0, 1), "is", y0)
+
+Q2 C)
+from math import sqrt
+
+def f(x):
+    return 3*sqrt(x) + 2
+
+a = 0
+b = 6
+n = 12  # Number of intervals; must be multiple of 3
+
+if n % 3 != 0:
+    print("n must be divisible by 3 for Simpson's 3/8 rule")
+else:
+    h = (b - a) / n
+    x = [a + i*h for i in range(n+1)]
+    y = [f(xi) for xi in x]
+
+    result = y[0] + y[-1]
+    for i in range(1, n):
+        if i % 3 == 0:
+            result += 2 * y[i]
+        else:
+            result += 3 * y[i]
+
+    result *= (3 * h) / 8
+    print("Approximate integral:", result)    
+
+    </textarea>
+    
+    <button id="btn-program18" onclick="copyProgram('program18', 'btn-program18')">slip18</button>
+</div>    
+
+
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program19" class="program-code">
+    Q1 B)
+    from numpy import zeros
+
+x = [25, 30, 35, 40, 45]
+y = [50, 67, 84, 94, 101]
+n = len(x)
+
+# Create forward difference table
+D = zeros((n, n+1))
+for i in range(n):
+    D[i,0] = x[i]
+    D[i,1] = y[i]
+
+for j in range(2, n+1):
+    for i in range(0, n-j+1):
+        D[i,j] = D[i+1,j-1] - D[i,j-1]
+
+# Calculate interpolated value at xp=27
+xp = 27
+h = x[1] - x[0]
+u = (xp - x[0]) / h
+sum = D[0,1]
+pp = 1
+
+for i in range(1, n):
+    pp = pp * (u - (i-1)) / i
+    sum = sum + pp * D[0,i+1]
+
+print("Newton's Forward interpolated value at xp is:", sum)
+
+Q2 C)
+def f(x):
+return 5*x**2 + 3*x + 2
+
+a = 5
+b = 11
+n = 6  # must be even
+h = (b - a) / n
+
+# Print xi and yi values
+print(" i\t xi\t\t yi")
+x = a
+for i in range(n+1):
+yi = f(x)
+print(f" {i}\t {x:.4f}\t {yi:.4f}")
+x += h
+
+# Simpson's 1/3 rule calculation
+result = f(a) + f(b)
+for i in range(1, n):
+xi = a + i*h
+if i % 2 == 0:
+    result += 2 * f(xi)
+else:
+    result += 4 * f(xi)
+
+result *= h / 3
+print("\nApproximate integral:", result)
+          
+Q2 B)
+def f(x, y):
+    return (y + x) / (y - x)
+
+x0 = 0
+y0 = 2
+h = 0.2
+xn = 0.4
+
+while x0 < xn:
+    k1 = f(x0, y0)
+    y_predict = y0 + h * k1
+    k2 = f(x0 + h, y_predict)
+    y0 = y0 + (h / 2) * (k1 + k2)
+    x0 = x0 + h
+    print("Approximate solution at x =", round(x0, 1), "is", y0)
+
+    </textarea>
+    
+    <button id="btn-program19" onclick="copyProgram('program19', 'btn-program19')">slip19</button>
+</div>    
+
+<div class="program-section">
+    <h2 class="program-title"></h2>
+    
+    <textarea id="program20" class="program-code">
+Q1 A)
+def f(x):
+    return x**3 - x - 1
+
+x0 = 1
+x1 = 2
+tol = 0.00001
+max_iter = 15
+count = 0
+
+while count < max_iter:
+    x2 = (x0 * f(x1) - x1 * f(x0)) / (f(x1) - f(x0))
+    count += 1
+    if abs((x2 - x0)/x2) < tol:
+        break
+    elif f(x0) * f(x2) < 0:
+        x1 = x2
+    else:
+        x0 = x2
+
+print("Approximate root by Regula-Falsi Method:", x2)
+print("Number of iterations:", count)
+
+Q2 B)
+def f(x, y):
+    return 1 + y
+
+x0 = 0
+y0 = 1.1
+h = 0.1
+xn = 0.2
+
+while x0 < xn:
+    k1 = h * f(x0, y0)
+    k2 = h * f(x0 + h/2, y0 + k1/2)
+    k3 = h * f(x0 + h/2, y0 + k2/2)
+    k4 = h * f(x0 + h, y0 + k3)
+    y0 = y0 + (k1 + 2*k2 + 2*k3 + k4)/6
+    x0 = x0 + h
+    print("Approximate solution at x =", round(x0,1), "is", y0)
+
+ Q2 C)
+ def f(x):
+    return x**3 + 5*x + 7
+
+a = 0
+b = 6
+n = 12  # must be multiple of 3
+
+if n % 3 != 0:
+    print("n must be divisible by 3 for Simpson's 3/8 rule")
+else:
+    h = (b - a) / n
+    x = [a + i*h for i in range(n+1)]
+    y = [f(xi) for xi in x]
+
+    print(" i\t xi\t\t yi")
+    for i in range(n+1):
+        print(f" {i}\t {x[i]:.4f}\t {y[i]:.4f}")
+
+    result = y[0] + y[-1]
+    for i in range(1, n):
+        if i % 3 == 0:
+            result += 2 * y[i]
+        else:
+            result += 3 * y[i]
+
+    result *= (3 * h) / 8
+    print("\nApproximate integral:", result)
+    </textarea>
+    
+    <button id="btn-program20" onclick="copyProgram('program20', 'btn-program20')">slip20</button>
+</div>    
+    </div>
+<script>
+    function copyProgram(elementId, buttonId) {
+        // प्रोग्राम कोड असलेला घटक (element) मिळवा
+        const elementToCopy = document.getElementById(elementId);
+        const button = document.getElementById(buttonId);
+        
+        // <textarea> मधून टेक्स्ट मिळवा
+        const textToCopy = elementToCopy.value; 
+
+        // navigator.clipboard API वापरून टेक्स्ट कॉपी करा
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                // बटणचा मजकूर तात्पुरता बदलणे (Success feedback)
+                const originalText = button.innerText;
+                button.innerText = 'copied';'calendar'
+    
+                button.classList.add('copied');
+                
+                // 1.5 सेकंदांनंतर बटण पूर्ववत करा
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.classList.remove('copied');
+                }, 1500);
+
+            })
+            .catch(err => {
+                console.error('टेक्स्ट कॉपी करताना त्रुटी आली: ', err);
+                alert('कॉपी करण्यात अपयश आले. ब्राउझर सेटिंग्ज तपासा किंवा मॅन्युअली कॉपी करा.');
+            });
+    }
+</script>
+</body>
+</html>
