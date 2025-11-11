@@ -242,11 +242,76 @@ print(f"Maximum value found at x = {max_x}, f(x) = {max_value}")
     Q1 
             #hangman
             import random
-            words=['ghost','devil','
-    
+            words=['ghost','devil','python','iblis','lilith','programming','science']
+            word=random.choice(words)
+            guessed_letters=[]
+            attempts=10
 
+            print("welcoome to hangman !")
+            print("__"* len(word))
 
-    
+            while attempts>0:
+                 guess=input("\guess a letter").lower()
+
+            if len(guess)!=1 or not guess.isalpha():
+               print("please enter a single alpahabet letter")
+               continue
+
+            if guess in guessed_letters:
+               print("you already guessed that letter ")
+               continue
+            guessed_letters.append(guess)
+
+            if guess in word:
+                print("nice guess")
+            else:
+                attempts-=1
+                print("wrong guess now you have only attempts ",attempts)
+
+            display_word=""
+            for letter in word:
+                 if letter in guessed_letters:
+                     display_word +=letter + ""
+                 else:
+                      display_word += "__"
+            print(display_word.strip())
+
+            if "__" not in display_word:
+                print("\n u guessed correct word",word)
+                break
+    else:
+            print("\n sorry no more attempts the word was ",word)
+
+     Q2. #bfs
+            from collections import deque
+            def bfs(graph,root,goal):
+               visited=set()
+               queue=deque([root])
+               visited.add(root)
+
+            while queue:
+                vertex=queue.popleft()
+                print(vertex,end=" ")
+                if vertex==goal:
+                   print("goal found")
+                   return
+
+                for neighbour in graph.get(vertex,[]):
+                     if neighbour not in visited:
+                         visited.add(neighbour)
+                          queue.append(neighbour)
+
+            graph={
+            '1':['2','3'],
+            '2':['4','5'],
+            '3':['6','7'],
+            '4':['8'],
+            '5':['8'],
+            '6':['8'],
+            '7':['8'],
+            '8':[],
+    }
+            bfs(graph,'2','8')
         </textarea>
         
         <button id="btn-program4" onclick="copyProgram('program4', 'btn-program4')">slip4</button>
@@ -258,46 +323,48 @@ print(f"Maximum value found at x = {max_x}, f(x) = {max_value}")
         <textarea id="program5" class="program-code">
          Q1 import nltk
             from nltk.stem import WordNetLemmatizer
-            wordnet_lemmatizer = WordNetLemmatizer()
-            text = "studies studying cries cry "
-            nltk.download('punkt')
+            from nltk.corpus import wordnet
             nltk.download('wordnet')
-            tokenization = nltk.word_tokenize(text)
-            for w in tokenization:
-            print("Lemma for {} is {}".format(w, 
-            wordnet_lemmatizer.lemmatize(w)))
-        
-        Q2 def isEmpty(s):
-            return s==[]
-           def addq(s,ele):
-            s.insert(0,ele)
-           def remove(s):
-            return s.pop()
-           def bfs(start,nodes):
-            q=[]
-            visited=[]
-            for i in range(nodes+1):
-            visited.append(0)
-            addq(q,start)
-            while not(isEmpty(q)):
-            node = remove(q)
-            visited[node]=1
-            print node
-            for x,y in mydict.items():
-            if x==node :
-            for v in y:
-            if visited[v]==0 :
-            addq(q,v)
-            visited[v]=1
-           nodes = int(raw_input("No of vertices"))
-           print nodes
-           mydict = dict()
-           for i in range (nodes):
-            print "Vertices adjacent to",i+1,":"
-            mydict[i+1]=input()
-           print mydict
-           start=1
-           bfs(start,nodes)
+            nltk.download('omw-1.4')
+            lema=WordNetLemmatizer()
+            words=["swimming","better","running","studies","leaves","am","car"]
+            print("lemmatizaion result")
+            for word in words:
+                 print(f"{word}--->{lema.lemmatize(word)}")
+            print("\n Lemmatization with POS tags")
+            for word in ["swimming","better","running","leaves"]:
+                print(f"{word} (verb)---->(lema.lemmatize(word,pos='v')}")
+            
+        Q2 #bfs
+            from collections import deque
+            def bfs(graph,root,goal):
+               visited=set()
+               queue=deque([root])
+               visited.add(root)
+
+            while queue:
+                vertex=queue.popleft()
+                print(vertex,end=" ")
+                if vertex==goal:
+                   print("goal found")
+                   return
+
+                for neighbour in graph.get(vertex,[]):
+                     if neighbour not in visited:
+                         visited.add(neighbour)
+                          queue.append(neighbour)
+
+            graph={
+            '1':['2','3'],
+            '2':['4','5'],
+            '3':['6','7'],
+            '4':['8'],
+            '5':['8'],
+            '6':['8'],
+            '7':['8'],
+            '8':[],
+    }
+            bfs(graph,'2','8')
            
         </textarea>
         
@@ -311,45 +378,50 @@ print(f"Maximum value found at x = {max_x}, f(x) = {max_value}")
         Q1    from nltk.tokenize import sent_tokenize, word_tokenize
             from nltk.corpus import stopwords
             import nltk
+            
             nltk.download('stopwords')
             nltk.download('punkt')
-            data = text = open("input6.txt").read().lower()
-            stopWords = set(stopwords.words('english'))
-            words = word_tokenize(data)
-            wordsFiltered = [w for w in words if w not in stopWords]
-            print(wordsFiltered)
+            nltk.download('punkt_tab')
+
+            paragraph=""" The boy is playing in the garden with his frds . It is a bright and sunny day , and children are happy to be outside """
+            words=word_tokenize(paragraph)
+            stop_word=set(stopwords.words('english'))
+            filtered_words=[word for word in words if word.lower() not in stop_word and word.isalpha()]
+            filtered_paragraph=' '.join(filtered_words)
+            print("original paragraph ",paragraph)
+            print("filtered paragraph without stopwords ",filtered_paragraph)
          
-        Q2  def isEmpty(s):
-        return s==[]
-       def addq(s,ele):
-        s.insert(0,ele)
-       def remove(s):
-        return s.pop()
-       def bfs(start,nodes):
-        q=[]
-        visited=[]
-        for i in range(nodes+1):
-        visited.append(0)
-        addq(q,start)
-        while not(isEmpty(q)):
-        node = remove(q)
-        visited[node]=1
-        print node
-        for x,y in mydict.items():
-        if x==node :
-        for v in y:
-        if visited[v]==0 :
-        addq(q,v)
-        visited[v]=1
-       nodes = int(raw_input("No of vertices"))
-       print nodes
-       mydict = dict()
-       for i in range (nodes):
-        print "Vertices adjacent to",i+1,":"
-        mydict[i+1]=input()
-       print mydict
-       start=1
-       bfs(start,nodes)
+        Q2  #bfs
+            from collections import deque
+            def bfs(graph,root,goal):
+               visited=set()
+               queue=deque([root])
+               visited.add(root)
+
+            while queue:
+                vertex=queue.popleft()
+                print(vertex,end=" ")
+                if vertex==goal:
+                   print("goal found")
+                   return
+
+                for neighbour in graph.get(vertex,[]):
+                     if neighbour not in visited:
+                         visited.add(neighbour)
+                          queue.append(neighbour)
+
+            graph={
+            '1':['2','3'],
+            '2':['4','5'],
+            '3':['6','7'],
+            '4':['8'],
+            '5':['8'],
+            '6':['8'],
+            '7':['8'],
+            '8':[],
+    }
+            bfs(graph,'2','8')
+        
            
         </textarea>
         
@@ -418,62 +490,41 @@ from easyAI import AI_Player, Negamax
  TicTacToe([Human_Player(), AI_Player(ai_algo)]).play()
 
 Slip 7-2 : Q.2) Write a Python program to implement Simple Chatbot. [ 20Marks ]
-name = "bot286"
-monsoon = "rainy"
-mood = "Smiley"
-resp = {
-"hi":[
-"hello",
-"hey"
-],
-"what's your name?": [
-"They call me {0}".format(name),
-"I usually go by {0}".format(name),
-"My name is the {0}".format(name) ],
-"what's today's weather?": [
-"The weather is {0}".format(monsoon),
-"It's {0} today".format(monsoon)],
-"how are you?": [
-"I am feeling {0}".format(mood),
-"{0}! How about you?".format(mood),
-"I am {0}! How about yourself?".format(mood), ],
-"hello": [
-"Hey! hi",
-"hello buddy?",
-],
-"bye": [
-"bye c u soon"]
-}
-import random
-def res(message):
-if message in resp:
- bot286_message = random.choice(resp[message])
-else:
- bot286_message = random.choice(resp["default"])
-return bot286_message
-def relate(xtext):
-if "name" in xtext:
- ytext = "what's your name?"
-elif "hello" in xtext:
-ytext = "hi"
-elif "weather" in xtext:
- ytext = "what's today's weather?"
-elif "how are" in xtext:
- ytext = "how are you?"
-else:
- ytext = "bye"
-return ytext
-def send_message(message):
-#print((message))
- response = res(message)
-print((response))
-while(1):
- my_input = input()
- my_input = my_input.lower()
- related_text = relate(my_input)
- send_message(related_text)
-if my_input == "quit":
-break
+
+
+def chatbot_response(user_input):
+    user_input = user_input.lower()
+
+    if "hello" in user_input or "hi" in user_input:
+        return "Hello! How can I help you?"
+    elif "how are you" in user_input:
+        return "I'm just a chatbot, but I'm doing great! How about you?"
+    elif "your name" in user_input:
+        return "I'm a simple Python chatbot."
+    elif "time" in user_input:
+        from datetime import datetime
+        return "The current time is " + datetime.now().strftime("%H:%M:%S")
+    elif "bye" in user_input:
+        return "Goodbye! Have a nice day!"
+    else:
+        return "I'm not sure I understand what you mean."
+
+
+def main():
+    print("🤖 Simple Chatbot")
+    print("Type 'bye' to exit.\n")
+
+    while True:
+        user_input = input("You: ")
+        if "bye" in user_input.lower():
+            print("Chatbot: Goodbye! 👋")
+            break
+        response = chatbot_response(user_input)
+        print("Chatbot:", response)
+
+
+if _name_ == "_main_":
+    main()
         </textarea>
         
         <button id="btn-program7" onclick="copyProgram('program7', 'btn-program7')">slip7</button>
@@ -1440,58 +1491,47 @@ else:
     <h2 class="program-title"></h2>
     
     <textarea id="program19" class="program-code">
-    Q1    import random
-        words_list = ['python', 'java', 'javascript', 'hangman', 'computer', 
-        'programming', 'developer', 'algorithm', 'data']
-        def display_word(word, guessed_letters):
-            display = ''
-            for letter in word:
-                if letter in guessed_letters:
-                    display += letter + ' '
-                else:
-                    display += '_ '
-            return display.strip()
-        def hangman():
-            word = random.choice(words_list).lower()
-            guessed_letters = set()
-            max_attempts = 6
-            attempts_left = max_attempts
-            word_set = set(word)
-            
-            print("Welcome to Hangman!")
-            print(f"Try to guess the word. You have {max_attempts} attempts.")
-            while attempts_left > 0:
-                print("\nWord: " + display_word(word, guessed_letters))
-                print(f"Guessed Letters: {', '.join(sorted(guessed_letters))}")
-                print(f"Attempts Left: {attempts_left}")
-                
-                guess = input("Guess a letter: ").lower()
-                
-                if len(guess) != 1 or not guess.isalpha():
-                    print("Please enter a single alphabet.")
-                    continue
-                
-                if guess in guessed_letters:
-                    print("You already guessed that letter. Try again.")
-                    continue
-                
-                guessed_letters.add(guess)
-                
-                if guess in word_set:
-                    print(f"Good job! {guess} is in the word.")
-                else:
-                    attempts_left -= 1
-                    print(f"Oops! {guess} is not in the word.")
-                
-                if word_set.issubset(guessed_letters):
-                    print(f"\nCongratulations! You've guessed the word: 
-        {word}")
-                    break
-                
-            if attempts_left == 0:
-                print(f"\nGame Over! The word was: {word}")
-        if __name__ == "__main__":
-            hangman()
+    Q1    #hangman
+            import random
+            words=['ghost','devil','python','iblis','lilith','programming','science']
+            word=random.choice(words)
+            guessed_letters=[]
+            attempts=10
+
+            print("welcoome to hangman !")
+            print("__"* len(word))
+
+            while attempts>0:
+                 guess=input("\guess a letter").lower()
+
+            if len(guess)!=1 or not guess.isalpha():
+               print("please enter a single alpahabet letter")
+               continue
+
+            if guess in guessed_letters:
+               print("you already guessed that letter ")
+               continue
+            guessed_letters.append(guess)
+
+            if guess in word:
+                print("nice guess")
+            else:
+                attempts-=1
+                print("wrong guess now you have only attempts ",attempts)
+
+            display_word=""
+            for letter in word:
+                 if letter in guessed_letters:
+                     display_word +=letter + ""
+                 else:
+                      display_word += "__"
+            print(display_word.strip())
+
+            if "__" not in display_word:
+                print("\n u guessed correct word",word)
+                break
+    else:
+            print("\n sorry no more attempts the word was ",word)
 
     </textarea>
     
