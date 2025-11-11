@@ -88,76 +88,56 @@
         <h2 class="program-title"></h2>
         
         <textarea id="program1" class="program-code">
-        Q1  import random
-            # Define the objective function (you can replace this with your own)
-            def objective_function(x):
-            return -(x**2 + 4*x) #Example: maximize x^2 + 4x (negate for max.)
-            def hill_climbing(max_iterations, step_size):
-             current_solution = random.uniform(-10, 10) # returns random floating
-            number between -10 & 10
-             print(current_solution)
-             current_value = objective_function(current_solution)
-            for _ in range(max_iterations):
-             neighbor = current_solution + random.uniform(-step_size, step_size)
-             neighbor_value = objective_function(neighbor)
-            if neighbor_value>current_value:
-             current_solution = neighbor
-             current_value = neighbor_value
-            return current_solution, current_value
-            if __name__ == "__main__":
-             max_iterations = 1000 # Maximum number of iterations
-             step_size = 0.1 # Step size for making small changes
-             final_solution, final_value = hill_climbing(max_iterations, 
-            step_size)
-            print("Final Solution:", final_solution)
-            print("Objective Value at Final Solution:", final_value)
+        Q1  
+            import numpy as np
+def objective_function(x):
+    return -x**2 + 4*x
+def hill_climbing(initial_x, step_size, iterations):
+    current_x = initial_x
+    for _ in range(iterations):
+        current_value = objective_function(current_x)
+        next_x = current_x + step_size
+        next_value = objective_function(next_x)
+    if next_value > current_value:
+        current_x = next_x
+    return current_x, objective_function(current_x)
+# Example usage
+initial_x = 0.0
+step_size = 0.1
+iterations = 50
+max_x, max_value = hill_climbing(initial_x, step_size, iterations)
+print(f"Maximum value found at x = {max_x}, f(x) = {max_value}")
+           
+            
 
-        Q2 def isEmpty(s):
-        return s==[]
-       def isFull(s):
-        return len(s)==5
-       def push(s,ele):
-        s.append(ele)
-       
-       def pop(s):
-        return s.pop()
-       def peep(s):
-        return s[-1]
-       def dfs(start,nodes):
-        s=[]
-        visited=[]
-        for i in range(nodes+1):
-        visited.append(0)
-        push(s,start)
-        print start
-        while (not isEmpty(s)) :
-        node = peep(s)
-        visited[node]=1
-        for x,y in mydict.items():
-        if x==node :
-        i=0
-        for v in y:
-        i+=1
-        if visited[v]==0 :
-        break
-        if (i==len(y)):
-        if isEmpty(s):
-        break
-        node=pop(s)
-        if visited[v]==0:
-        push(s,v)
-        print v
-        visited[v]=1
-       nodes = int(raw_input("No of vertices"))
-       print nodes
-       mydict = dict()
-       for i in range (nodes):
-        print "Vertices adjacent to",i+1,":"
-        mydict[i+1]=input()
-       print mydict
-       start=1
-       dfs(start,nodes)
-       -----------------------------------------------------------------    
+        Q2 #dfs
+            graph={
+            '1':['2','3'],
+            '2':['4','5'],
+            '3':['6','7'],
+            '4':['8'],
+            '5':['8'],
+            '6':['8'],
+            '7':['8'],
+            '8':[],
+      }
+         visited=set()
+            found=False
+            def dfs(visited,graph,initial_node,goal_node):
+              global found
+              if found:
+                  return
+            if initial_node not in visited:
+                      print(initial_node)
+                      visited.add(initial_node)
+                      if initial_node==goal_node:
+                             print("goal node found")
+                             found=True
+                             return
+                      for neighbour in graph[initial_node]:
+                            dfs(visited,graph,neighbour,goal_node)
+            dfs(visited,graph,'1','8')
+            
         </textarea>
         
         <button id="btn-program1" onclick="copyProgram('program1', 'btn-program1')">slip1</button>
@@ -167,59 +147,43 @@
         <h2 class="program-title"></h2>
         
         <textarea id="program2" class="program-code">
-     Q1 # Import the 'calendar' module
+     Q1 
      import calendar
-     # Prompt the user to input the year and month
      y = int(input("Input the year : "))
      m = int(input("Input the month : "))
-     # Print the calendar for the specified year and month
+     print("your calendar:")
      print(calendar.month(y, m))
      
-     Q2 def isEmpty(s):
-     return s==[]
-    def isFull(s):
-     return len(s)==5
-    def push(s,ele):
-     s.append(ele)
-    
-    def pop(s):
-     return s.pop()
-    def peep(s):
-     return s[-1]
-    def dfs(start,nodes):
-     s=[]
-     visited=[]
-     for i in range(nodes+1):
-     visited.append(0)
-     push(s,start)
-     print start
-     while (not isEmpty(s)) :
-     node = peep(s)
-     visited[node]=1
-     for x,y in mydict.items():
-     if x==node :
-     i=0
-     for v in y:
-     i+=1
-     if visited[v]==0 :
-     break
-     if (i==len(y)):
-     if isEmpty(s):
-     break
-     node=pop(s)
-     if visited[v]==0:
-     push(s,v)
-     print v
-     visited[v]=1
-    nodes = int(raw_input("No of vertices"))
-    print nodes
-    mydict = dict()
-    for i in range (nodes):
-     print "Vertices adjacent to",i+1,":"
-     mydict[i+1]=input()
-    print mydict
-    start=1
-    dfs(start,nodes)
+     Q2 
+            #dfs
+            graph={
+            '1':['2','3'],
+            '2':['4','5'],
+            '3':['6','7'],
+            '4':['8'],
+            '5':['8'],
+            '6':['8'],
+            '7':['8'],
+            '8':[],
+      }
+         visited=set()
+            found=False
+            def dfs(visited,graph,initial_node,goal_node):
+              global found
+              if found:
+                  return
+            if initial_node not in visited:
+                      print(initial_node)
+                      visited.add(initial_node)
+                      if initial_node==goal_node:
+                             print("goal node found")
+                             found=True
+                             return
+                      for neighbour in graph[initial_node]:
+                            dfs(visited,graph,neighbour,goal_node)
+            dfs(visited,graph,'1','8')
+            
+            
         </textarea>
         
         <button id="btn-program2" onclick="copyProgram('program2', 'btn-program2')">slip2</button>
@@ -229,64 +193,43 @@
         <h2 class="program-title"></h2>
         
         <textarea id="program3" class="program-code">
-     Q1 # define punctuation
-     punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
-     my_str = "Hello!!!, he said ---and went."
-     # To take input from the user
-     # my_str = input("Enter a string: ")
-     # remove punctuation from the string
-     no_punct = ""
-     for char in my_str:
-     if char not in punctuations:
-     no_punct = no_punct + char
-     print(no_punct)
+     Q.1
+            import string
+            text=input("enter string")
+            puncfree="".join(char for char in text if char not in string.punctuation)
+            print("string without punctuation")
+            print(puncfree)
      
-     
-     Q2 def isEmpty(s):
-     return s==[]
-    def isFull(s):
-     return len(s)==5
-    def push(s,ele):
-     s.append(ele)
-    
-    def pop(s):
-     return s.pop()
-    def peep(s):
-     return s[-1]
-    def dfs(start,nodes):
-     s=[]
-     visited=[]
-     for i in range(nodes+1):
-     visited.append(0)
-     push(s,start)
-     print start
-     while (not isEmpty(s)) :
-     node = peep(s)
-     visited[node]=1
-     for x,y in mydict.items():
-     if x==node :
-     i=0
-     for v in y:
-     i+=1
-     if visited[v]==0 :
-     break
-     if (i==len(y)):
-     if isEmpty(s):
-     break
-     node=pop(s)
-     if visited[v]==0:
-     push(s,v)
-     print v
-     visited[v]=1
-    nodes = int(raw_input("No of vertices"))
-    print nodes
-    mydict = dict()
-    for i in range (nodes):
-     print "Vertices adjacent to",i+1,":"
-     mydict[i+1]=input()
-    print mydict
-    start=1
-    dfs(start,nodes)
+     Q2 
+        #dfs
+            graph={
+            '1':['2','3'],
+            '2':['4','5'],
+            '3':['6','7'],
+            '4':['8'],
+            '5':['8'],
+            '6':['8'],
+            '7':['8'],
+            '8':[],
+      }
+         visited=set()
+            found=False
+            def dfs(visited,graph,initial_node,goal_node):
+              global found
+              if found:
+                  return
+            if initial_node not in visited:
+                      print(initial_node)
+                      visited.add(initial_node)
+                      if initial_node==goal_node:
+                             print("goal node found")
+                             found=True
+                             return
+                      for neighbour in graph[initial_node]:
+                            dfs(visited,graph,neighbour,goal_node)
+            dfs(visited,graph,'1','8')
+            
+       
         </textarea>
         
         <button id="btn-program3" onclick="copyProgram('program3', 'btn-program3')">slip3</button>
@@ -296,62 +239,13 @@
         <h2 class="program-title"></h2>
         
         <textarea id="program4" class="program-code">
-    Q1 word = ("secret") #here we set the secret. You can select any 
-    word to play with.
-    guesses = '' #creates an variable with an empty value
-    turns = 10 #determine the number of turns
-    while turns > 0: #check if the turns are more than zero
-     failed = 0 # make a counter that starts with zero
-    for char in word: # for every character in secret_word
-    if char in guesses: # see if the character is in players guess
-     print (char,end=""), # print then out the character
-    else:
-     print ("_",end=""), # if not found, print a dash
-     failed += 1 # and increase failed counter with one
-    if failed == 0: # if failed = zero print You Won
-     print ("You won")
-    break # exit the script
-     guess = input("guess a character:") # ask the user go guess a char
-     guesses += guess # set the players guess to guesses
-    if guess not in word: # if the guess is not found in secret word
+    Q1 
+            #hangman
+            import random
+            words=['ghost','devil','
     
-     turns -= 1 # turns counter decreases with 1 
-     print ("Wrong") # print wrong
-     print ("You have", + turns, 'more guesses' ) # remaining turn
-    if turns == 0: # if the turns are equal to zero
-     print ("You Lose" ) # print "You Lose"
 
-     Q2 def isEmpty(s):
-     return s==[]
-    def addq(s,ele):
-     s.insert(0,ele)
-    def remove(s):
-     return s.pop()
-    def bfs(start,nodes):
-     q=[]
-     visited=[]
-     for i in range(nodes+1):
-     visited.append(0)
-     addq(q,start)
-     while not(isEmpty(q)):
-     node = remove(q)
-     visited[node]=1
-     print node
-     for x,y in mydict.items():
-     if x==node :
-     for v in y:
-     if visited[v]==0 :
-     addq(q,v)
-     visited[v]=1
-    nodes = int(raw_input("No of vertices"))
-    print nodes
-    mydict = dict()
-    for i in range (nodes):
-     print "Vertices adjacent to",i+1,":"
-     mydict[i+1]=input()
-    print mydict
-    start=1
-    bfs(start,nodes)
+
     
         </textarea>
         
@@ -1032,18 +926,12 @@ from easyAI import AI_Player, Negamax
         <h2 class="program-title"></h2>
         
         <textarea id="program12" class="program-code">
-     Q1  import calendar
-     def generate_calendar(year, month):
-         cal = calendar.monthcalendar(year, month)
-         print(f"Calendar for {calendar.month_name[month]} {year}:\n")
-         print("Mo Tu We Th Fr Sa Su")
-         for week in cal:
-             week_str = " ".join(str(day) if day != 0 else " " for day in
-     week)
-             print(week_str)
-     year = 2023
-     month = 4 # April
-     generate_calendar(year, month)
+     Q1 
+            import calendar
+     y = int(input("Input the year : "))
+     m = int(input("Input the month : "))
+     print("your calendar:")
+     print(calendar.month(y, m))
 
      Q.2
      def is_safe(board, row, col):
