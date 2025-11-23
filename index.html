@@ -1702,6 +1702,18 @@ print(f"Original String: {input_string}")
 print(f"String without Punctuation: {cleaned_string}")
 
 Q2
+        import itertools
+L = "G O T U".split()
+for p in itertools.permutations("0123456789", 4):
+    m = dict(zip(L, p))
+    if m['G']=='0' or m['T']=='0' or m['O']=='0': 
+        continue
+    GO  = int(m['G']+m['O'])
+    TO = int(m['T']+m['O'])
+    OUT = int(m['O']+m['U']+m['T'])
+    if GO+TO == OUT:
+        print(m)
+        break
 
     </textarea>
     
@@ -1876,6 +1888,18 @@ if __name__ == "__main__":
     tower_of_hanoi(n, 'A', 'C', 'B')
 
 Q2
+        import itertools
+L = "S E N D M O R Y".split()
+for p in itertools.permutations("0123456789", 8):
+    m = dict(zip(L, p))
+    if m['S']=='0' or m['M']=='0': 
+        continue
+    SEND  = int(m['S']+m['E']+m['N']+m['D'])
+    MORE = int(m['M']+m['O']+m['R']+m['E'])
+    MONEY = int(m['M']+m['O']+m['N']+m['E']+m['Y'])
+    if SEND+MORE == MONEY:
+        print(m)
+        break
 
     </textarea>
     
@@ -1895,6 +1919,18 @@ sorted_sentence = sort_sentence(sentence)
 print(sorted_sentence)
 
 Q2
+        import itertools
+L = "C R O S A D N G E".split()
+for p in itertools.permutations("0123456789", 9):
+    m = dict(zip(L, p))
+    if m['C'] == '0' or m['R'] == '0' or m['D'] == '0':
+        continue
+    CROSS  = int(m['C'] + m['R'] + m['O'] + m['S'] + m['S'])
+    ROAD   = int(m['R'] + m['O'] + m['A'] + m['D'])
+    DANGER = int(m['D'] + m['A'] + m['N'] + m['G'] + m['E'] + m['R'])
+    if CROSS + ROAD == DANGER:
+        print(m)
+        break
 
 
     </textarea>
