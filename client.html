@@ -88,76 +88,119 @@
         <h2 class="program-title"></h2>
         
         <textarea id="program1" class="program-code">
-        Q1 A)
-        # Function for the equation f(x) = x^3 - 5x - 9
-        def f(x):
-            return x**3 - 5*x - 9
-        
-        # Regula-Falsi Method
-        a = 2
-        b = 3
-        tol = 1e-5
-        max_iter = 15
-        
-        if f(a) * f(b) > 0:
-            print("Choose different a and b")
-        else:
-            print("Iter\tRoot (c)")
-            for i in range(1, max_iter + 1):
-                c = (a * f(b) - b * f(a)) / (f(b) - f(a))
-                print(i, "\t", round(c, 5))
-        
-                if abs(f(c)) < tol:
-                    print("\nApprox root =", round(c, 5))
-                    break
-        
-                if f(a) * f(c) < 0:
-                    b = c
-                else:
-                    a = c
+       Q1 
+// C program for implementation of selection sort 
+#include <stdio.h> 
 
-        Q2 A)
-        def f(x):
-        return x**2
-    
-    a = 0
-    b = 12
-    n = 12
-    h = (b - a) / n
-    
-    print("i\t x\t\t y=f(x)")
-    for i in range(n + 1):
-        x = a + i * h
-        y = f(x)
-        print(i, "\t", round(x, 2), "\t", round(y, 2))
-    
-    result = f(a) + f(b)
-    for i in range(1, n):
-        result += 2 * f(a + i * h)
-    result *= h / 2
-    
-    print("\nApproximate integral:", result)
+void swap(int *xp, int *yp) 
+{ 
+	int temp = *xp; 
+	*xp = *yp; 
+	*yp = temp; 
+} 
 
-    Q.2 C)
+void selectionSort(int arr[], int n) 
+{ 
+	int i, j, min_idx; 
 
-    def f(x, y):
-    return x * y**2
-x0 = 2
-y0 = 1
-h = 0.1
-xn = 2.2
+	for (i = 0; i < n-1; i++) 
+	{
+		min_idx = i; 
+		for (j = i+1; j < n; j++) 
+		if (arr[j] < arr[min_idx]) 
+			min_idx = j; 
 
-while x0 < xn:
-    k1 = f(x0, y0)
-    y_predict = y0 + h * k1
-    k2 = f(x0 + h, y_predict)
-    y0 = y0 + (h / 2) * (k1 + k2)
-    x0 = x0 + h
+		if(min_idx != i) 
+			swap(&arr[min_idx], &arr[i]); 
+	} 
+} 
 
-print("Approximate solution at x =", xn, "is", y0)
+void printArray(int arr[], int size) 
+{ 
+	int i; 
+	for (i=0; i < size; i++) 
+		printf("%d ", arr[i]); 
+	printf("\n"); 
+} 
 
+int main() 
+{ 
+	int arr[] = {64, 25, 12, 22, 11}; 
+	int n = sizeof(arr)/sizeof(arr[0]); 
+	selectionSort(arr, n); 
+	printf("Sorted array: \n"); 
+	printArray(arr, n); 
+	return 0; 
+} 
+
+ Q2
+    // C program for QuickSort
+#include <stdio.h>
+
+// Utility function to swap tp integers
+void swap(int* p1, int* p2)
+{
+    int temp;
+    temp = *p1;
+    *p1 = *p2;
+    *p2 = temp;
+}
+
+int partition(int arr[], int low, int high)
+{
+    // choose the pivot
+    int pivot = arr[high];
+
+    // Index of smaller element and Indicate
+    // the right position of pivot found so far
+    int i = (low - 1);
+
+    for (int j = low; j <= high; j++) {
+        // If current element is smaller than the pivot
+        if (arr[j] < pivot) {
+            // Increment index of smaller element
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+// The Quicksort function Implement
+
+void quickSort(int arr[], int low, int high)
+{
+    // when low is less than high
+    if (low < high) {
+        // pi is the partition return index of pivot
+
+        int pi = partition(arr, low, high);
+
+        // Recursion Call
+        // smaller element than pivot goes left and
+        // higher element goes right
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int main()
+{
+    int arr[] = { 10, 7, 8, 9, 1, 5 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+  
+    // Function call
+    quickSort(arr, 0, n - 1);
+  
+  // Print the sorted array
+    printf("Sorted Array\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
         </textarea>
-        
         <button id="btn-program1" onclick="copyProgram('program1', 'btn-program1')">slip1</button>
     </div>
 
@@ -166,82 +209,114 @@ print("Approximate solution at x =", xn, "is", y0)
         <h2 class="program-title"></h2>
         
         <textarea id="program2" class="program-code">
-    Q1 B)
-    from numpy import zeros
+Q1
+  #include <stdio.h>
+void swap(int* a, int* b)
+{
 
-# Given data
-x = [1, 2, 3, 4, 5]
-y = [40, 60, 65, 50, 18]
-n = len(x)
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
-# Create backward difference table
-D = zeros((n, n + 1))
-for i in range(n):
-    D[i, 0] = x[i]
-    D[i, 1] = y[i]
+void heapify(int arr[], int N, int i)
+{
+    
+    int largest = i;
 
-for j in range(2, n + 1):
-    for i in range(n - 1, j - 2, -1):
-        D[i, j] = D[i, j - 1] - D[i - 1, j - 1]
+    int left = 2 * i + 1;
 
-# Point to interpolate
-xp = 4.7
-h = x[1] - x[0]
-u = (xp - x[-1]) / h
+    int right = 2 * i + 2;
 
-# Newton's Backward Formula
-sum = D[-1, 1]
-pp = 1
-for i in range(1, n):
-    pp = pp * (u + i - 1) / i
-    sum = sum + pp * D[-1, i + 1]
+    if (left < N && arr[left] > arr[largest])
 
-print("Newton's Backward interpolated value at xp is =", sum)
+        largest = left;
 
-Q2 B)
-import numpy as np
-import pandas as pd
+    if (right < N && arr[right] > arr[largest])
 
-# Given data
-x = [1, 2, 5, 7]
-y = [6, 9, 30, 54]
-n = len(x)
+        largest = right;
 
-# Create divided difference table
-dt = np.zeros((n, n))
-dt[:, 0] = y
+    if (largest != i) {
 
-for j in range(1, n):
-    for i in range(n - j):
-        dt[i, j] = (dt[i + 1, j - 1] - dt[i, j - 1]) / (x[i + j] - x[i])
+        swap(&arr[i], &arr[largest]);
 
-# Prepare DataFrame for display
-columns = ['y'] + [f'\u0394^{j}y' for j in range(1, n)]
-df = pd.DataFrame('', index=range(n), columns=columns)
-df['y'] = y
+        heapify(arr, N, largest);
+    }
+}
 
-for j in range(1, n):
-    for i in range(n - j):
-        df.loc[i, f'\u0394^{j}y'] = round(dt[i, j], 4)
+void heapSort(int arr[], int N)
+{
 
-df.insert(0, 'x', x)
+    for (int i = N / 2 - 1; i >= 0; i--)
 
-print("Newton's Divided Difference Table:\n")
-print(df)
+        heapify(arr, N, i);
 
+    for (int i = N - 1; i >= 0; i--) {
 
-A)
-# Simpson's 1/3 Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    if i % 2 == 0:
-        result += 2 * f(a + i * h)
-    else:
-        result += 4 * f(a + i * h)
+        swap(&arr[0], &arr[i]);
 
-result *= h / 3
+        heapify(arr, i, 0);
+    }
+}
 
-print("\nApproximate integral:", round(result, 6))
+void printArray(int arr[], int N)
+{
+    for (int i = 0; i < N; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+int main()
+{
+    int arr[] = { 12, 11, 13, 5, 6, 7 };
+    int N = sizeof(arr) / sizeof(arr[0]);
+
+    // Function call
+    heapSort(arr, N);
+    printf("Sorted array is\n");
+    printArray(arr, N);
+}
+            
+Q2
+#include<stdio.h>
+int main()
+{
+   int A[2][2],B[2][2],c[2][2];
+   int i, j;
+   int P, Q, R, S , T, U, V;
+ 
+   printf("Enter the elements in first matrix");
+    for(i=0;i<2;i++){
+      for(j=0;j<2;j++){
+        scanf("%d",&A[i][j]);
+        }
+       }
+    printf("Enter the elements in second matrix");
+    for(i=0;i<2;i++){
+      for(j=0;j<2;j++){
+        scanf("%d",&B[i][j]);
+        }
+       }
+         
+   P= (A[0][0] + A[1][1]) * (B[0][0] + B[1][1]);
+   Q= (A[1][0] + A[1][1]) * B[0][0];
+   R= A[0][0] * (B[0][1] - B[1][1]);
+   S= A[1][1] * (B[1][0] - B[0][0]);
+   T= (A[0][0] + A[0][1]) * B[1][1];
+   U= (A[1][0] - A[0][0]) * (B[0][0]+B[0][1]);
+   V= (A[0][1] - A[1][1]) * (B[1][0]+B[1][1]);
+   c[0][0] = P + S- T + V;
+   c[0][1] = R + T;
+   c[1][0] = Q + S;
+   c[1][1] = P+R-Q+U;
+   printf("\nProduct achieved using Strassen's algorithm: ");
+   for(i = 0; i < 2 ; i++) {
+      printf("\n");
+      for(j = 0; j < 2; j++)
+         printf("%d\t", c[i][j]);
+   }
+   return 0;
+}
         </textarea>
         
         <button id="btn-program2" onclick="copyProgram('program2', 'btn-program2')">slip2</button>
@@ -252,82 +327,84 @@ print("\nApproximate integral:", round(result, 6))
     <div class="program-section">
         <h2 class="program-title"></h2>
         <textarea id="program3" class="program-code">
-     Q1 B)
-     from numpy import zeros
+     Q1
+            // C program for QuickSort
+#include <stdio.h>
 
-# Given data
-x = [1, 2, 5, 7]
-y = [6, 9, 30, 54]
+// Utility function to swap tp integers
+void swap(int* p1, int* p2)
+{
+    int temp;
+    temp = *p1;
+    *p1 = *p2;
+    *p2 = temp;
+}
 
-n = len(x)
+int partition(int arr[], int low, int high)
+{
+    // choose the pivot
+    int pivot = arr[high];
 
-# Create divided difference table
-D = zeros((n, n + 1))
+    // Index of smaller element and Indicate
+    // the right position of pivot found so far
+    int i = (low - 1);
 
-# Fill x and y values in table
-for i in range(n):
-    D[i, 0] = x[i]
-    D[i, 1] = y[i]
+    for (int j = low; j <= high; j++) {
+        // If current element is smaller than the pivot
+        if (arr[j] < pivot) {
+            // Increment index of smaller element
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
 
-# Compute divided differences
-for j in range(2, n + 1):
-    for i in range(0, n - j + 1):
-        D[i, j] = (D[i + 1, j - 1] - D[i, j - 1]) / (x[i + j - 1] - x[i])
+// The Quicksort function Implement
 
-# Value to interpolate
-xp = 3
-f_xp = 0
-pp = 1
+void quickSort(int arr[], int low, int high)
+{
+    // when low is less than high
+    if (low < high) {
+        // pi is the partition return index of pivot
 
-for i in range(n):
-    f_xp += pp * D[0, i + 1]
-    pp *= (xp - x[i])
+        int pi = partition(arr, low, high);
 
-print("Newton's Divided interpolated value at x =", xp, "is =", f_xp)
+        // Recursion Call
+        // smaller element than pivot goes left and
+        // higher element goes right
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
 
-Q2 A)
-import math
+int main()
+{
+    int arr[] = { 10, 7, 8, 9, 1, 5 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+  
+    // Function call
+    quickSort(arr, 0, n - 1);
+  
+  // Print the sorted array
+    printf("Sorted Array\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
+   Q2
+    
 
-def f(x):
-    return math.sin(x)
 
-a = 0
-b = math.pi
-n = 12
-h = (b - a) / n
+        
 
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
 
-# Trapezoidal Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    result += 2 * f(a + i * h)
-result *= h / 2
 
-print("Approximate integral:", result)
 
-C)
-def f(x, y):
-    return y - x
+    
 
-x0 = 0
-y0 = 2
-h = 0.1
-xn = 0.2
-
-while x0 < xn:
-    k1 = h * f(x0, y0)
-    k2 = h * f(x0 + h/2, y0 + k1/2)
-    k3 = h * f(x0 + h/2, y0 + k2/2)
-    k4 = h * f(x0 + h, y0 + k3)
-    y0 = y0 + (k1 + 2*k2 + 2*k3 + k4)/6
-    x0 = x0 + h
-    print("Approximate solution at x =", round(x0, 1), "is", y0)
         </textarea>
         
         <button id="btn-program3" onclick="copyProgram('program3', 'btn-program3')">slip3</button>
@@ -340,86 +417,16 @@ while x0 < xn:
         <h2 class="program-title"></h2>
         
         <textarea id="program4" class="program-code">
-    Q1 2) 
-    from math import *
-from numpy import *
+   Q1
+            
 
-# Given data
-x = [80, 85, 90, 95, 100]
-y = [5026, 5674, 6362, 7088, 7854]
 
-n = len(x)
-D = zeros((n, n + 1))
 
-# Prepare backward difference table
-for i in range(n):
-    D[i, 0] = x[i]
-    D[i, 1] = y[i]
 
-for j in range(2, n + 1):
-    for i in range(n - 1, j - 2, -1):
-        D[i, j] = D[i, j - 1] - D[i - 1, j - 1]
 
-# Point to interpolate
-xp = 97
-h = x[1] - x[0]
-u = (xp - x[-1]) / h
 
-# Newton's Backward Formula
-sum = D[-1, 1]
-pp = 1
-for i in range(1, n):
-    pp = pp * (u + i - 1) / i
-    sum += pp * D[-1, i + 1]
 
-print("Newton's Backward interpolated value at xp =", sum)
-  
-Q2 1)
-import math
-
-def f(x):
-    return x * math.exp(x)
-
-a = 0
-b = 1
-n = 12
-h = (b - a) / n
-
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
-
-# Simpson's 1/3 Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    if i % 2 == 0:
-        result += 2 * f(a + i * h)
-    else:
-        result += 4 * f(a + i * h)
-result *= h / 3
-
-print("Approximate integral:", result)
-
-C)
-def f(x, y):
-    return -2 * x * y**2
-
-x0 = 0
-y0 = 1
-h = 0.2
-xn = 1.0
-
-while x0 < xn:
-    k1 = f(x0, y0)
-    y_predict = y0 + h * k1
-    k2 = f(x0 + h, y_predict)
-    y0 = y0 + (h / 2) * (k1 + k2)
-    x0 = x0 + h
-
-print("Approximate solution at x =", xn, "is", y0)
+   
         </textarea>
         
         <button id="btn-program4" onclick="copyProgram('program4', 'btn-program4')">slip4</button>
@@ -430,82 +437,15 @@ print("Approximate solution at x =", xn, "is", y0)
         <h2 class="program-title"></h2>
         
         <textarea id="program5" class="program-code">
-      Q.1 B)
-      from math import *
-from numpy import *
+     
 
-# Given data
-x = [0, 1, 2, 5]
-y = [5, 13, 22, 129]
 
-n = len(x)
-D = zeros((n, n + 1))
 
-# Prepare divided difference table
-for i in range(n):
-    D[i, 0] = x[i]
-    D[i, 1] = y[i]
 
-for j in range(2, n + 1):
-    for i in range(0, n - j + 1):
-        D[i, j] = (D[i + 1, j - 1] - D[i, j - 1]) / (x[i + j - 1] - x[i])
+   
 
-# Point to interpolate
-xp = 1.7
-sum = 0
-pp = 1
-for i in range(n):
-    sum += pp * D[0, i + 1]
-    pp = pp * (xp - x[i])
 
-print("Newton's Divided interpolated value at xp =", sum)
 
-Q2 B)
-import numpy as np
-import pandas as pd
-
-# Given data
-x = [1, 2, 3, 4, 5]
-y = [40, 60, 65, 50, 18]
-
-n = len(x)
-D = np.zeros((n, n))
-D[:, 0] = y
-
-# Backward differences
-for j in range(1, n):
-    for i in range(j, n):
-        D[i, j] = D[i, j - 1] - D[i - 1, j - 1]
-
-# Prepare DataFrame for display
-columns = ['y'] + [f'\u2207^{j}y' for j in range(1, n)]
-df = pd.DataFrame('', index=range(n), columns=columns)
-df['y'] = y
-for j in range(1, n):
-    for i in range(j, n):
-        df.loc[i, f'\u2207^{j}y'] = D[i, j]
-
-df.insert(0, 'x', x)
-
-print("Newton's Backward Difference Table:\n")
-print(df)
-
-C)
-def f(x, y):
-    return 1 + y**2
-
-x0 = 0
-y0 = 0
-h = 0.2
-xn = 0.6
-
-while x0 < xn:
-    k1 = f(x0, y0)
-    y_predict = y0 + h * k1
-    k2 = f(x0 + h, y_predict)
-    y0 = y0 + (h / 2) * (k1 + k2)
-    x0 = x0 + h
-    print("Approximate solution at x =", round(x0, 1), "is", y0)
            
         </textarea>
         
@@ -516,80 +456,55 @@ while x0 < xn:
         <h2 class="program-title"></h2>
         
         <textarea id="program6" class="program-code">
-        Q1 A)
-        from math import *
+       Q1 
+            #include<stdio.h>
+int a,b,u,v,n,i,j,ne=1;
+int visited[10]= {0},min,mincost=0,cost[10][10];
+void main() {
+	
+	printf("\n Enter the number of nodes:");
+	scanf("%d",&n);
+	printf("\n Enter the adjacency matrix:\n");
+	for (i=1;i<=n;i++)
+	  for (j=1;j<=n;j++)
+	   {
+		scanf("%d",&cost[i][j]);
+		if(cost[i][j]==0)
+		    cost[i][j]=999;
+	   }
+	visited[1]=1;
+	printf("\n");
+	while(ne<n) 
+	{
+		for (i=1,min=999;i<=n;i++)
+		   for (j=1;j<=n;j++)
+		    if(cost[i][j]<min)
+		     if(visited[i]!=0) 
+		     {
+			min=cost[i][j];
+			a=u=i;
+			b=v=j;
+		       }
+		if(visited[u]==0 || visited[v]==0) 
+		{
+			printf("\n Edge %d:(%d %d) cost:%d",ne++,a,b,min);
+			mincost+=min;
+			visited[b]=1;
+		}
+		cost[a][b]=cost[b][a]=999;
+	}
+	printf("\n Minimun cost=%d",mincost);
 
-def f(x):
-    return x*3 - x*2 - 2
-
-def df(x):
-    return 3*x**2 - 2*x
-
-x0 = 1.5
-tol = 0.000001
-
-while True:
-    x1 = x0 - f(x0)/df(x0)
-    if abs(x1 - x0) < tol:
-        break
-    x0 = x1
-
-print("Approximate root by Newton's Raphson Method:", x1)
+}	
+  Q2 
+            
 
 
-Q2 A)
-def f(x):
-    return x**2 - 10
 
-a = 1
-b = 2
-n = 12
-h = (b - a) / n
 
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
 
-# Simpson's 3/8 Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    xi = a + i * h
-    if i % 3 == 0:
-        result += 2 * f(xi)
-    else:
-        result += 3 * f(xi)
-result *= 3 * h / 8
 
-print("Approximate integral:", result)
 
-Q2 B)
-from math import *
-from numpy import *
-
-# Given data
-x = [2, 4, 9, 10]
-y = [4, 56, 711, 980]
-
-n = len(x)
-D = zeros((n, n + 1))
-
-# Prepare divided difference table
-for i in range(n):
-    D[i, 0] = x[i]
-    D[i, 1] = y[i]
-
-for j in range(2, n + 1):
-    for i in range(0, n - j + 1):
-        D[i, j] = (D[i + 1, j - 1] - D[i, j - 1]) / (x[i + j - 1] - x[i])
-
-# Display the table
-print("Divided Difference Table:")
-for i in range(n):
-    row = [f"{D[i,0]:.2f}"] + [f"{D[i,j]:.2f}" for j in range(1, n + 1 - i)]
-    print(row)
            
         </textarea>
         
@@ -602,71 +517,159 @@ for i in range(n):
         <h2 class="program-title"></h2>
         
         <textarea id="program7" class="program-code">
-    Q1 A)
-    def f(x):
-    return x**3 - 9*x + 1
+    Q1
+#include <stdio.h>
+#define MAX 100
+#define INF 9999
 
-# Initial guesses
-x0 = 0
-x1 = 1
-tol = 1e-5
-max_iter = 15
-i = 0
+int minDistance(int dist[], int visited[], int n) {
+    int min = INF, min_index = -1;
 
-while i < max_iter:
-    x2 = (x0 * f(x1) - x1 * f(x0)) / (f(x1) - f(x0))
-    if abs(f(x2)) < tol:
-        break
-    elif f(x0) * f(x2) < 0:
-        x1 = x2
-    else:
-        x0 = x2
-    i += 1
+    for (int i = 0; i < n; i++) {
+        if (!visited[i] && dist[i] <= min) {
+            min = dist[i];
+            min_index = i;
+        }
+    }
+    return min_index;
+}
 
-print("Approximate root by Regula Falsi Method:", x2)
+void dijkstra(int graph[MAX][MAX], int n, int src) {
+    int dist[MAX], visited[MAX];
 
-Q2 A)
-def f(x):
-    return 1 + x**3
+    // Initialize distances and visited array
+    for (int i = 0; i < n; i++) {
+        dist[i] = INF;
+        visited[i] = 0;
+    }
 
-a = 0
-b = 5
-n = 12
-h = (b - a) / n
+    dist[src] = 0;
 
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+    // Find shortest path for all vertices
+    for (int count = 0; count < n - 1; count++) {
+        int u = minDistance(dist, visited, n);
+        visited[u] = 1;
 
-# Simpson's 3/8 Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    xi = a + i * h
-    if i % 3 == 0:
-        result += 2 * f(xi)
-    else:
-        result += 3 * f(xi)
-result *= 3 * h / 8
+        for (int v = 0; v < n; v++) {
+            if (!visited[v] && graph[u][v] && 
+                dist[u] != INF && 
+                dist[u] + graph[u][v] < dist[v]) {
+                
+                dist[v] = dist[u] + graph[u][v];
+            }
+        }
+    }
 
-print("Approximate integral:", result)
+    // Print result
+    printf("Vertex \t Distance from Source\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d \t %d\n", i, dist[i]);
+    }
+}
 
-Q2 C)
-def f(x, y):
-    return 2 - x*y**2
+int main() {
+    int n, src;
+    int graph[MAX][MAX];
 
-x0 = 0
-y0 = 1
-h = 0.2
-xn = 1.0
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
 
-while x0 < xn:
-    y0 = y0 + h * f(x0, y0)
-    x0 = x0 + h
+    printf("Enter adjacency matrix (0 if no edge):\n");
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &graph[i][j]);
 
-print("Approximate solution at x =", xn, "is", y0)
+    printf("Enter source vertex: ");
+    scanf("%d", &src);
+
+    dijkstra(graph, n, src);
+    
+    
+/*Enter number of vertices: 5
+Enter adjacency matrix (0 if no edge):
+0 10 0 30 100
+0 0 50 0 0
+0 0 0 0 10
+0 0 20 0 60
+0 0 0 0 0
+Enter source vertex: 0
+Vertex 	 Distance from Source
+0 	 0
+1 	 10
+2 	 50
+3 	 30
+4 	 60
+*/
+
+    return 0;
+}
+
+ Q2
+     #include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+int adj[MAX][MAX], visited[MAX], stack[MAX];
+int n, top = -1;
+
+// Function to perform DFS
+void dfs(int v) {
+    visited[v] = 1;
+
+    for (int i = 0; i < n; i++) {
+        if (adj[v][i] == 1 && !visited[i]) {
+            dfs(i);
+        }
+    }
+
+    // Push vertex onto stack
+    stack[++top] = v;
+}
+
+// Function for Topological Sort
+void topologicalSort() {
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            dfs(i);
+        }
+    }
+
+    printf("Topological ordering:\n");
+    while (top != -1) {
+        printf("%d ", stack[top--]);
+    }
+}
+
+int main() {
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter adjacency matrix:\n");
+    for (int i = 0; i < n; i++) {
+        visited[i] = 0;
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &adj[i][j]);
+        }
+    }
+
+    topologicalSort();
+    
+/*Enter number of vertices: 6
+Enter adjacency matrix:
+0 1 1 0 0 0
+0 0 0 1 0 0
+0 0 0 1 1 0
+0 0 0 0 0 1
+0 0 0 0 0 1
+0 0 0 0 0 0
+Topological ordering:
+0 2 4 1 3 5 */ 
+
+
+
+    return 0;
+}       
         </textarea>
         
         <button id="btn-program7" onclick="copyProgram('program7', 'btn-program7')">slip7</button>
@@ -677,76 +680,14 @@ print("Approximate solution at x =", xn, "is", y0)
         <h2 class="program-title"></h2>
         
         <textarea id="program8" class="program-code">
-    Q1 A)
-    from math import *
-from numpy import *
+ Q1   
 
-# Given data
-x = [-1, 0, 3, 6, 7]
-y = [3, -6, 39, 822, 1611]
 
-n = len(x)
-D = zeros((n, n + 1))
 
-# Prepare divided difference table
-for i in range(n):
-    D[i, 0] = x[i]
-    D[i, 1] = y[i]
 
-for j in range(2, n + 1):
-    for i in range(0, n - j + 1):
-        D[i, j] = (D[i + 1, j - 1] - D[i, j - 1]) / (x[i + j - 1] - x[i])
+   
 
-# Point to interpolate
-xp = 2
-sum = 0
-pp = 1
-for i in range(n):
-    sum += pp * D[0, i + 1]
-    pp = pp * (xp - x[i])
 
-print("Newton's Divided interpolated value at xp =", sum)
-
-Q2 B)
-def f(x, y):
-    return y - x
-
-x0 = 0
-y0 = 2
-h = 0.1
-xn = 0.2
-
-while x0 < xn:
-    k1 = f(x0, y0)
-    y_predict = y0 + h * k1
-    k2 = f(x0 + h, y_predict)
-    y0 = y0 + (h / 2) * (k1 + k2)
-    x0 = x0 + h
-    print("Approximate solution at x =", round(x0, 1), "is", y0)
-
-    Q2 C)
-    def f(x):
-    return 4*x - 3*x**2
-
-a = 0
-b = 1
-n = 10
-h = (b - a) / n
-
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
-
-# Trapezoidal Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    result += 2 * f(a + i * h)
-result *= h / 2
-
-print("Approximate integral:", result)
         </textarea>
         
         <button id="btn-program8" onclick="copyProgram('program8', 'btn-program8')">slip8</button>
@@ -758,82 +699,14 @@ print("Approximate integral:", result)
         <h2 class="program-title"></h2>
         
         <textarea id="program9" class="program-code">
-    Q1 B)
-    from numpy import *
+   
 
-# Given data
-x = [1, 3, 5, 7, 9]
-y = [8, 12, 21, 36, 62]
 
-n = len(x)
-D = zeros((n, n))
 
-# Fill first column with y values
-D[:, 0] = y
 
-# Compute backward differences
-for j in range(1, n):
-    for i in range(j, n):
-        D[i, j] = D[i, j-1] - D[i-1, j-1]
 
-# Point to interpolate
-xp = 8
-h = x[1] - x[0]
-u = (xp - x[-1]) / h
 
-# Newton's Backward Formula
-sum = D[-1, 0]
-pp = 1
-for i in range(1, n):
-    pp = pp * (u + i - 1) / i
-    sum += pp * D[-1, i]
 
-print("Newton's Backward interpolated value at xp =", sum)
-
-Q2 B)
-def f(x, y):
-    return x**2 + y
-
-x0 = 0
-y0 = 1
-h = 0.05
-xn = 0.1
-
-while x0 < xn:
-    # Predictor
-    y_predict = y0 + h * f(x0, y0)
-    # Corrector
-    y0 = y0 + (h / 2) * (f(x0, y0) + f(x0 + h, y_predict))
-    x0 = x0 + h
-    print("Approximate solution at x =", round(x0, 2), "is", y0)
-
-    Q2 C)
-    def f(x):
-    return 1 / (1 + x)
-
-a = 0
-b = 1
-n = 8
-h = (b - a) / n
-
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
-
-# Simpson's 1/3 Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    xi = a + i * h
-    if i % 2 == 0:
-        result += 2 * f(xi)
-    else:
-        result += 4 * f(xi)
-result *= h / 3
-
-print("Approximate integral:", result)
         </textarea>
         
         <button id="btn-program9" onclick="copyProgram('program9', 'btn-program9')">slip9</button>
@@ -844,69 +717,13 @@ print("Approximate integral:", result)
         <h2 class="program-title"></h2>
         
         <textarea id="program10" class="program-code">
-    Q1 B)
-    def f(x):
-    return 2*x**3 - 3*x - 6
+    
 
-def df(x):
-    return 6*x**2 - 3
 
-# Initial guess
-x0 = 1.5
-tol = 1e-5
-max_iter = 15
-i = 0
 
-while i < max_iter:
-    x1 = x0 - f(x0)/df(x0)
-    if abs(x1 - x0) < tol:
-        break
-    x0 = x1
-    i += 1
 
-print("Approximate root by Newton-Raphson Method:", x1)
 
-Q2 B)
-def f(x, y):
-    return x * y
-
-x0 = 1
-y0 = 5
-h = 0.1
-xn = 1.3  # We want y(1.1), y(1.2), y(1.3)
-
-while x0 < xn:
-    y0 = y0 + h * f(x0, y0)
-    x0 = round(x0 + h, 2)
-    print("Approximate solution at x =", x0, "is", y0)
-
-    Q2 C)
-    def f(x):
-    return 1 + 1/(x**4)
-
-a = 0.0001  # Avoid division by zero at x=0
-b = 6
-n = 6
-h = (b - a) / n
-
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
-
-# Simpson's 3/8 Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    xi = a + i * h
-    if i % 3 == 0:
-        result += 2 * f(xi)
-    else:
-        result += 3 * f(xi)
-result *= 3 * h / 8
-
-print("Approximate integral:", result)
+   
     
         </textarea>
         
@@ -918,83 +735,182 @@ print("Approximate integral:", result)
         <h2 class="program-title"></h2>
         
         <textarea id="program11" class="program-code">
-    Q1 A)
-    from math import *
-from numpy import *
+    Q1
+            #include<stdio.h>
+#include<stdlib.h>
+#define MAXSIZE 20
 
-# Given data
-x = [4, 5, 7, 10, 11, 13]
-y = [48, 100, 294, 900, 1210, 2028]
+typedef struct
+{
+  int data[MAXSIZE];
+  int top;
+}STACK;
+void initstack(STACK *ps)
+{
+  ps->top=-1;
+}
+void push(STACK *ps,int num)
+{
+  ps->top++;
+  ps->data[ps->top]=num;
+}
 
-n = len(x)
-D = zeros((n, n + 1))
+int pop(STACK *ps)
+{
+   return(ps->data[ps->top--]);
+}
 
-# Prepare divided difference table
-for i in range(n):
-    D[i, 0] = x[i]
-    D[i, 1] = y[i]
+int isempty(STACK *ps)
+{
+  return(ps->top==-1);
+}
+int isfull(STACK *ps)
+{
+  return(ps->top==MAXSIZE);
+}
 
-for j in range(2, n + 1):
-    for i in range(0, n - j + 1):
-        D[i, j] = (D[i + 1, j - 1] - D[i, j - 1]) / (x[i + j - 1] - x[i])
+void dfs(int m[10][10],int n)
+{
+  int i,v,w,found;
+	int visited[20]={0};
+	STACK s;
+	initstack(&s);
+	v=0;
+visited[v]=1;
+push(&s,v);
+printf("v%d",v+1);
+while(1)
+{
+  found=0;
+   for(w=0;w<n;w++)
+   {
+      if((m[v][w]==1)&&(visited[w]==0))
+      {
+         push(&s,w);
+         printf("v%d",w+1);
+	 visited[w]=1;
+         v=w;
+         found=1;
+          break;
+      }
 
-# Point to interpolate
-xp = 15
-sum = 0
-pp = 1
-for i in range(n):
-    sum += pp * D[0, i + 1]
-    pp = pp * (xp - x[i])
+   }
+if(found==0)
+ if(isempty(&s))
+    break;
+    else
+    v=pop(&s);
+} 
+}
 
-print("Newton's Divided interpolated value at xp =", sum)
+int main()
+{
+   int m[10][10],n,i,j;
+  printf("\nHow many Vertices:");
+ scanf("%d",&n);
+for(i=0;i<n;i++)
+ for(j=0;j<n;j++)
+  {
+      if(i!=j)
+         {
+           printf("Is there an edge between vertex %d and %d (1/0)",i+1,j+1);
+            scanf("%d",&m[i][j]);
+         }
+  }
 
-Q2 B)
-def f(x, y):
-    return -2 * x * y**2
+printf("Non recursive depth First Serach is");
+dfs(m,n);
+  return(0);
+  }
 
-x0 = 0
-y0 = 1
-h = 0.2
-xn = 0.4
+  Q2
+#include <stdio.h>
+#define MAX 100
+#define INF 9999
 
-while x0 < xn:
-    k1 = h * f(x0, y0)
-    k2 = h * f(x0 + h/2, y0 + k1/2)
-    k3 = h * f(x0 + h/2, y0 + k2/2)
-    k4 = h * f(x0 + h, y0 + k3)
-    y0 = y0 + (k1 + 2*k2 + 2*k3 + k4)/6
-    x0 = round(x0 + h, 2)
-    print("Approximate solution at x =", x0, "is", y0)
+int minDistance(int dist[], int visited[], int n) {
+    int min = INF, min_index = -1;
 
-    Q2 C)
-    def f(x):
-    return 1 + 1/(x**3) if x != 0 else 1e6  # avoid division by zero
+    for (int i = 0; i < n; i++) {
+        if (!visited[i] && dist[i] <= min) {
+            min = dist[i];
+            min_index = i;
+        }
+    }
+    return min_index;
+}
 
-a = 0.0001  # small number to avoid division by zero
-b = 6
-n = 6
-h = (b - a) / n
+void dijkstra(int graph[MAX][MAX], int n, int src) {
+    int dist[MAX], visited[MAX];
 
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+    // Initialize distances and visited array
+    for (int i = 0; i < n; i++) {
+        dist[i] = INF;
+        visited[i] = 0;
+    }
 
-# Simpson's 1/3 Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    xi = a + i * h
-    if i % 2 == 0:
-        result += 2 * f(xi)
-    else:
-        result += 4 * f(xi)
-result *= h / 3
+    dist[src] = 0;
 
-print("Approximate integral:", result)
+    // Find shortest path for all vertices
+    for (int count = 0; count < n - 1; count++) {
+        int u = minDistance(dist, visited, n);
+        visited[u] = 1;
+
+        for (int v = 0; v < n; v++) {
+            if (!visited[v] && graph[u][v] && 
+                dist[u] != INF && 
+                dist[u] + graph[u][v] < dist[v]) {
+                
+                dist[v] = dist[u] + graph[u][v];
+            }
+        }
+    }
+
+    // Print result
+    printf("Vertex \t Distance from Source\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d \t %d\n", i, dist[i]);
+    }
+}
+
+int main() {
+    int n, src;
+    int graph[MAX][MAX];
+
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter adjacency matrix (0 if no edge):\n");
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &graph[i][j]);
+
+    printf("Enter source vertex: ");
+    scanf("%d", &src);
+
+    dijkstra(graph, n, src);
     
-        </textarea>
+    
+/*Enter number of vertices: 5
+Enter adjacency matrix (0 if no edge):
+0 10 0 30 100
+0 0 50 0 0
+0 0 0 0 10
+0 0 20 0 60
+0 0 0 0 0
+Enter source vertex: 0
+Vertex 	 Distance from Source
+0 	 0
+1 	 10
+2 	 50
+3 	 30
+4 	 60
+*/
+
+    return 0;
+}
+
+     </textarea>
         
         <button id="btn-program11" onclick="copyProgram('program11', 'btn-program11')">slip11</button>
     </div>    
@@ -1004,158 +920,122 @@ print("Approximate integral:", result)
         <h2 class="program-title"></h2>
         
         <textarea id="program12" class="program-code">
-    Q1 B)
-    from math import *
-from numpy import *
+    Q1
+#include<stdio.h>
+#define max 20
+typedef struct
+{
+int data[max];
+int front,rear;
+}QUEUE;
 
-# Given data
-x = [19, 39, 59, 79, 99]
-y = [41, 103, 168, 218, 235]
-n = len(x)
-D = zeros((n, n+1))
+void addq(QUEUE *pq,int n)
+{
+		pq->data[++pq->rear]=n;
+}
+int removeq(QUEUE *pq)
+{
+		return pq->data[++pq->front];
+}
+void initq(QUEUE *pq)
+{
+		pq->front=pq->rear=-1;
+}
+int isempty(QUEUE *pq)
+{
+		return(pq->rear==pq->front);
+}
+void bfs(int m[5][5],int n)
+{
+		int i,j,v,w;
+		int visited[20]={0};
+		QUEUE q;
+		initq(&q);
+		printf("\n the breadth first traversal is:\n");
+		v=0;
+		visited[v]=1;
+		addq(&q,v);
+		while(!isempty(&q))
+		{
+					v=removeq(&q);
+				printf("\t v %d",v+1);
+					for(w=0;w<n;w++)
+					if((m[v][w]==1)&&(visited[w]==0))
+					{
+						addq(&q,w);
+						visited[w]=1;
+					}
+		}
+}
+void main()
+{
+int m[5][5]={{0,0,1,1,0},
+						{0,0,1,0,1},
+						{0,1,0,0,0},
+						{0,0,0,0,1},
+						{0,0,0,0,0}};
+bfs(m,5);
+}
+Q2
+     / C program for implementation of selection sort 
+#include <stdio.h> 
 
-# Prepare backward difference table
-for i in range(n):
-    D[i,0] = x[i]
-    D[i,1] = y[i]
+void swap(int *xp, int *yp) 
+{ 
+	int temp = *xp; 
+	*xp = *yp; 
+	*yp = temp; 
+} 
 
-for j in range(2, n+1):
-    for i in range(n-1, j-2, -1):
-        D[i,j] = D[i,j-1] - D[i-1,j-1]
+void selectionSort(int arr[], int n) 
+{ 
+	int i, j, min_idx; 
 
-# Point to interpolate
-xp = 80
-h = x[1] - x[0]
-u = (xp - x[-1])/h
+	for (i = 0; i < n-1; i++) 
+	{
+		min_idx = i; 
+		for (j = i+1; j < n; j++) 
+		if (arr[j] < arr[min_idx]) 
+			min_idx = j; 
 
-# Newton's Backward Formula
-sum = 0
-pp = 1
-for i in range(1, n):
-    sum += pp * D[-1, i]
-    pp = pp * (u + (i-1)) / i
+		if(min_idx != i) 
+			swap(&arr[min_idx], &arr[i]); 
+	} 
+} 
 
-print("Newton's Backward interpolated value at xp is =", sum)
+void printArray(int arr[], int size) 
+{ 
+	int i; 
+	for (i=0; i < size; i++) 
+		printf("%d ", arr[i]); 
+	printf("\n"); 
+} 
 
-Q2 B)
-def f(x, y):
-    return 1 - y
-
-x0 = 0
-y0 = 0
-h = 0.1
-xn = 0.2
-
-while x0 < xn:
-    # Predictor
-    y_predict = y0 + h * f(x0, y0)
-    # Corrector
-    y0 = y0 + (h / 2) * (f(x0, y0) + f(x0 + h, y_predict))
-    x0 = round(x0 + h, 2)
-    print("Approximate solution at x =", x0, "is", y0)
-
-    Q2  C)
-    from math import log
-
-def f(x):
-    return log(x)
-
-a = 4
-b = 5.2
-n = 6
-h = (b - a) / n
-
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
-
-# Simpson's 3/8 Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    xi = a + i * h
-    if i % 3 == 0:
-        result += 2 * f(xi)
-    else:
-        result += 3 * f(xi)
-result *= 3 * h / 8
-
-print("Approximate integral:", result)
+int main() 
+{ 
+	int arr[] = {64, 25, 12, 22, 11}; 
+	int n = sizeof(arr)/sizeof(arr[0]); 
+	selectionSort(arr, n); 
+	printf("Sorted array: \n"); 
+	printArray(arr, n); 
+	return 0; 
+} 
         </textarea>
         
         <button id="btn-program12" onclick="copyProgram('program12', 'btn-program12')">slip12</button>
     </div>    
-    
-
 
     <div class="program-section">
         <h2 class="program-title"></h2>
         
         <textarea id="program13" class="program-code">
-    Q1 A)
-def f(x):
-return x*3 - 2*x*2 - 4
+  Q1 
 
-def df(x):
-return 3*x**2 - 4*x
 
-# Initial guess
-x0 = 2.5  # Starting somewhere in [2,3]
-tol = 1e-5
-max_iter = 20
-i = 0
 
-while i < max_iter:
-x1 = x0 - f(x0)/df(x0)
-if abs(x1 - x0) < tol:
-    break
-x0 = x1
-i += 1
 
-print("Approximate root by Newton-Raphson Method:", x1)
 
-Q2 B)
-def f(x, y):
-    return x + y**2
-
-x0 = 1
-y0 = 1
-h = 0.1
-xn = 1.2
-
-while x0 < xn:
-    k1 = f(x0, y0)
-    y_predict = y0 + h * k1
-    k2 = f(x0 + h, y_predict)
-    y0 = y0 + (h / 2) * (k1 + k2)
-    x0 = round(x0 + h, 2)
-    print("Approximate solution at x =", x0, "is", y0)
-    
-Q2 C)
-def f(x):
-    return x**2 + 2*x + 9
-
-a = 0
-b = 4
-n = 8
-h = (b - a) / n
-
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
-
-# Trapezoidal Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    result += 2 * f(a + i * h)
-result *= h / 2
-
-print("Approximate integral:", result)      
+     
         </textarea>     
 <button id="btn-program13" onclick="copyProgram('program13', 'btn-program13')">slip13</button>
 </div>      
@@ -1165,70 +1045,155 @@ print("Approximate integral:", result)     
     <h2 class="program-title"></h2>
     
     <textarea id="program14" class="program-code">
-Q1  A)
-def f(x):
-    return x**3 - 5*x + 1
+Q1 insertion
+   
 
-a = 2
-b = 3
-tol = 0.0001
-max_iter = 25
-i = 0
+Q2
+#include<stdio.h>
+#include<stdlib.h>
+#define MAXSIZE 20
 
-while i < max_iter:
-    c = (a + b) / 2
-    # Relative error
-    if abs(b - a)/2 < tol:
-        break
-    if f(a) * f(c) < 0:
-        b = c
-    else:
-        a = c
-    i += 1
+typedef struct
+{
+  int data[MAXSIZE];
+  int top;
+}STACK;
+void initstack(STACK *ps)
+{
+  ps->top=-1;
+}
+void push(STACK *ps,int num)
+{
+  ps->top++;
+  ps->data[ps->top]=num;
+}
 
-print("Approximate root by Bisection Method:", c)
+int pop(STACK *ps)
+{
+   return(ps->data[ps->top--]);
+}
 
-Q2 B)
-def f(x, y):
-    return (y - x)/(y + x)
+int isempty(STACK *ps)
+{
+  return(ps->top==-1);
+}
+int isfull(STACK *ps)
+{
+  return(ps->top==MAXSIZE);
+}
 
-x0 = 0
-y0 = 1
-h = 0.1
-xn = 0.5
+void dfs(int m[10][10],int n)
+{
+  int i,v,w,found;
+	int visited[20]={0};
+	STACK s;
+	initstack(&s);
+	v=0;
+visited[v]=1;
+push(&s,v);
+printf("v%d",v+1);
+while(1)
+{
+  found=0;
+   for(w=0;w<n;w++)
+   {
+      if((m[v][w]==1)&&(visited[w]==0))
+      {
+         push(&s,w);
+         printf("v%d",w+1);
+	 visited[w]=1;
+         v=w;
+         found=1;
+          break;
+      }
 
-while x0 < xn:
-    y0 = y0 + h * f(x0, y0)
-    x0 = round(x0 + h, 2)
-    print("Approximate solution at x =", x0, "is", y0)
+   }
+if(found==0)
+ if(isempty(&s))
+    break;
+    else
+    v=pop(&s);
+} 
+}
 
-Q2 C)
-def f(x):
-    return 5 + 1/(2*x) if x != 0 else 0  # Avoid division by zero at x=0
+int main()
+{
+   int m[10][10],n,i,j;
+  printf("\nHow many Vertices:");
+ scanf("%d",&n);
+for(i=0;i<n;i++)
+ for(j=0;j<n;j++)
+  {
+      if(i!=j)
+         {
+           printf("Is there an edge between vertex %d and %d (1/0)",i+1,j+1);
+            scanf("%d",&m[i][j]);
+         }
+  }
 
-a = -2
-b = 2
-n = 8
-h = (b - a) / n
+printf("Non recursive depth First Serach is");
+dfs(m,n);
+  return(0);
+  }
 
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n + 1):
-    xi = a + i * h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
+        bfs
+        #include<stdio.h>
+#define max 20
+typedef struct
+{
+int data[max];
+int front,rear;
+}QUEUE;
 
-# Simpson's 1/3 Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    xi = a + i * h
-    if i % 2 == 0:
-        result += 2 * f(xi)
-    else:
-        result += 4 * f(xi)
-result *= h / 3
+void addq(QUEUE *pq,int n)
+{
+		pq->data[++pq->rear]=n;
+}
+int removeq(QUEUE *pq)
+{
+		return pq->data[++pq->front];
+}
+void initq(QUEUE *pq)
+{
+		pq->front=pq->rear=-1;
+}
+int isempty(QUEUE *pq)
+{
+		return(pq->rear==pq->front);
+}
+void bfs(int m[5][5],int n)
+{
+		int i,j,v,w;
+		int visited[20]={0};
+		QUEUE q;
+		initq(&q);
+		printf("\n the breadth first traversal is:\n");
+		v=0;
+		visited[v]=1;
+		addq(&q,v);
+		while(!isempty(&q))
+		{
+					v=removeq(&q);
+				printf("\t v %d",v+1);
+					for(w=0;w<n;w++)
+					if((m[v][w]==1)&&(visited[w]==0))
+					{
+						addq(&q,w);
+						visited[w]=1;
+					}
+		}
+}
+void main()
+{
+int m[5][5]={{0,0,1,1,0},
+						{0,0,1,0,1},
+						{0,1,0,0,0},
+						{0,0,0,0,1},
+						{0,0,0,0,0}};
+bfs(m,5);
+}
+   
 
-print("Approximate integral:", result)    
     </textarea>
     
     <button id="btn-program14" onclick="copyProgram('program14', 'btn-program14')">slip14</button>
@@ -1240,81 +1205,16 @@ print("Approximate integral:", result)
     <h2 class="program-title"></h2>
     
     <textarea id="program15" class="program-code">
-Q1 B)
-from math import *
-from numpy import *
+Q1
 
-# Given data
-x = [40, 45, 50, 55, 60, 65]
-y = [210, 253, 307, 381, 413, 492]
-n = len(x)
-D = zeros((n, n+1))
 
-# Create forward difference table
-for i in range(n):
-    D[i,0] = x[i]
-    D[i,1] = y[i]
 
-for j in range(2, n+1):
-    for i in range(0, n-j+1):
-        D[i,j] = D[i+1,j-1] - D[i,j-1]
+   
 
-print("Forward difference table:")
-print(D)
 
-# Interpolation point
-xp = 48
-h = x[1] - x[0]
-u = (xp - x[0]) / h
 
-# Newton's Forward Formula
-sum = 0
-pp = 1
-for i in range(1, n):
-    sum += pp * D[0,i]
-    pp = pp * (u - (i-1)) / i
 
-print("Newton's Forward interpolated value at xp is:", sum)
-
-Q2 B)
-def f(x, y):
-    return 1 + y/x
-
-x0 = 3
-y0 = 2
-h = 0.1
-xn = 3.2
-
-while x0 < xn:
-    # Predictor
-    y_predict = y0 + h * f(x0, y0)
-    # Corrector
-    y0 = y0 + (h / 2) * (f(x0, y0) + f(x0 + h, y_predict))
-    x0 = round(x0 + h, 2)
-    print("Approximate solution at x =", x0, "is", y0)
-
-Q2 C)
-def f(x):
- return 5 + x/(2*x) if x != 0 else 5.5  
-a = -2
-b = 2
-n = 8
-h = (b - a)/n
-
-# Print xi and yi
-print("i\txi\tyi")
-for i in range(n+1):
-    xi = a + i*h
-    yi = f(xi)
-    print(f"{i}\t{xi:.5f}\t{yi:.5f}")
-
-# Trapezoidal Rule
-result = f(a) + f(b)
-for i in range(1, n):
-    result += 2 * f(a + i*h)
-result *= h / 2
-
-print("Approximate integral:", result)    
+   
 
     </textarea>
     
@@ -1326,81 +1226,15 @@ print("Approximate integral:", result)
     <h2 class="program-title"></h2>
     
     <textarea id="program16" class="program-code">
-Q1 A)
-from math import *
 
-# Define the function
-def f(x):
-    return x*3 + 2*x*2 + 10*x - 20
 
-# Define the derivative of the function
-def df(x):
-    return 3*x**2 + 4*x + 10
 
-# Initial guess
-x0 = 1.5
+      
 
-# Tolerance and max iterations
-tol = 1e-5
-max_iter = 20
-
-# Newton-Raphson iteration
-for i in range(max_iter):
-    x1 = x0 - f(x0)/df(x0)
-    if abs((x1 - x0)/x1) < tol:
-        break
-    x0 = x1
-
-print("Approximate root by Newton-Raphson Method:", x1)
-print("Number of iterations:", i+1)
-
-Q2 B)
-def f(x, y):
-    return 3 * x*2 * y*2
-
-x0 = 0
-y0 = 2
-h = 0.2
-xn = 0.4
-
-while x0 < xn:
-    k1 = h * f(x0, y0)
-    k2 = h * f(x0 + h/2, y0 + k1/2)
-    k3 = h * f(x0 + h/2, y0 + k2/2)
-    k4 = h * f(x0 + h, y0 + k3)
-    y0 = y0 + (k1 + 2*k2 + 2*k3 + k4)/6
-    x0 = x0 + h
-    print("Approximate solution at x =", round(x0, 1), "is", y0)
    
-Q2 C)
-def f(x):
-    return 3*x**2 + 2
 
-a = 0
-b = 12
-n = 12  # must be multiple of 3
-
-if n % 3 != 0:
-    print("n must be divisible by 3 for Simpson's 3/8 rule")
-else:
-    h = (b - a) / n
-    x = [a + i*h for i in range(n+1)]
-    y = [f(xi) for xi in x]
-
-    print(" i\t xi\t\t yi")
-    for i in range(n+1):
-        print(f" {i}\t {x[i]:.4f}\t {y[i]:.4f}")
-
-    result = y[0] + y[-1]
-    for i in range(1, n):
-        if i % 3 == 0:
-            result += 2 * y[i]
-        else:
-            result += 3 * y[i]
-
-    result *= (3 * h) / 8
-    print("\nApproximate integral:", result)
-
+    
+    
     </textarea>
     
     <button id="btn-program16" onclick="copyProgram('program16', 'btn-program16')">slip16</button>
@@ -1410,69 +1244,11 @@ else:
     <h2 class="program-title"></h2>
     
     <textarea id="program17" class="program-code">
-Q1 A)
-def f(x):
-    return x*3 + x*2 - 1
 
-x0 = 0
-x1 = 1
-tol = 0.00001
-count = 0
+      
+   
+    
 
-while True:
-    x2 = (x0 * f(x1) - x1 * f(x0)) / (f(x1) - f(x0))
-    count += 1
-    if abs((x1 - x0)/x2) < tol or count >= 20:
-        break
-    elif f(x0) * f(x2) < 0:
-        x1 = x2
-    else:
-        x0 = x2
-
-print("Approximate root by Regula Falsi Method:", x2)
-print("Number of iterations:", count)
-
-Q2 B)
-def f(x, y):
-    return (x*2 + y*2) / x
-
-x0 = 1
-y0 = 2
-h = 0.1
-xn = 1.2
-
-while x0 < xn:
-    k1 = h * f(x0, y0)
-    k2 = h * f(x0 + h, y0 + k1)
-    y0 = y0 + (k1 + k2) / 2
-    x0 = x0 + h
-    print("Approximate solution at x =", round(x0, 1), "is", y0)
-
-Q2 C)
-from math import sqrt
-
-def f(x):
-    return sqrt(1 - x**2)
-
-a = 0
-b = 0.5
-n = 5
-h = (b - a) / n
-
-# Print xi and yi values
-print(" i\t xi\t\t yi")
-for i in range(n+1):
-    xi = a + i*h
-    yi = f(xi)
-    print(f" {i}\t {xi:.4f}\t {yi:.4f}")
-
-# Trapezoidal rule calculation
-result = f(a) + f(b)
-for i in range(1, n):
-    result += 2 * f(a + i*h)
-result *= h / 2
-
-print("\nApproximate integral:", result)    
 
     </textarea>
     
@@ -1483,73 +1259,11 @@ print("\nApproximate integral:", result)
     <h2 class="program-title"></h2>
     
     <textarea id="program18" class="program-code">
-Q1 A)
-def f(x):
-    return x*3 + 7*x*2 + 9
 
-def df(x):
-    return 3*x**2 + 14*x
 
-# Initial guess (choose a value in [-8, -7])
-x0 = -7.5
-tol = 1e-5
-max_iter = 20
-count = 0
 
-while count < max_iter:
-    x1 = x0 - f(x0)/df(x0)
-    count += 1
-    if abs((x1 - x0)/x1) < tol:
-        break
-    x0 = x1
 
-print("Approximate root by Newton-Raphson Method:", x1)
-print("Number of iterations:", count)
-
-Q2 B)
-def f(x, y):
-    return x*2 * y*2
-
-x0 = 0
-y0 = 2
-h = 0.2
-xn = 0.4
-
-while x0 < xn:
-    k1 = h * f(x0, y0)
-    k2 = h * f(x0 + h/2, y0 + k1/2)
-    k3 = h * f(x0 + h/2, y0 + k2/2)
-    k4 = h * f(x0 + h, y0 + k3)
-    y0 = y0 + (k1 + 2*k2 + 2*k3 + k4)/6
-    x0 = x0 + h
-    print("Approximate solution at x =", round(x0, 1), "is", y0)
-
-Q2 C)
-from math import sqrt
-
-def f(x):
-    return 3*sqrt(x) + 2
-
-a = 0
-b = 6
-n = 12  # Number of intervals; must be multiple of 3
-
-if n % 3 != 0:
-    print("n must be divisible by 3 for Simpson's 3/8 rule")
-else:
-    h = (b - a) / n
-    x = [a + i*h for i in range(n+1)]
-    y = [f(xi) for xi in x]
-
-    result = y[0] + y[-1]
-    for i in range(1, n):
-        if i % 3 == 0:
-            result += 2 * y[i]
-        else:
-            result += 3 * y[i]
-
-    result *= (3 * h) / 8
-    print("Approximate integral:", result)    
+    
 
     </textarea>
     
@@ -1562,81 +1276,14 @@ else:
     <h2 class="program-title"></h2>
     
     <textarea id="program19" class="program-code">
-    Q1 B)
-    from numpy import zeros
+    
+    
 
-x = [25, 30, 35, 40, 45]
-y = [50, 67, 84, 94, 101]
-n = len(x)
 
-# Create forward difference table
-D = zeros((n, n+1))
-for i in range(n):
-    D[i,0] = x[i]
-    D[i,1] = y[i]
 
-for j in range(2, n+1):
-    for i in range(0, n-j+1):
-        D[i,j] = D[i+1,j-1] - D[i,j-1]
 
-# Calculate interpolated value at xp=27
-xp = 27
-h = x[1] - x[0]
-u = (xp - x[0]) / h
-sum = D[0,1]
-pp = 1
 
-for i in range(1, n):
-    pp = pp * (u - (i-1)) / i
-    sum = sum + pp * D[0,i+1]
 
-print("Newton's Forward interpolated value at xp is:", sum)
-
-Q2 C)
-def f(x):
-return 5*x**2 + 3*x + 2
-
-a = 5
-b = 11
-n = 6  # must be even
-h = (b - a) / n
-
-# Print xi and yi values
-print(" i\t xi\t\t yi")
-x = a
-for i in range(n+1):
-yi = f(x)
-print(f" {i}\t {x:.4f}\t {yi:.4f}")
-x += h
-
-# Simpson's 1/3 rule calculation
-result = f(a) + f(b)
-for i in range(1, n):
-xi = a + i*h
-if i % 2 == 0:
-    result += 2 * f(xi)
-else:
-    result += 4 * f(xi)
-
-result *= h / 3
-print("\nApproximate integral:", result)
-          
-Q2 B)
-def f(x, y):
-    return (y + x) / (y - x)
-
-x0 = 0
-y0 = 2
-h = 0.2
-xn = 0.4
-
-while x0 < xn:
-    k1 = f(x0, y0)
-    y_predict = y0 + h * k1
-    k2 = f(x0 + h, y_predict)
-    y0 = y0 + (h / 2) * (k1 + k2)
-    x0 = x0 + h
-    print("Approximate solution at x =", round(x0, 1), "is", y0)
 
     </textarea>
     
@@ -1647,75 +1294,77 @@ while x0 < xn:
     <h2 class="program-title"></h2>
     
     <textarea id="program20" class="program-code">
-Q1 A)
-def f(x):
-    return x**3 - x - 1
+Q1 #include <stdio.h>
+#include <stdlib.h>
 
-x0 = 1
-x1 = 2
-tol = 0.00001
-max_iter = 15
-count = 0
+#define MAX 100
 
-while count < max_iter:
-    x2 = (x0 * f(x1) - x1 * f(x0)) / (f(x1) - f(x0))
-    count += 1
-    if abs((x2 - x0)/x2) < tol:
-        break
-    elif f(x0) * f(x2) < 0:
-        x1 = x2
-    else:
-        x0 = x2
+int adj[MAX][MAX], visited[MAX], stack[MAX];
+int n, top = -1;
 
-print("Approximate root by Regula-Falsi Method:", x2)
-print("Number of iterations:", count)
+// Function to perform DFS
+void dfs(int v) {
+    visited[v] = 1;
 
-Q2 B)
-def f(x, y):
-    return 1 + y
+    for (int i = 0; i < n; i++) {
+        if (adj[v][i] == 1 && !visited[i]) {
+            dfs(i);
+        }
+    }
 
-x0 = 0
-y0 = 1.1
-h = 0.1
-xn = 0.2
+    // Push vertex onto stack
+    stack[++top] = v;
+}
 
-while x0 < xn:
-    k1 = h * f(x0, y0)
-    k2 = h * f(x0 + h/2, y0 + k1/2)
-    k3 = h * f(x0 + h/2, y0 + k2/2)
-    k4 = h * f(x0 + h, y0 + k3)
-    y0 = y0 + (k1 + 2*k2 + 2*k3 + k4)/6
-    x0 = x0 + h
-    print("Approximate solution at x =", round(x0,1), "is", y0)
+// Function for Topological Sort
+void topologicalSort() {
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            dfs(i);
+        }
+    }
 
- Q2 C)
- def f(x):
-    return x**3 + 5*x + 7
+    printf("Topological ordering:\n");
+    while (top != -1) {
+        printf("%d ", stack[top--]);
+    }
+}
 
-a = 0
-b = 6
-n = 12  # must be multiple of 3
+int main() {
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
 
-if n % 3 != 0:
-    print("n must be divisible by 3 for Simpson's 3/8 rule")
-else:
-    h = (b - a) / n
-    x = [a + i*h for i in range(n+1)]
-    y = [f(xi) for xi in x]
+    printf("Enter adjacency matrix:\n");
+    for (int i = 0; i < n; i++) {
+        visited[i] = 0;
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &adj[i][j]);
+        }
+    }
 
-    print(" i\t xi\t\t yi")
-    for i in range(n+1):
-        print(f" {i}\t {x[i]:.4f}\t {y[i]:.4f}")
+    topologicalSort();
+    
+/*Enter number of vertices: 6
+Enter adjacency matrix:
+0 1 1 0 0 0
+0 0 0 1 0 0
+0 0 0 1 1 0
+0 0 0 0 0 1
+0 0 0 0 0 1
+0 0 0 0 0 0
+Topological ordering:
+0 2 4 1 3 5 */ 
 
-    result = y[0] + y[-1]
-    for i in range(1, n):
-        if i % 3 == 0:
-            result += 2 * y[i]
-        else:
-            result += 3 * y[i]
 
-    result *= (3 * h) / 8
-    print("\nApproximate integral:", result)
+
+    return 0;
+}
+
+
+
+
+
+    
     </textarea>
     
     <button id="btn-program20" onclick="copyProgram('program20', 'btn-program20')">slip20</button>
