@@ -395,16 +395,45 @@ int main()
     return 0;
 }
    Q2
-    
+			#include<stdio.h>
+int a,b,u,v,n,i,j,ne=1;
+int visited[10]= {0},min,mincost=0,cost[10][10];
+void main() {
+	
+	printf("\n Enter the number of nodes:");
+	scanf("%d",&n);
+	printf("\n Enter the adjacency matrix:\n");
+	for (i=1;i<=n;i++)
+	  for (j=1;j<=n;j++)
+	   {
+		scanf("%d",&cost[i][j]);
+		if(cost[i][j]==0)
+		    cost[i][j]=999;
+	   }
+	visited[1]=1;
+	printf("\n");
+	while(ne<n) 
+	{
+		for (i=1,min=999;i<=n;i++)
+		   for (j=1;j<=n;j++)
+		    if(cost[i][j]<min)
+		     if(visited[i]!=0) 
+		     {
+			min=cost[i][j];
+			a=u=i;
+			b=v=j;
+		       }
+		if(visited[u]==0 || visited[v]==0) 
+		{
+			printf("\n Edge %d:(%d %d) cost:%d",ne++,a,b,min);
+			mincost+=min;
+			visited[b]=1;
+		}
+		cost[a][b]=cost[b][a]=999;
+	}
+	printf("\n Minimun cost=%d",mincost);
 
-
-        
-
-
-
-
-    
-
+}	
         </textarea>
         
         <button id="btn-program3" onclick="copyProgram('program3', 'btn-program3')">slip3</button>
@@ -417,16 +446,143 @@ int main()
         <h2 class="program-title"></h2>
         
         <textarea id="program4" class="program-code">
-   Q1
-            
+   Q1 merge
+	#include <stdio.h>
+#include <time.h>
 
+void merge(int arr[], int left, int mid, int right) {
+    int i, j, k;
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
 
+    int L[n1], R[n2];
 
+    // Copy data to temp arrays
+    for(i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for(j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
 
+    i = 0; j = 0; k = left;
 
+    // Merge the temp arrays
+    while(i < n1 && j < n2) {
+        if(L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
 
+    // Copy remaining elements
+    while(i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
 
-   
+    while(j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(int arr[], int left, int right) {
+    if(left < right) {
+        int mid = (left + right) / 2;
+
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+
+        merge(arr, left, mid, right);
+    }
+}
+
+int main() {
+    int n, i;
+    int arr[1000];
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter elements:\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    clock_t start, end;
+    start = clock();
+
+    mergeSort(arr, 0, n - 1);
+
+    end = clock();
+
+    printf("\nSorted array:\n");
+    for(i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("\n\nTime taken = %f seconds\n", time_taken);
+
+    return 0;
+}
+
+Q2 knapsack
+#include <stdio.h>
+
+struct item {
+    int w, p;
+    float r;
+};
+
+int main() {
+    int n, i, j;
+    float cap, profit = 0;
+
+    printf("Enter number of items: ");
+    scanf("%d", &n);
+
+    struct item a[n];
+
+    printf("Enter weight and profit:\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d %d", &a[i].w, &a[i].p);
+        a[i].r = (float)a[i].p / a[i].w;
+    }
+
+    printf("Enter capacity: ");
+    scanf("%f", &cap);
+
+    // Sort by ratio
+    for(i = 0; i < n-1; i++) {
+        for(j = i+1; j < n; j++) {
+            if(a[i].r < a[j].r) {
+                struct item t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+        }
+    }
+
+    // Greedy selection
+    for(i = 0; i < n; i++) {
+        if(cap >= a[i].w) {
+            cap -= a[i].w;
+            profit += a[i].p;
+        } else {
+            profit += a[i].r * cap;
+            break;
+        }
+    }
+
+    printf("Max Profit = %.2f", profit);
+    return 0;
+}
         </textarea>
         
         <button id="btn-program4" onclick="copyProgram('program4', 'btn-program4')">slip4</button>
@@ -437,16 +593,166 @@ int main()
         <h2 class="program-title"></h2>
         
         <textarea id="program5" class="program-code">
-     
+   Q1 krushkals
+	#include <stdio.h>
+int parent[10];
 
+int find(int i) {
+    while(parent[i])
+        i = parent[i];
+    return i;
+}
 
+int uni(int i, int j) {
+    if(i != j) {
+        parent[j] = i;
+        return 1;
+    }
+    return 0;
+}
 
+int main() {
+    int n, i, j, a, b, u, v;
+    int min, mincost = 0;
+    int cost[10][10];
 
-   
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
 
+    printf("Enter cost matrix:\n");
+    for(i = 0; i < n; i++) {
+        for(j = 0; j < n; j++) {
+            scanf("%d", &cost[i][j]);
+            if(cost[i][j] == 0)
+                cost[i][j] = 999;
+        }
+    }
 
+    printf("\nEdges in MST:\n");
 
-           
+    for(int edge = 0; edge < n - 1; edge++) {
+        min = 999;
+
+        for(i = 0; i < n; i++) {
+            for(j = 0; j < n; j++) {
+                if(cost[i][j] < min) {
+                    min = cost[i][j];
+                    a = u = i;
+                    b = v = j;
+                }
+            }
+        }
+
+        u = find(u);
+        v = find(v);
+
+        if(uni(u, v)) {
+            printf("%d -> %d = %d\n", a, b, min);
+            mincost += min;
+        }
+
+        cost[a][b] = cost[b][a] = 999;
+    }
+
+    printf("\nMinimum Cost = %d", mincost);
+
+    return 0;
+}
+Q2 huffman coding
+			#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    char ch;
+    int freq;
+    struct node *left, *right;
+};
+
+// Create new node
+struct node* newNode(char ch, int freq) {
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    temp->ch = ch;
+    temp->freq = freq;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+
+// Print codes
+void printCodes(struct node* root, int arr[], int top) {
+    if(root->left) {
+        arr[top] = 0;
+        printCodes(root->left, arr, top + 1);
+    }
+    if(root->right) {
+        arr[top] = 1;
+        printCodes(root->right, arr, top + 1);
+    }
+
+    if(!root->left && !root->right) {
+        printf("%c: ", root->ch);
+        for(int i = 0; i < top; i++)
+            printf("%d", arr[i]);
+        printf("\n");
+    }
+}
+
+int main() {
+    int n, i, j;
+    printf("Enter number of characters: ");
+    scanf("%d", &n);
+
+    char ch[n];
+    int freq[n];
+
+    printf("Enter characters:\n");
+    for(i = 0; i < n; i++)
+        scanf(" %c", &ch[i]);
+
+    printf("Enter frequencies:\n");
+    for(i = 0; i < n; i++)
+        scanf("%d", &freq[i]);
+
+    struct node* nodes[n];
+
+    for(i = 0; i < n; i++)
+        nodes[i] = newNode(ch[i], freq[i]);
+
+    // Build Huffman Tree (simple method)
+    while(n > 1) {
+        int min1 = 0, min2 = 1;
+
+        if(nodes[min1]->freq > nodes[min2]->freq) {
+            int t = min1; min1 = min2; min2 = t;
+        }
+
+        for(i = 2; i < n; i++) {
+            if(nodes[i]->freq < nodes[min1]->freq) {
+                min2 = min1;
+                min1 = i;
+            } else if(nodes[i]->freq < nodes[min2]->freq) {
+                min2 = i;
+            }
+        }
+
+        struct node* left = nodes[min1];
+        struct node* right = nodes[min2];
+
+        struct node* new = newNode('$', left->freq + right->freq);
+        new->left = left;
+        new->right = right;
+
+        nodes[min1] = new;
+        nodes[min2] = nodes[n - 1];
+        n--;
+    }
+
+    int arr[100], top = 0;
+    printf("\nHuffman Codes:\n");
+    printCodes(nodes[0], arr, top);
+
+    return 0;
+}
+  
         </textarea>
         
         <button id="btn-program5" onclick="copyProgram('program5', 'btn-program5')">slip5</button>
@@ -457,7 +763,7 @@ int main()
         
         <textarea id="program6" class="program-code">
        Q1 
-            #include<stdio.h>
+#include<stdio.h>
 int a,b,u,v,n,i,j,ne=1;
 int visited[10]= {0},min,mincost=0,cost[10][10];
 void main() {
@@ -497,15 +803,44 @@ void main() {
 
 }	
   Q2 
-            
+	#include <stdio.h>
+#include <string.h>
 
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
 
+int main() {
+    char X[100], Y[100];
+    int i, j;
 
+    printf("Enter first string: ");
+    scanf("%s", X);
 
+    printf("Enter second string: ");
+    scanf("%s", Y);
 
+    int m = strlen(X);
+    int n = strlen(Y);
 
+    int L[m+1][n+1];
 
-           
+    // Build LCS table
+    for(i = 0; i <= m; i++) {
+        for(j = 0; j <= n; j++) {
+            if(i == 0 || j == 0)
+                L[i][j] = 0;
+            else if(X[i-1] == Y[j-1])
+                L[i][j] = 1 + L[i-1][j-1];
+            else
+                L[i][j] = max(L[i-1][j], L[i][j-1]);
+        }
+    }
+
+    printf("Length of LCS = %d", L[m][n]);
+
+    return 0;
+}           
         </textarea>
         
         <button id="btn-program6" onclick="copyProgram('program6', 'btn-program6')">slip6</button>
@@ -665,9 +1000,7 @@ Enter adjacency matrix:
 0 0 0 0 0 0
 Topological ordering:
 0 2 4 1 3 5 */ 
-
-
-
+			
     return 0;
 }       
         </textarea>
@@ -680,15 +1013,104 @@ Topological ordering:
         <h2 class="program-title"></h2>
         
         <textarea id="program8" class="program-code">
- Q1   
+ Q1 knapsack
+#include <stdio.h>
 
+struct item {
+    int w, p;
+    float r;
+};
 
+int main() {
+    int n, i, j;
+    float cap, profit = 0;
 
+    printf("Enter number of items: ");
+    scanf("%d", &n);
 
-   
+    struct item a[n];
 
+    printf("Enter weight and profit:\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d %d", &a[i].w, &a[i].p);
+        a[i].r = (float)a[i].p / a[i].w;
+    }
 
-        </textarea>
+    printf("Enter capacity: ");
+    scanf("%f", &cap);
+
+    // Sort by ratio
+    for(i = 0; i < n-1; i++) {
+        for(j = i+1; j < n; j++) {
+            if(a[i].r < a[j].r) {
+                struct item t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+        }
+    }
+
+    // Greedy selection
+    for(i = 0; i < n; i++) {
+        if(cap >= a[i].w) {
+            cap -= a[i].w;
+            profit += a[i].p;
+        } else {
+            profit += a[i].r * cap;
+            break;
+        }
+    }
+
+    printf("Max Profit = %.2f", profit);
+    return 0;
+} 
+
+Q2 TSP
+	#include <stdio.h>
+int main() {
+    int n, i, j;
+    int cost[10][10], visited[10] = {0};
+    int current = 0, next, min, total = 0;
+
+    printf("Enter number of cities: ");
+    scanf("%d", &n);
+
+    printf("Enter cost matrix:\n");
+    for(i = 0; i < n; i++) {
+        for(j = 0; j < n; j++) {
+            scanf("%d", &cost[i][j]);
+            if(cost[i][j] == 0)
+                cost[i][j] = 999;
+        }
+    }
+    visited[current] = 1;
+    printf("Path: %d", current);
+
+    for(i = 0; i < n - 1; i++) {
+        min = 999;
+
+        for(j = 0; j < n; j++) {
+            if(!visited[j] && cost[current][j] < min) {
+                min = cost[current][j];
+                next = j;
+            }
+        }
+
+        visited[next] = 1;
+        printf(" -> %d", next);
+        total += min;
+        current = next;
+    }
+
+    // return to starting city
+    total += cost[current][0];
+    printf(" -> %d", 0);
+
+    printf("\nMinimum Cost = %d", total);
+
+    return 0;
+}
+</textarea>
         
         <button id="btn-program8" onclick="copyProgram('program8', 'btn-program8')">slip8</button>
     </div>    
@@ -699,15 +1121,87 @@ Topological ordering:
         <h2 class="program-title"></h2>
         
         <textarea id="program9" class="program-code">
-   
+   Q1 #include <stdio.h>
+int main() {
+    int n, i, j, k;
+    float cost[10][10], w[10][10];
+    float p[10];
 
+    printf("Enter number of keys: ");
+    scanf("%d", &n);
 
+    printf("Enter probabilities:\n");
+    for(i = 1; i <= n; i++)
+        scanf("%f", &p[i]);
 
+    // Initialize
+    for(i = 1; i <= n + 1; i++) {
+        cost[i][i-1] = 0;
+        w[i][i-1] = 0;
+    }
 
+    // OBST calculation
+    for(int len = 1; len <= n; len++) {
+        for(i = 1; i <= n - len + 1; i++) {
+            j = i + len - 1;
+            cost[i][j] = 999;
 
+            w[i][j] = w[i][j-1] + p[j];
 
+            for(k = i; k <= j; k++) {
+                float c = cost[i][k-1] + cost[k+1][j] + w[i][j];
+                if(c < cost[i][j])
+                    cost[i][j] = c;
+            }
+        }
+    }
+    printf("Minimum cost of OBST = %.2f", cost[1][n]);
+    return 0;
+}
+ Q2 
+#include <stdio.h>
+int w[10], x[10], n, sum;
 
-        </textarea>
+void subset(int s, int k, int r) {
+    x[k] = 1;
+
+    if(s + w[k] == sum) {
+        printf("{ ");
+        for(int i = 0; i <= k; i++)
+            if(x[i] == 1)
+                printf("%d ", w[i]);
+        printf("}\n");
+    }
+    else if(s + w[k] + w[k+1] <= sum) {
+        subset(s + w[k], k + 1, r - w[k]);
+    }
+
+    if((s + r - w[k] >= sum) && (s + w[k+1] <= sum)) {
+        x[k] = 0;
+        subset(s, k + 1, r - w[k]);
+    }
+}
+
+int main() {
+    int total = 0;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter elements:\n");
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &w[i]);
+        total += w[i];
+    }
+
+    printf("Enter required sum: ");
+    scanf("%d", &sum);
+
+    subset(0, 0, total);
+
+    return 0;
+}
+</textarea>
         
         <button id="btn-program9" onclick="copyProgram('program9', 'btn-program9')">slip9</button>
     </div>    
@@ -717,14 +1211,135 @@ Topological ordering:
         <h2 class="program-title"></h2>
         
         <textarea id="program10" class="program-code">
-    
+   Q1  huffman
+#include <stdio.h>
+#include <stdlib.h>
 
+struct node {
+    char ch;
+    int freq;
+    struct node *left, *right;
+};
 
+// Create new node
+struct node* newNode(char ch, int freq) {
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    temp->ch = ch;
+    temp->freq = freq;
+    temp->left = temp->right = NULL;
+    return temp;
+}
 
+// Print codes
+void printCodes(struct node* root, int arr[], int top) {
+    if(root->left) {
+        arr[top] = 0;
+        printCodes(root->left, arr, top + 1);
+    }
+    if(root->right) {
+        arr[top] = 1;
+        printCodes(root->right, arr, top + 1);
+    }
 
+    if(!root->left && !root->right) {
+        printf("%c: ", root->ch);
+        for(int i = 0; i < top; i++)
+            printf("%d", arr[i]);
+        printf("\n");
+    }
+}
 
-   
-    
+int main() {
+    int n, i, j;
+    printf("Enter number of characters: ");
+    scanf("%d", &n);
+
+    char ch[n];
+    int freq[n];
+
+    printf("Enter characters:\n");
+    for(i = 0; i < n; i++)
+        scanf(" %c", &ch[i]);
+
+    printf("Enter frequencies:\n");
+    for(i = 0; i < n; i++)
+        scanf("%d", &freq[i]);
+
+    struct node* nodes[n];
+
+    for(i = 0; i < n; i++)
+        nodes[i] = newNode(ch[i], freq[i]);
+
+    // Build Huffman Tree (simple method)
+    while(n > 1) {
+        int min1 = 0, min2 = 1;
+
+        if(nodes[min1]->freq > nodes[min2]->freq) {
+            int t = min1; min1 = min2; min2 = t;
+        }
+
+        for(i = 2; i < n; i++) {
+            if(nodes[i]->freq < nodes[min1]->freq) {
+                min2 = min1;
+                min1 = i;
+            } else if(nodes[i]->freq < nodes[min2]->freq) {
+                min2 = i;
+            }
+        }
+
+        struct node* left = nodes[min1];
+        struct node* right = nodes[min2];
+
+        struct node* new = newNode('$', left->freq + right->freq);
+        new->left = left;
+        new->right = right;
+
+        nodes[min1] = new;
+        nodes[min2] = nodes[n - 1];
+        n--;
+    }
+
+    int arr[100], top = 0;
+    printf("\nHuffman Codes:\n");
+    printCodes(nodes[0], arr, top);
+
+    return 0;
+}		
+Q2 4-queen
+ #include <stdio.h>
+int x[10], n = 4;
+
+// Check if position is safe
+int place(int k, int i) {
+    for(int j = 1; j < k; j++) {
+        if(x[j] == i || abs(x[j] - i) == abs(j - k))
+            return 0;
+    }
+    return 1;
+}
+
+// Backtracking function
+void nqueen(int k) {
+    for(int i = 1; i <= n; i++) {
+        if(place(k, i)) {
+            x[k] = i;
+
+            if(k == n) {
+                for(int j = 1; j <= n; j++)
+                    printf("%d ", x[j]);
+                printf("\n");
+            } else {
+                nqueen(k + 1);
+            }
+        }
+    }
+}
+
+int main() {
+    printf("Solutions:\n");
+    nqueen(1);
+    return 0;
+}
         </textarea>
         
         <button id="btn-program10" onclick="copyProgram('program10', 'btn-program10')">slip10</button>
@@ -1029,13 +1644,79 @@ int main()
         <h2 class="program-title"></h2>
         
         <textarea id="program13" class="program-code">
-  Q1 
+  Q1 matrix chain multi
+	#include <stdio.h>
 
+int main() {
+    int n, i, j, k, L;
+    int p[10], m[10][10];
 
+    printf("Enter number of matrices: ");
+    scanf("%d", &n);
 
+    printf("Enter dimensions array (size %d):\n", n + 1);
+    for(i = 0; i <= n; i++)
+        scanf("%d", &p[i]);
 
+    // Initialize
+    for(i = 1; i <= n; i++)
+        m[i][i] = 0;
 
-     
+    // DP computation
+    for(L = 2; L <= n; L++) {
+        for(i = 1; i <= n - L + 1; i++) {
+            j = i + L - 1;
+            m[i][j] = 9999;
+
+            for(k = i; k < j; k++) {
+                int q = m[i][k] + m[k+1][j] + p[i-1]*p[k]*p[j];
+                if(q < m[i][j])
+                    m[i][j] = q;
+            }
+        }
+    }
+    printf("Minimum multiplications = %d", m[1][n]);
+    return 0;
+}
+	Q2
+			#include <stdio.h>
+int main() {
+    int n, i, j, k;
+    float cost[10][10], w[10][10];
+    float p[10];
+
+    printf("Enter number of keys: ");
+    scanf("%d", &n);
+
+    printf("Enter probabilities:\n");
+    for(i = 1; i <= n; i++)
+        scanf("%f", &p[i]);
+
+    // Initialize
+    for(i = 1; i <= n + 1; i++) {
+        cost[i][i-1] = 0;
+        w[i][i-1] = 0;
+    }
+
+    // OBST calculation
+    for(int len = 1; len <= n; len++) {
+        for(i = 1; i <= n - len + 1; i++) {
+            j = i + len - 1;
+            cost[i][j] = 999;
+
+            w[i][j] = w[i][j-1] + p[j];
+
+            for(k = i; k <= j; k++) {
+                float c = cost[i][k-1] + cost[k+1][j] + w[i][j];
+                if(c < cost[i][j])
+                    cost[i][j] = c;
+            }
+        }
+    }
+    printf("Minimum cost of OBST = %.2f", cost[1][n]);
+    return 0;
+}
+		
         </textarea>     
 <button id="btn-program13" onclick="copyProgram('program13', 'btn-program13')">slip13</button>
 </div>      
@@ -1046,8 +1727,33 @@ int main()
     
     <textarea id="program14" class="program-code">
 Q1 insertion
-   
+	#include <stdio.h>
+#include <time.h>
 
+int main() {
+    int n, i, j, key, a[1000];
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter elements:\n");
+    for(i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+
+    clock_t start, end;
+    start = clock();
+
+    // Insertion Sort
+    for(i = 1; i < n; i++) {
+        key = a[i];
+        j = i - 1;
+
+        while(j >= 0 && a[j] > key) {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1]
+	
 Q2
 #include<stdio.h>
 #include<stdlib.h>
@@ -1205,16 +1911,110 @@ bfs(m,5);
     <h2 class="program-title"></h2>
     
     <textarea id="program15" class="program-code">
-Q1
+Q1 #include <stdio.h>
 
+struct item {
+    int w, p;
+    float r;
+};
 
+int main() {
+    int n, i, j;
+    float cap, profit = 0;
 
-   
+    printf("Enter number of items: ");
+    scanf("%d", &n);
 
+    struct item a[n];
 
+    printf("Enter weight and profit:\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d %d", &a[i].w, &a[i].p);
+        a[i].r = (float)a[i].p / a[i].w;
+    }
 
+    printf("Enter capacity: ");
+    scanf("%f", &cap);
 
-   
+    // Sort by ratio
+    for(i = 0; i < n-1; i++) {
+        for(j = i+1; j < n; j++) {
+            if(a[i].r < a[j].r) {
+                struct item t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+        }
+    }
+
+    // Greedy selection
+    for(i = 0; i < n; i++) {
+        if(cap >= a[i].w) {
+            cap -= a[i].w;
+            profit += a[i].p;
+        } else {
+            profit += a[i].r * cap;
+            break;
+        }
+    }
+
+    printf("Max Profit = %.2f", profit);
+    return 0;
+}
+Q2 #include <stdio.h>
+
+int n, m;
+int graph[10][10], color[10];
+
+// Check if color can be assigned
+int isSafe(int v, int c) {
+    for(int i = 0; i < n; i++) {
+        if(graph[v][i] && color[i] == c)
+            return 0;
+    }
+    return 1;
+}
+
+// Backtracking function
+int graphColor(int v) {
+    if(v == n)
+        return 1;
+
+    for(int c = 1; c <= m; c++) {
+        if(isSafe(v, c)) {
+            color[v] = c;
+
+            if(graphColor(v + 1))
+                return 1;
+
+            color[v] = 0; // backtrack
+        }
+    }
+    return 0;
+}
+
+int main() {
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter adjacency matrix:\n");
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            scanf("%d", &graph[i][j]);
+
+    printf("Enter number of colors: ");
+    scanf("%d", &m);
+
+    if(graphColor(0)) {
+        printf("Solution (vertex:color):\n");
+        for(int i = 0; i < n; i++)
+            printf("%d:%d ", i, color[i]);
+    } else {
+        printf("No solution");
+    }
+
+    return 0;
+}
 
     </textarea>
     
@@ -1226,15 +2026,118 @@ Q1
     <h2 class="program-title"></h2>
     
     <textarea id="program16" class="program-code">
+Q1 #include <stdio.h>
 
+struct item {
+    int w, p;
+    float r;
+};
 
+int main() {
+    int n, i, j;
+    float cap, profit = 0;
 
-      
+    printf("Enter number of items: ");
+    scanf("%d", &n);
 
-   
+    struct item a[n];
 
-    
-    
+    printf("Enter weight and profit:\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d %d", &a[i].w, &a[i].p);
+        a[i].r = (float)a[i].p / a[i].w;
+    }
+
+    printf("Enter capacity: ");
+    scanf("%f", &cap);
+
+    // Sort by ratio
+    for(i = 0; i < n-1; i++) {
+        for(j = i+1; j < n; j++) {
+            if(a[i].r < a[j].r) {
+                struct item t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+        }
+    }
+
+    // Greedy selection
+    for(i = 0; i < n; i++) {
+        if(cap >= a[i].w) {
+            cap -= a[i].w;
+            profit += a[i].p;
+        } else {
+            profit += a[i].r * cap;
+            break;
+        }
+    }
+
+    printf("Max Profit = %.2f", profit);
+    return 0;
+}
+Q2 hamiltonian
+#include <stdio.h>
+
+int n;
+int graph[10][10], path[10];
+
+// Check if vertex can be added
+int isSafe(int v, int pos) {
+    if(graph[path[pos-1]][v] == 0)
+        return 0;
+
+    for(int i = 0; i < pos; i++)
+        if(path[i] == v)
+            return 0;
+
+    return 1;
+}
+
+// Backtracking function
+int hamCycle(int pos) {
+    if(pos == n) {
+        if(graph[path[pos-1]][path[0]] == 1)
+            return 1;
+        else
+            return 0;
+    }
+
+    for(int v = 1; v < n; v++) {
+        if(isSafe(v, pos)) {
+            path[pos] = v;
+
+            if(hamCycle(pos + 1))
+                return 1;
+
+            path[pos] = -1; // backtrack
+        }
+    }
+    return 0;
+}
+
+int main() {
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter adjacency matrix:\n");
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            scanf("%d", &graph[i][j]);
+
+    path[0] = 0; // start from vertex 0
+
+    if(hamCycle(1)) {
+        printf("Hamiltonian Cycle: ");
+        for(int i = 0; i < n; i++)
+            printf("%d ", path[i]);
+        printf("%d", path[0]);
+    } else {
+        printf("No Hamiltonian Cycle");
+    }
+
+    return 0;
+}
     </textarea>
     
     <button id="btn-program16" onclick="copyProgram('program16', 'btn-program16')">slip16</button>
@@ -1244,12 +2147,97 @@ Q1
     <h2 class="program-title"></h2>
     
     <textarea id="program17" class="program-code">
+Q1 
+		#include <stdio.h>
+#include <stdlib.h>
 
-      
-   
-    
+int x[20], n;
 
+// Check if safe
+int place(int k, int i) {
+    for(int j = 1; j < k; j++) {
+        if(x[j] == i || abs(x[j] - i) == abs(j - k))
+            return 0;
+    }
+    return 1;
+}
 
+// Backtracking
+void nqueen(int k) {
+    for(int i = 1; i <= n; i++) {
+        if(place(k, i)) {
+            x[k] = i;
+
+            if(k == n) {
+                for(int j = 1; j <= n; j++)
+                    printf("%d ", x[j]);
+                printf("\n");
+            } else {
+                nqueen(k + 1);
+            }
+        }
+    }
+}
+
+int main() {
+    printf("Enter value of N: ");
+    scanf("%d", &n);
+
+    printf("Solutions:\n");
+    nqueen(1);
+
+    return 0;
+}
+Q2  #include <stdio.h>
+
+struct item {
+    int w, p;
+    float r;
+};
+
+int main() {
+    int n, i, j;
+    float cap, profit = 0;
+
+    printf("Enter number of items: ");
+    scanf("%d", &n);
+
+    struct item a[n];
+
+    printf("Enter weight and profit:\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d %d", &a[i].w, &a[i].p);
+        a[i].r = (float)a[i].p / a[i].w;
+    }
+
+    printf("Enter capacity: ");
+    scanf("%f", &cap);
+
+    // Sort by ratio
+    for(i = 0; i < n-1; i++) {
+        for(j = i+1; j < n; j++) {
+            if(a[i].r < a[j].r) {
+                struct item t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+        }
+    }
+
+    // Greedy selection
+    for(i = 0; i < n; i++) {
+        if(cap >= a[i].w) {
+            cap -= a[i].w;
+            profit += a[i].p;
+        } else {
+            profit += a[i].r * cap;
+            break;
+        }
+    }
+
+    printf("Max Profit = %.2f", profit);
+    return 0;
+}
     </textarea>
     
     <button id="btn-program17" onclick="copyProgram('program17', 'btn-program17')">slip17</button>
@@ -1259,12 +2247,107 @@ Q1
     <h2 class="program-title"></h2>
     
     <textarea id="program18" class="program-code">
+Q1#include <stdio.h>
 
+int n, m;
+int graph[10][10], color[10];
 
+// Check if color can be assigned
+int isSafe(int v, int c) {
+    for(int i = 0; i < n; i++) {
+        if(graph[v][i] && color[i] == c)
+            return 0;
+    }
+    return 1;
+}
 
+// Backtracking function
+int graphColor(int v) {
+    if(v == n)
+        return 1;
 
-    
+    for(int c = 1; c <= m; c++) {
+        if(isSafe(v, c)) {
+            color[v] = c;
 
+            if(graphColor(v + 1))
+                return 1;
+
+            color[v] = 0; // backtrack
+        }
+    }
+    return 0;
+}
+
+int main() {
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter adjacency matrix:\n");
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            scanf("%d", &graph[i][j]);
+
+    printf("Enter number of colors: ");
+    scanf("%d", &m);
+
+    if(graphColor(0)) {
+        printf("Solution (vertex:color):\n");
+        for(int i = 0; i < n; i++)
+            printf("%d:%d ", i, color[i]);
+    } else {
+        printf("No solution");
+    }
+
+    return 0;
+}
+Q2 
+		#include <stdio.h>
+
+int graph[10][10], visited[10];
+int n;
+
+// Function to simulate node classification
+void classify(int start) {
+    int queue[10], front = 0, rear = 0;
+
+    queue[rear++] = start;
+    visited[start] = 1;
+
+    printf("E-node (Expanding): %d\n", start);
+
+    while(front < rear) {
+        int node = queue[front++];
+        int hasChild = 0;
+
+        for(int i = 0; i < n; i++) {
+            if(graph[node][i] && !visited[i]) {
+                printf("Live node: %d\n", i);
+                queue[rear++] = i;
+                visited[i] = 1;
+                hasChild = 1;
+            }
+        }
+
+        if(!hasChild) {
+            printf("Dead node: %d\n", node);
+        }
+    }
+}
+
+int main() {
+    printf("Enter number of nodes: ");
+    scanf("%d", &n);
+
+    printf("Enter adjacency matrix:\n");
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            scanf("%d", &graph[i][j]);
+
+    classify(0); // start from node 0
+
+    return 0;
+}
     </textarea>
     
     <button id="btn-program18" onclick="copyProgram('program18', 'btn-program18')">slip18</button>
@@ -1276,15 +2359,107 @@ Q1
     <h2 class="program-title"></h2>
     
     <textarea id="program19" class="program-code">
-    
-    
+Q1  #include <stdio.h>
 
+int n;
+int graph[10][10], path[10];
 
+// Check if vertex can be added
+int isSafe(int v, int pos) {
+    if(graph[path[pos-1]][v] == 0)
+        return 0;
 
+    for(int i = 0; i < pos; i++)
+        if(path[i] == v)
+            return 0;
 
+    return 1;
+}
 
+// Backtracking function
+int hamCycle(int pos) {
+    if(pos == n) {
+        if(graph[path[pos-1]][path[0]] == 1)
+            return 1;
+        else
+            return 0;
+    }
 
+    for(int v = 1; v < n; v++) {
+        if(isSafe(v, pos)) {
+            path[pos] = v;
 
+            if(hamCycle(pos + 1))
+                return 1;
+
+            path[pos] = -1; // backtrack
+        }
+    }
+    return 0;
+}
+
+int main() {
+    printf("Enter number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter adjacency matrix:\n");
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            scanf("%d", &graph[i][j]);
+
+    path[0] = 0; // start from vertex 0
+
+    if(hamCycle(1)) {
+        printf("Hamiltonian Cycle: ");
+        for(int i = 0; i < n; i++)
+            printf("%d ", path[i]);
+        printf("%d", path[0]);
+    } else {
+        printf("No Hamiltonian Cycle");
+    }
+
+    return 0;
+}
+Q2 #include <stdio.h>
+#include <stdlib.h>
+
+int x[20], n;
+
+// Check if safe
+int place(int k, int i) {
+    for(int j = 1; j < k; j++) {
+        if(x[j] == i || abs(x[j] - i) == abs(j - k))
+            return 0;
+    }
+    return 1;
+}
+
+// Backtracking
+void nqueen(int k) {
+    for(int i = 1; i <= n; i++) {
+        if(place(k, i)) {
+            x[k] = i;
+
+            if(k == n) {
+                for(int j = 1; j <= n; j++)
+                    printf("%d ", x[j]);
+                printf("\n");
+            } else {
+                nqueen(k + 1);
+            }
+        }
+    }
+}
+
+int main() {
+    printf("Enter value of N: ");
+    scanf("%d", &n);
+
+    printf("Solutions:\n");
+    nqueen(1);
+
+    return 0;
+}
     </textarea>
     
     <button id="btn-program19" onclick="copyProgram('program19', 'btn-program19')">slip19</button>
@@ -1355,16 +2530,48 @@ Enter adjacency matrix:
 Topological ordering:
 0 2 4 1 3 5 */ 
 
+    return 0;
+}
+Q2 #include <stdio.h>
+#include <stdlib.h>
 
+int x[20], n;
+
+// Check if safe
+int place(int k, int i) {
+    for(int j = 1; j < k; j++) {
+        if(x[j] == i || abs(x[j] - i) == abs(j - k))
+            return 0;
+    }
+    return 1;
+}
+
+// Backtracking
+void nqueen(int k) {
+    for(int i = 1; i <= n; i++) {
+        if(place(k, i)) {
+            x[k] = i;
+
+            if(k == n) {
+                for(int j = 1; j <= n; j++)
+                    printf("%d ", x[j]);
+                printf("\n");
+            } else {
+                nqueen(k + 1);
+            }
+        }
+    }
+}
+
+int main() {
+    printf("Enter value of N: ");
+    scanf("%d", &n);
+
+    printf("Solutions:\n");
+    nqueen(1);
 
     return 0;
 }
-
-
-
-
-
-    
     </textarea>
     
     <button id="btn-program20" onclick="copyProgram('program20', 'btn-program20')">slip20</button>
